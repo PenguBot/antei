@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+// Copyright (c) 2017-2019 dirigeants - MIT License
 
 /**
  * Handles generic RateLimits such as for {@link Command#cooldown}s

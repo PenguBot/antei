@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+// Copyright (c) 2017-2019 dirigeants - MIT License
 
 const { Argument } = require("klasa");
 const truths = ["1", "true", "+", "t", "yes", "y"];
