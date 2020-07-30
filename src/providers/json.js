@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Provider, util } = require('klasa');
 const { resolve } = require('path');
 const fs = require('fs-nextra');

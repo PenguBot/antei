@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { pathExists } = require('fs-nextra');
 const { join } = require('path');
 const Piece = require('./base/Piece');

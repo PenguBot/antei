@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const tokens = new Map([
 	['nanosecond', 1 / 1e6],
 	['nanoseconds', 1 / 1e6],

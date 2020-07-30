@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Command, Store, Stopwatch } = require('klasa');
 
 module.exports = class extends Command {

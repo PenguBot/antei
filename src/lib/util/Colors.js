@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 /**
  * The Colors class that manages the colors displayed in the console.
  */

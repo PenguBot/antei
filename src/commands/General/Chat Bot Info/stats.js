@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Command, version: klasaVersion, Duration } = require('klasa');
 const { version: discordVersion } = require('discord.js');
 

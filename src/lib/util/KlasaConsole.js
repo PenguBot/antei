@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Console } = require('console');
 const { inspect } = require('util');
 const Colors = require('./Colors');

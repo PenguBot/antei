@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { promisify } = require('util');
 const { exec } = require('child_process');
 const { Guild, GuildMember, GuildChannel, Message } = require('discord.js');

@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Event, util } = require('klasa');
 const { Team } = require('discord.js');
 let retries = 0;

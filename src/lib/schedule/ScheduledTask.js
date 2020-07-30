@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const Cron = require('../util/Cron');
 const { isObject } = require('../util/util');
 

@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require('discord.js');
 const { regExpEsc } = require('../util/util');
 

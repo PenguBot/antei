@@ -1,3 +1,5 @@
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+
 const { Command, util: { isFunction } } = require('klasa');
 const has = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
 
