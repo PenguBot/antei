@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Extendable } = require('klasa');
-const { TextChannel, DMChannel, User, APIMessage } = require('discord.js');
+const { Extendable } = require("klasa");
+const { TextChannel, DMChannel, User, APIMessage } = require("discord.js");
 
 module.exports = class extends Extendable {
 

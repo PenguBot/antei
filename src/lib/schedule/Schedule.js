@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const ScheduledTask = require('./ScheduledTask');
+const ScheduledTask = require("./ScheduledTask");
 
 /**
  * <warning>Schedule is a singleton, use {@link KlasaClient#schedule} instead.</warning>
@@ -50,7 +50,7 @@ class Schedule {
 	 * @private
 	 */
 	get _tasks() {
-		return this.client.settings.get('schedules');
+		return this.client.settings.get("schedules");
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Schedule {
 			try {
 				await this._add(task.taskName, task.repeat || task.time, task);
 			} catch (error) {
-				this.client.emit('warn', `Task ${task.taskName} [${task.id}] was not queued: ${error}`);
+				this.client.emit("warn", `Task ${task.taskName} [${task.id}] was not queued: ${error}`);
 			}
 		}
 
@@ -115,7 +115,7 @@ class Schedule {
 	 * Adds a new task to the database
 	 * @since 0.5.0
 	 * @param {string} taskName The name of the task
-	 * @param {(Date|number|string)} time The time or Cron pattern
+	 * @param {(date|number|string)} time The time or Cron pattern
 	 * @param {ScheduledTaskOptions} [options] The options for the ScheduleTask instance
 	 * @returns {?ScheduledTask}
 	 * @example
@@ -141,7 +141,7 @@ class Schedule {
 	async create(taskName, time, options) {
 		const task = await this._add(taskName, time, options);
 		if (!task) return null;
-		await this.client.settings.update('schedules', task, { arrayAction: 'add' });
+		await this.client.settings.update("schedules", task, { arrayAction: "add" });
 		return task;
 	}
 
@@ -153,12 +153,12 @@ class Schedule {
 	 */
 	async delete(id) {
 		const taskIndex = this.tasks.findIndex(entry => entry.id === id);
-		if (taskIndex === -1) throw new Error('This task does not exist.');
+		if (taskIndex === -1) throw new Error("This task does not exist.");
 
 		this.tasks.splice(taskIndex, 1);
 		// Get the task and use it to remove
 		const task = this._tasks.find(entry => entry.id === id);
-		if (task) await this.client.settings.update('schedules', task, { arrayAction: 'remove' });
+		if (task) await this.client.settings.update("schedules", task, { arrayAction: "remove" });
 
 		return this;
 	}
@@ -169,7 +169,7 @@ class Schedule {
 	 */
 	async clear() {
 		// this._tasks is unedited as Settings#clear will clear the array
-		await this.client.settings.reset('schedules');
+		await this.client.settings.reset("schedules");
 		this.tasks = [];
 	}
 
@@ -177,7 +177,7 @@ class Schedule {
 	 * Adds a task to the cache
 	 * @since 0.5.0
 	 * @param {string} taskName The name of the task
-	 * @param {(Date|number|string)} time The time or Cron pattern
+	 * @param {(date|number|string)} time The time or Cron pattern
 	 * @param {ScheduledTaskOptions} [options={}] The options for the ScheduledTask instance
 	 * @returns {?ScheduledTask}
 	 * @private

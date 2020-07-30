@@ -1,11 +1,11 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Event } = require('klasa');
+const { Event } = require("klasa");
 
 module.exports = class extends Event {
 
 	constructor(...args) {
-		super(...args, { event: 'messageDelete' });
+		super(...args, { event: "messageDelete" });
 	}
 
 	run(message) {

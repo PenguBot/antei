@@ -1,9 +1,9 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { join, extname, relative, sep } = require('path');
-const { Collection } = require('discord.js');
-const fs = require('fs-nextra');
-const { isClass } = require('../../util/util');
+const { join, extname, relative, sep } = require("path");
+const { Collection } = require("discord.js");
+const fs = require("fs-nextra");
+const { isClass } = require("../../util/util");
 
 /**
  * The common base for all stores
@@ -32,7 +32,7 @@ class Store extends Collection {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, "client", { value: client });
 
 		/**
 		 * The name of what this holds
@@ -41,7 +41,7 @@ class Store extends Collection {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'name', { value: name });
+		Object.defineProperty(this, "name", { value: name });
 
 		/**
 		 * The type of structure this store holds
@@ -50,7 +50,7 @@ class Store extends Collection {
 		 * @type {Piece}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'holds', { value: holds });
+		Object.defineProperty(this, "holds", { value: holds });
 
 		/**
 		 * The core directories pieces of this store can hold
@@ -60,7 +60,7 @@ class Store extends Collection {
 		 * @readonly
 		 * @private
 		 */
-		Object.defineProperty(this, 'coreDirectories', { value: new Set() });
+		Object.defineProperty(this, "coreDirectories", { value: new Set() });
 	}
 
 	/**
@@ -106,10 +106,10 @@ class Store extends Collection {
 		let piece = null;
 		try {
 			const Piece = (req => req.default || req)(require(loc));
-			if (!isClass(Piece)) throw new TypeError('The exported structure is not a class.');
+			if (!isClass(Piece)) throw new TypeError("The exported structure is not a class.");
 			piece = this.set(new Piece(this, file, directory));
 		} catch (error) {
-			if (this.client.listenerCount('wtf')) this.client.emit('wtf', `Failed to load file '${loc}'. Error:\n${error.stack || error}`);
+			if (this.client.listenerCount("wtf")) this.client.emit("wtf", `Failed to load file '${loc}'. Error:\n${error.stack || error}`);
 			else this.client.console.wtf(`Failed to load file '${loc}'. Error:\n${error.stack || error}`);
 		}
 		delete require.cache[loc];
@@ -138,10 +138,10 @@ class Store extends Collection {
 	 * @returns {?Piece}
 	 */
 	set(piece) {
-		if (!(piece instanceof this.holds)) return this.client.emit('error', `Only ${this} may be stored in this Store.`);
+		if (!(piece instanceof this.holds)) return this.client.emit("error", `Only ${this} may be stored in this Store.`);
 		const existing = this.get(piece.name);
 		if (existing) this.delete(existing);
-		else if (this.client.listenerCount('pieceLoaded')) this.client.emit('pieceLoaded', piece);
+		else if (this.client.listenerCount("pieceLoaded")) this.client.emit("pieceLoaded", piece);
 		super.set(piece.name, piece);
 		return piece;
 	}
@@ -188,8 +188,8 @@ class Store extends Collection {
 	 * @private
 	 */
 	static async walk(store, directory = store.userDirectory) {
-		const files = await fs.scan(directory, { filter: (stats, path) => stats.isFile() && extname(path) === '.js' })
-			.catch(() => { if (store.client.options.createPiecesFolders) fs.ensureDir(directory).catch(err => store.client.emit('error', err)); });
+		const files = await fs.scan(directory, { filter: (stats, path) => stats.isFile() && extname(path) === ".js" })
+			.catch(() => { if (store.client.options.createPiecesFolders) fs.ensureDir(directory).catch(err => store.client.emit("error", err)); });
 		if (!files) return [];
 
 		return Promise.all([...files.keys()].map(file => store.load(directory, relative(directory, file).split(sep))));

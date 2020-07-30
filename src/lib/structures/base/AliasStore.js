@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Collection } = require('discord.js');
-const Store = require('./Store');
+const { Collection } = require("discord.js");
+const Store = require("./Store");
 
 /**
  * The common base for all stores with aliases

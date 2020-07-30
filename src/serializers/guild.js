@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Serializer } = require('klasa');
-const { Guild } = require('discord.js');
+const { Serializer } = require("klasa");
+const { Guild } = require("discord.js");
 
 module.exports = class extends Serializer {
 
@@ -9,7 +9,7 @@ module.exports = class extends Serializer {
 		if (data instanceof Guild) return data;
 		const guild = this.constructor.regex.channel.test(data) ? this.client.guilds.get(data) : null;
 		if (guild) return guild;
-		throw language.get('RESOLVER_INVALID_GUILD', entry.key);
+		throw language.get("RESOLVER_INVALID_GUILD", entry.key);
 	}
 
 	serialize(value) {

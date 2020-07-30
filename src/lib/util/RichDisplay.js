@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { MessageEmbed: Embed } = require('discord.js');
-const ReactionHandler = require('./ReactionHandler');
+const { MessageEmbed: Embed } = require("discord.js");
+const ReactionHandler = require("./ReactionHandler");
 
 /**
  * Klasa's RichDisplay, for helping paginated embeds with reaction buttons
@@ -66,13 +66,13 @@ class RichDisplay {
 		 * @type {RichDisplayEmojisObject}
 		 */
 		this.emojis = {
-			first: '⏮',
-			back: '◀',
-			forward: '▶',
-			last: '⏭',
-			jump: '🔢',
-			info: 'ℹ',
-			stop: '⏹'
+			first: "⏮",
+			back: "◀",
+			forward: "▶",
+			last: "⏭",
+			jump: "🔢",
+			info: "ℹ",
+			stop: "⏹"
 		};
 
 		/**
@@ -87,14 +87,14 @@ class RichDisplay {
 		 * @since 0.5.0
 		 * @type {string}
 		 */
-		this.footerPrefix = '';
+		this.footerPrefix = "";
 
 		/**
 		 * Adds a suffix to all footers (after page/pages)
 		 * @since 0.5.0
 		 * @type {string}
 		 */
-		this.footerSuffix = '';
+		this.footerSuffix = "";
 	}
 
 	/**
@@ -192,9 +192,9 @@ class RichDisplay {
 		if (!options.filter) options.filter = () => true;
 		const emojis = this._determineEmojis(
 			[],
-			!('stop' in options) || ('stop' in options && options.stop),
-			!('jump' in options) || ('jump' in options && options.jump),
-			!('firstLast' in options) || ('firstLast' in options && options.firstLast)
+			!("stop" in options) || ("stop" in options && options.stop),
+			!("jump" in options) || ("jump" in options && options.jump),
+			!("firstLast" in options) || ("firstLast" in options && options.firstLast)
 		);
 		let msg;
 		if (message.editable) {
@@ -220,7 +220,7 @@ class RichDisplay {
 	 */
 	async _footer() {
 		for (let i = 1; i <= this.pages.length; i++) this.pages[i - 1].setFooter(`${this.footerPrefix}${i}/${this.pages.length}${this.footerSuffix}`);
-		if (this.infoPage) this.infoPage.setFooter('ℹ');
+		if (this.infoPage) this.infoPage.setFooter("ℹ");
 	}
 
 	/**
@@ -252,14 +252,14 @@ class RichDisplay {
 	 * @private
 	 */
 	_handlePageGeneration(cb) {
-		if (typeof cb === 'function') {
+		if (typeof cb === "function") {
 			// eslint-disable-next-line callback-return
 			const page = cb(this.template);
 			if (page instanceof Embed) return page;
 		} else if (cb instanceof Embed) {
 			return cb;
 		}
-		throw new Error('Expected a MessageEmbed or Function returning a MessageEmbed');
+		throw new Error("Expected a MessageEmbed or Function returning a MessageEmbed");
 	}
 
 }

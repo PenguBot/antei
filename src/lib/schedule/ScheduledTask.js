@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Cron = require('../util/Cron');
-const { isObject } = require('../util/util');
+const Cron = require("../util/Cron");
+const { isObject } = require("../util/util");
 
 /**
  * The structure for future tasks to be run
@@ -54,7 +54,7 @@ class ScheduledTask {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, "client", { value: client });
 
 		/**
 		 * The name of the Task this scheduled task will run
@@ -75,7 +75,7 @@ class ScheduledTask {
 		 * @since 0.5.0
 		 * @type {Date}
 		 */
-		this.time = 'time' in options ? new Date(options.time) : _time;
+		this.time = "time" in options ? new Date(options.time) : _time;
 
 		/**
 		 * The id for this scheduled task
@@ -89,14 +89,14 @@ class ScheduledTask {
 		 * @since 0.5.0
 		 * @type {boolean}
 		 */
-		this.catchUp = 'catchUp' in options ? options.catchUp : true;
+		this.catchUp = "catchUp" in options ? options.catchUp : true;
 
 		/**
 		 * The stored metadata to send to the Task
 		 * @since 0.5.0
 		 * @type {*}
 		 */
-		this.data = 'data' in options && isObject(options.data) ? options.data : {};
+		this.data = "data" in options && isObject(options.data) ? options.data : {};
 
 		/**
 		 * If the ScheduledTask is being run currently
@@ -143,7 +143,7 @@ class ScheduledTask {
 		try {
 			await task.run({ id: this.id, ...this.data });
 		} catch (err) {
-			this.client.emit('taskError', this, task, err);
+			this.client.emit("taskError", this, task, err);
 		}
 		this.running = false;
 
@@ -173,12 +173,12 @@ class ScheduledTask {
 			this.recurring = _cron;
 		}
 		if (data) this.data = data;
-		if (typeof catchUp !== 'undefined') this.catchUp = catchUp;
+		if (typeof catchUp !== "undefined") this.catchUp = catchUp;
 
 		// Sync the database if some of the properties changed or the time changed manually
 		// (recurring tasks bump the time automatically)
 		const _index = this.store._tasks.findIndex(entry => entry.id === this.id);
-		if (_index !== -1) await this.client.settings.update('schedules', this.toJSON(), { arrayIndex: _index });
+		if (_index !== -1) await this.client.settings.update("schedules", this.toJSON(), { arrayIndex: _index });
 
 		return this;
 	}
@@ -222,12 +222,12 @@ class ScheduledTask {
 	static _resolveTime(time) {
 		if (time instanceof Date) return [time, null];
 		if (time instanceof Cron) return [time.next(), time];
-		if (typeof time === 'number') return [new Date(time), null];
-		if (typeof time === 'string') {
+		if (typeof time === "number") return [new Date(time), null];
+		if (typeof time === "string") {
 			const cron = new Cron(time);
 			return [cron.next(), cron];
 		}
-		throw new Error('invalid time passed');
+		throw new Error("invalid time passed");
 	}
 
 	/**
@@ -248,9 +248,9 @@ class ScheduledTask {
 	 * @private
 	 */
 	static _validate(st) {
-		if (!st.task) throw new Error('invalid task');
-		if (!st.time) throw new Error('time or repeat option required');
-		if (Number.isNaN(st.time.getTime())) throw new Error('invalid time passed');
+		if (!st.task) throw new Error("invalid task");
+		if (!st.time) throw new Error("time or repeat option required");
+		if (Number.isNaN(st.time.getTime())) throw new Error("invalid time passed");
 	}
 
 }

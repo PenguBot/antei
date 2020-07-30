@@ -1,30 +1,30 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Finalizer, Colors } = require('klasa');
+const { Finalizer, Colors } = require("klasa");
 
 module.exports = class extends Finalizer {
 
 	constructor(...args) {
 		super(...args);
-		this.reprompted = [new Colors({ background: 'blue' }), new Colors({ background: 'red' })];
-		this.user = new Colors({ background: 'yellow', text: 'black' });
-		this.shard = new Colors({ background: 'cyan', text: 'black' });
+		this.reprompted = [new Colors({ background: "blue" }), new Colors({ background: "red" })];
+		this.user = new Colors({ background: "yellow", text: "black" });
+		this.shard = new Colors({ background: "cyan", text: "black" });
 		this.channel = {
-			text: new Colors({ background: 'green', text: 'black' }),
-			dm: new Colors({ background: 'magenta' })
+			text: new Colors({ background: "green", text: "black" }),
+			dm: new Colors({ background: "magenta" })
 		};
 	}
 
 	run(message, command, response, timer) {
 		const { type } = message.channel;
 		const shard = message.guild ? message.guild.shardID : 0;
-		this.client.emit('log', [
+		this.client.emit("log", [
 			this.shard.format(`[${shard}]`),
-			`${command.name}(${message.args ? message.args.join(', ') : ''})`,
+			`${command.name}(${message.args ? message.args.join(", ") : ""})`,
 			this.reprompted[Number(message.reprompted)].format(`[${timer.stop()}]`),
 			this.user.format(`${message.author.username}[${message.author.id}]`),
 			this.channel[type].format(this[type](message))
-		].join(' '));
+		].join(" "));
 	}
 
 	init() {
@@ -36,7 +36,7 @@ module.exports = class extends Finalizer {
 	}
 
 	dm() {
-		return 'Direct Messages';
+		return "Direct Messages";
 	}
 
 };

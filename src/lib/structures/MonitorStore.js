@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Monitor = require('./Monitor');
-const Store = require('./base/Store');
+const Monitor = require("./Monitor");
+const Store = require("./base/Store");
 
 /**
  * Stores all monitors for use in Klasa
@@ -15,7 +15,7 @@ class MonitorStore extends Store {
 	 * @param {KlasaClient} client The Klasa Client
 	 */
 	constructor(client) {
-		super(client, 'monitors', Monitor);
+		super(client, "monitors", Monitor);
 	}
 
 	/**

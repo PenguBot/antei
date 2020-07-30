@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Collection } = require('discord.js');
-const RateLimit = require('./RateLimit');
+const { Collection } = require("discord.js");
+const RateLimit = require("./RateLimit");
 
 /**
  * Manages {@link RateLimit}s
@@ -24,9 +24,9 @@ class RateLimitManager extends Collection {
 		 * @type {?NodeJS.Timer}
 		 * @private
 		 */
-		Object.defineProperty(this, 'sweepInterval', { value: null, writable: true });
-		Object.defineProperty(this, '_bucket', { value: bucket, writable: true });
-		Object.defineProperty(this, '_cooldown', { value: cooldown, writable: true });
+		Object.defineProperty(this, "sweepInterval", { value: null, writable: true });
+		Object.defineProperty(this, "_bucket", { value: bucket, writable: true });
+		Object.defineProperty(this, "_cooldown", { value: cooldown, writable: true });
 	}
 
 	/**
@@ -90,7 +90,7 @@ class RateLimitManager extends Collection {
 	 * @private
 	 */
 	set(id, rateLimit) {
-		if (!(rateLimit instanceof RateLimit)) throw new TypeError('Invalid RateLimit');
+		if (!(rateLimit instanceof RateLimit)) throw new TypeError("Invalid RateLimit");
 		if (!this.sweepInterval) this.sweepInterval = setInterval(this.sweep.bind(this), 30000);
 		return super.set(id, rateLimit);
 	}

@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { ReactionCollector } = require('discord.js');
+const { ReactionCollector } = require("discord.js");
 
 /**
  * Klasa's ReactionHandler, for handling RichDisplay and RichMenu reaction input
@@ -63,14 +63,14 @@ class ReactionHandler extends ReactionCollector {
 		 * @since 0.4.0
 		 * @type {string}
 		 */
-		this.prompt = this.options.prompt || message.language.get('REACTIONHANDLER_PROMPT');
+		this.prompt = this.options.prompt || message.language.get("REACTIONHANDLER_PROMPT");
 
 		/**
 		 * The amount of time before the jump menu should close
 		 * @since 0.4.0
 		 * @type {number}
 		 */
-		this.time = typeof this.options.time === 'number' ? this.options.time : 30000;
+		this.time = typeof this.options.time === "number" ? this.options.time : 30000;
 
 		/**
 		 * Whether the menu is awaiting a response of a prompt, to block all other jump reactions
@@ -112,11 +112,11 @@ class ReactionHandler extends ReactionCollector {
 		if (emojis.length) this._queueEmojiReactions(emojis.slice());
 		else return this.stop();
 
-		this.on('collect', (reaction, user) => {
+		this.on("collect", (reaction, user) => {
 			reaction.users.remove(user);
 			this[this.methodMap.get(reaction.emoji.id || reaction.emoji.name)](user);
 		});
-		this.on('end', () => {
+		this.on("end", () => {
 			if (this.reactionsDone && !this.message.deleted) this.message.reactions.removeAll();
 		});
 	}
@@ -177,7 +177,7 @@ class ReactionHandler extends ReactionCollector {
 		this.awaiting = false;
 		await message.delete();
 		if (!collected.size) return;
-		const newPage = parseInt(collected.first().content);
+		const newPage = parseInt(collected.first().content, 10);
 		collected.first().delete();
 		if (newPage && newPage > 0 && newPage <= this.display.pages.length) {
 			this.currentPage = newPage - 1;

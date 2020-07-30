@@ -1,10 +1,10 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Permissions } = require('discord.js');
-const AliasPiece = require('./base/AliasPiece');
-const Usage = require('../usage/Usage');
-const CommandUsage = require('../usage/CommandUsage');
-const { isFunction } = require('../util/util');
+const { Permissions } = require("discord.js");
+const AliasPiece = require("./base/AliasPiece");
+const Usage = require("../usage/Usage");
+const CommandUsage = require("../usage/CommandUsage");
+const { isFunction } = require("../util/util");
 
 /**
  * Base class for all Klasa Commands. See {@tutorial CreatingCommands} for more information how to use this class
@@ -57,8 +57,8 @@ class Command extends AliasPiece {
 		this.name = this.name.toLowerCase();
 
 		if (options.autoAliases) {
-			if (this.name.includes('-')) this.aliases.push(this.name.replace(/-/g, ''));
-			for (const alias of this.aliases) if (alias.includes('-')) this.aliases.push(alias.replace(/-/g, ''));
+			if (this.name.includes("-")) this.aliases.push(this.name.replace(/-/g, ""));
+			for (const alias of this.aliases) if (alias.includes("-")) this.aliases.push(alias.replace(/-/g, ""));
 		}
 
 		/**
@@ -196,7 +196,7 @@ class Command extends AliasPiece {
 		 */
 		this.cooldownLevel = options.cooldownLevel;
 
-		if (!['author', 'channel', 'guild'].includes(this.cooldownLevel)) throw new Error('Invalid cooldownLevel');
+		if (!["author", "channel", "guild"].includes(this.cooldownLevel)) throw new Error("Invalid cooldownLevel");
 
 		/**
 		 * The number of times this command can be run before ratelimited by the cooldown
@@ -220,7 +220,7 @@ class Command extends AliasPiece {
 	 * @readonly
 	 */
 	get category() {
-		return this.fullCategory[0] || 'General';
+		return this.fullCategory[0] || "General";
 	}
 
 	/**
@@ -230,7 +230,7 @@ class Command extends AliasPiece {
 	 * @readonly
 	 */
 	get subCategory() {
-		return this.fullCategory[1] || 'General';
+		return this.fullCategory[1] || "General";
 	}
 
 	/**

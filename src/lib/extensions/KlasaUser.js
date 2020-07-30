@@ -1,8 +1,8 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Structures } = require('discord.js');
+const { Structures } = require("discord.js");
 
-module.exports = Structures.extend('User', User => {
+module.exports = Structures.extend("User", User => {
 	/**
 	 * Klasa's Extended User
 	 * @extends external:User
@@ -25,7 +25,7 @@ module.exports = Structures.extend('User', User => {
 			 * @since 0.5.0
 			 * @type {Settings}
 			 */
-			this.settings = this.client.gateways.get('users').acquire(this);
+			this.settings = this.client.gateways.get("users").acquire(this);
 		}
 
 		/**

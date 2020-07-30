@@ -1,30 +1,30 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Command, Stopwatch } = require('klasa');
-const { pathExists } = require('fs-nextra');
-const { join } = require('path');
+const { Command, Stopwatch } = require("klasa");
+const { pathExists } = require("fs-nextra");
+const { join } = require("path");
 
 module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['l'],
+			aliases: ["l"],
 			permissionLevel: 10,
 			guarded: true,
-			description: language => language.get('COMMAND_LOAD_DESCRIPTION'),
-			usage: '[core] <Store:store> <path:...string>',
-			usageDelim: ' '
+			description: language => language.get("COMMAND_LOAD_DESCRIPTION"),
+			usage: "[core] <Store:store> <path:...string>",
+			usageDelim: " "
 		});
 		this.regExp = /\\\\?|\//g;
 	}
 
 	async run(message, [core, store, path]) {
-		path = (path.endsWith('.js') ? path : `${path}.js`).split(this.regExp);
+		path = (path.endsWith(".js") ? path : `${path}.js`).split(this.regExp);
 		const timer = new Stopwatch();
 		const piece = await (core ? this.tryEach(store, path) : store.load(store.userDirectory, path));
 
 		try {
-			if (!piece) throw message.language.get('COMMAND_LOAD_FAIL');
+			if (!piece) throw message.language.get("COMMAND_LOAD_FAIL");
 			await piece.init();
 			if (this.client.shard) {
 				await this.client.shard.broadcastEval(`
@@ -34,10 +34,10 @@ module.exports = class extends Command {
 					}
 				`);
 			}
-			return message.sendLocale('COMMAND_LOAD', [timer.stop(), store.name, piece.name]);
+			return message.sendLocale("COMMAND_LOAD", [timer.stop(), store.name, piece.name]);
 		} catch (error) {
 			timer.stop();
-			throw message.language.get('COMMAND_LOAD_ERROR', store.name, piece ? piece.name : path.join('/'), error);
+			throw message.language.get("COMMAND_LOAD_ERROR", store.name, piece ? piece.name : path.join("/"), error);
 		}
 	}
 

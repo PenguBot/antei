@@ -1,15 +1,15 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Provider, util } = require('klasa');
-const { resolve } = require('path');
-const fs = require('fs-nextra');
+const { Provider, util } = require("klasa");
+const { resolve } = require("path");
+const fs = require("fs-nextra");
 
 module.exports = class extends Provider {
 
 	constructor(...args) {
 		super(...args);
 
-		const baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'json');
+		const baseDirectory = resolve(this.client.userBaseDirectory, "bwd", "provider", "json");
 		const defaults = util.mergeDefault({ baseDirectory }, this.client.options.providers.json);
 		this.baseDirectory = defaults.baseDirectory;
 	}
@@ -19,7 +19,7 @@ module.exports = class extends Provider {
 	 * @private
 	 */
 	async init() {
-		await fs.ensureDir(this.baseDirectory).catch(err => this.client.emit('error', err));
+		await fs.ensureDir(this.baseDirectory).catch(err => this.client.emit("error", err));
 	}
 
 	/* Table methods */
@@ -82,7 +82,7 @@ module.exports = class extends Provider {
 		const filenames = await fs.readdir(dir);
 		const files = [];
 		for (const filename of filenames) {
-			if (filename.endsWith('.json')) files.push(filename.slice(0, filename.length - 5));
+			if (filename.endsWith(".json")) files.push(filename.slice(0, filename.length - 5));
 		}
 		return files;
 	}

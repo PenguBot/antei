@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const TextPrompt = require('./TextPrompt');
+const TextPrompt = require("./TextPrompt");
 
 /**
  * A class to handle argument collection and parameter resolution for commands
@@ -25,7 +25,7 @@ class CommandPrompt extends TextPrompt {
 		 */
 		this.typing = this.client.options.typing;
 
-		this._setup(this.message.content.slice(this.message.prefixLength).trim().split(' ').slice(1).join(' ').trim());
+		this._setup(this.message.content.slice(this.message.prefixLength).trim().split(" ").slice(1).join(" ").trim());
 	}
 
 	/**

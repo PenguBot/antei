@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Possible = require('./Possible');
+const Possible = require("./Possible");
 
 /**
  * Represents a usage Tag
@@ -73,19 +73,19 @@ class Tag {
 		const types = [];
 		members = this.parseTrueMembers(members);
 		return members.map((member, i) => {
-			const current = `${members.join('|')}: at tag #${count} at bound #${i + 1}`;
+			const current = `${members.join("|")}: at tag #${count} at bound #${i + 1}`;
 			let possible;
 			try {
 				possible = new Possible(this.pattern.exec(member));
 			} catch (err) {
-				if (typeof err === 'string') throw `${current}: ${err}`;
+				if (typeof err === "string") throw `${current}: ${err}`;
 				throw `${current}: invalid syntax, non specific`;
 			}
-			if (possible.type === 'literal') {
+			if (possible.type === "literal") {
 				if (literals.includes(possible.name)) throw `${current}: there can't be two literals with the same text.`;
 				literals.push(possible.name);
 			} else if (members.length > 1) {
-				if (['str', 'string'].includes(possible.type) && members.length - 1 !== i) throw `${current}: the String type is vague, you must specify it at the last bound`;
+				if (["str", "string"].includes(possible.type) && members.length - 1 !== i) throw `${current}: the String type is vague, you must specify it at the last bound`;
 				if (types.includes(possible.type)) throw `${current}: there can't be two bounds with the same type (${possible.type})`;
 				types.push(possible.type);
 			}
@@ -103,14 +103,14 @@ class Tag {
 	static parseTrueMembers(members) {
 		const trueMembers = [];
 		let regex = false;
-		let current = '';
+		let current = "";
 		for (const char of members) {
-			if (char === '/') regex = !regex;
-			if (char !== '|' || regex) {
+			if (char === "/") regex = !regex;
+			if (char !== "|" || regex) {
 				current += char;
 			} else {
 				trueMembers.push(current);
-				current = '';
+				current = "";
 			}
 		}
 		trueMembers.push(current);

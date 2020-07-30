@@ -64,7 +64,7 @@ class RateLimit {
 	 * @returns {this}
 	 */
 	drip() {
-		if (this.limited) throw new Error('Ratelimited');
+		if (this.limited) throw new Error("Ratelimited");
 		if (this.expired) this.reset();
 
 		this.remaining--;

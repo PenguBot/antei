@@ -1,9 +1,9 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require('discord.js');
-const { regExpEsc } = require('../util/util');
+const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require("discord.js");
+const { regExpEsc } = require("../util/util");
 
-module.exports = Structures.extend('Message', Message => {
+module.exports = Structures.extend("Message", Message => {
 	/**
 	 * Klasa's Extended Message
 	 * @extends external:Message
@@ -48,7 +48,7 @@ module.exports = Structures.extend('Message', Message => {
 			 * @since 0.0.1
 			 * @type {?number}
 			 */
-			this.prefixLength = typeof this.prefixLength === 'number' ? this.prefixLength : null;
+			this.prefixLength = typeof this.prefixLength === "number" ? this.prefixLength : null;
 
 			/**
 			 * A command prompt/argument handler
@@ -135,13 +135,12 @@ module.exports = Structures.extend('Message', Message => {
 		 */
 		async usableCommands() {
 			const col = new Collection();
-			await Promise.all(this.client.commands.map((command) =>
+			await Promise.all(this.client.commands.map(command =>
 				this.client.inhibitors.run(this, command, true)
 					.then(() => { col.set(command.name, command); })
 					.catch(() => {
 						// noop
-					})
-			));
+					})));
 			return col;
 		}
 
@@ -166,7 +165,7 @@ module.exports = Structures.extend('Message', Message => {
 		async sendMessage(content, options) {
 			const combinedOptions = APIMessage.transformOptions(content, options);
 
-			if ('files' in combinedOptions) return this.channel.send(combinedOptions);
+			if ("files" in combinedOptions) return this.channel.send(combinedOptions);
 
 			const newMessages = new APIMessage(this.channel, combinedOptions).resolveData().split()
 				.map(mes => {
@@ -275,7 +274,7 @@ module.exports = Structures.extend('Message', Message => {
 			 * @since 0.5.0
 			 * @type {Settings}
 			 */
-			this.guildSettings = this.guild ? this.guild.settings : this.client.gateways.get('guilds').schema.defaults;
+			this.guildSettings = this.guild ? this.guild.settings : this.client.gateways.get("guilds").schema.defaults;
 
 			this._parseCommand();
 		}
@@ -300,7 +299,7 @@ module.exports = Structures.extend('Message', Message => {
 
 				this.prefix = prefix.regex;
 				this.prefixLength = prefix.length;
-				this.commandText = this.content.slice(prefix.length).trim().split(' ')[0].toLowerCase();
+				this.commandText = this.content.slice(prefix.length).trim().split(" ")[0].toLowerCase();
 				this.command = this.client.commands.get(this.commandText) || null;
 
 				if (!this.command) return;
@@ -312,7 +311,7 @@ module.exports = Structures.extend('Message', Message => {
 					limit: this.command.promptLimit
 				});
 			} catch (error) {
-				return;
+
 			}
 		}
 
@@ -323,10 +322,10 @@ module.exports = Structures.extend('Message', Message => {
 		 * @private
 		 */
 		_customPrefix() {
-			const prefix = this.guildSettings.get('prefix');
+			const prefix = this.guildSettings.get("prefix");
 			if (!prefix || !prefix.length) return null;
 			for (const prf of Array.isArray(prefix) ? prefix : [prefix]) {
-				const testingPrefix = this.constructor.prefixes.get(prf) || this.constructor.generateNewPrefix(prf, this.client.options.prefixCaseInsensitive ? 'i' : '');
+				const testingPrefix = this.constructor.prefixes.get(prf) || this.constructor.generateNewPrefix(prf, this.client.options.prefixCaseInsensitive ? "i" : "");
 				if (testingPrefix.regex.test(this.content)) return testingPrefix;
 			}
 			return null;
@@ -350,7 +349,7 @@ module.exports = Structures.extend('Message', Message => {
 		 * @private
 		 */
 		_naturalPrefix() {
-			if (this.guildSettings.get('disableNaturalPrefix') || !this.client.options.regexPrefix) return null;
+			if (this.guildSettings.get("disableNaturalPrefix") || !this.client.options.regexPrefix) return null;
 			const results = this.client.options.regexPrefix.exec(this.content);
 			return results ? { length: results[0].length, regex: this.client.options.regexPrefix } : null;
 		}
@@ -362,7 +361,7 @@ module.exports = Structures.extend('Message', Message => {
 		 * @private
 		 */
 		_prefixLess() {
-			return this.client.options.noPrefixDM && this.channel.type === 'dm' ? { length: 0, regex: null } : null;
+			return this.client.options.noPrefixDM && this.channel.type === "dm" ? { length: 0, regex: null } : null;
 		}
 
 		/**

@@ -1,8 +1,8 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Structures } = require('discord.js');
+const { Structures } = require("discord.js");
 
-module.exports = Structures.extend('Guild', Guild => {
+module.exports = Structures.extend("Guild", Guild => {
 	/**
 	 * Klasa's Extended Guild
 	 * @extends external:Guild
@@ -25,7 +25,7 @@ module.exports = Structures.extend('Guild', Guild => {
 			 * @since 0.5.0
 			 * @type {Settings}
 			 */
-			this.settings = this.client.gateways.get('guilds').acquire(this);
+			this.settings = this.client.gateways.get("guilds").acquire(this);
 		}
 
 		/**
@@ -33,7 +33,7 @@ module.exports = Structures.extend('Guild', Guild => {
 		 * @type {?Language}
 		 */
 		get language() {
-			return this.client.languages.get(this.settings.get('language')) || null;
+			return this.client.languages.get(this.settings.get("language")) || null;
 		}
 
 		/**

@@ -1,11 +1,11 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Console } = require('console');
-const { inspect } = require('util');
-const Colors = require('./Colors');
-const Timestamp = require('./Timestamp');
-const constants = require('./constants');
-const { mergeDefault } = require('./util');
+const { Console } = require("console");
+const { inspect } = require("util");
+const Colors = require("./Colors");
+const Timestamp = require("./Timestamp");
+const constants = require("./constants");
+const { mergeDefault } = require("./util");
 
 /**
  * Klasa's console class, extends NodeJS Console class.
@@ -104,7 +104,7 @@ class KlasaConsole extends Console {
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'stdout', { value: options.stdout });
+		Object.defineProperty(this, "stdout", { value: options.stdout });
 
 		/**
 		 * The standard error output stream for this console, defaulted to process.stderr.
@@ -113,16 +113,16 @@ class KlasaConsole extends Console {
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'stderr', { value: options.stderr });
+		Object.defineProperty(this, "stderr", { value: options.stderr });
 
-		Colors.useColors = typeof options.useColor === 'undefined' ? this.stdout.isTTY || false : options.useColor;
+		Colors.useColors = typeof options.useColor === "undefined" ? this.stdout.isTTY || false : options.useColor;
 
 		/**
 		 * Whether or not timestamps should be enabled for this console.
 		 * @since 0.5.0
 		 * @type {?Timestamp}
 		 */
-		this.template = options.timestamps !== false ? new Timestamp(options.timestamps === true ? 'YYYY-MM-DD HH:mm:ss' : options.timestamps) : null;
+		this.template = options.timestamps !== false ? new Timestamp(options.timestamps === true ? "YYYY-MM-DD HH:mm:ss" : options.timestamps) : null;
 
 		/**
 		 * The colors for this console.
@@ -160,12 +160,12 @@ class KlasaConsole extends Console {
 	 * @param {string} [type="log"] The type of log, particularly useful for coloring
 	 * @private
 	 */
-	write(data, type = 'log') {
+	write(data, type = "log") {
 		type = type.toLowerCase();
-		data = data.map(this.constructor._flatten).join('\n');
+		data = data.map(this.constructor._flatten).join("\n");
 		const { time, message } = this.colors[type];
-		const timestamp = this.template ? time.format(`[${this.timestamp}]`) : '';
-		super[constants.DEFAULTS.CONSOLE.types[type] || 'log'](data.split('\n').map(str => `${timestamp} ${message.format(str)}`).join('\n'));
+		const timestamp = this.template ? time.format(`[${this.timestamp}]`) : "";
+		super[constants.DEFAULTS.CONSOLE.types[type] || "log"](data.split("\n").map(str => `${timestamp} ${message.format(str)}`).join("\n"));
 	}
 
 	/**
@@ -175,7 +175,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	log(...data) {
-		this.write(data, 'log');
+		this.write(data, "log");
 	}
 
 	/**
@@ -185,7 +185,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	warn(...data) {
-		this.write(data, 'warn');
+		this.write(data, "warn");
 	}
 
 	/**
@@ -195,7 +195,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	error(...data) {
-		this.write(data, 'error');
+		this.write(data, "error");
 	}
 
 	/**
@@ -205,7 +205,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	debug(...data) {
-		this.write(data, 'debug');
+		this.write(data, "debug");
 	}
 
 	/**
@@ -215,7 +215,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	verbose(...data) {
-		this.write(data, 'verbose');
+		this.write(data, "verbose");
 	}
 
 	/**
@@ -225,7 +225,7 @@ class KlasaConsole extends Console {
 	 * @returns {void}
 	 */
 	wtf(...data) {
-		this.write(data, 'wtf');
+		this.write(data, "wtf");
 	}
 
 	/**
@@ -236,11 +236,11 @@ class KlasaConsole extends Console {
 	 * @private
 	 */
 	static _flatten(data) {
-		if (typeof data === 'undefined' || typeof data === 'number' || data === null) return String(data);
-		if (typeof data === 'string') return data;
-		if (typeof data === 'object') {
+		if (typeof data === "undefined" || typeof data === "number" || data === null) return String(data);
+		if (typeof data === "string") return data;
+		if (typeof data === "object") {
 			const isArray = Array.isArray(data);
-			if (isArray && data.every(datum => typeof datum === 'string')) return data.join('\n');
+			if (isArray && data.every(datum => typeof datum === "string")) return data.join("\n");
 			return data.stack || data.message || inspect(data, { depth: Number(isArray), colors: Colors.useColors });
 		}
 		return String(data);

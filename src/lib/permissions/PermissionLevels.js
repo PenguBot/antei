@@ -1,8 +1,8 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Collection } = require('discord.js');
+const { Collection } = require("discord.js");
 
-const empty = Symbol('empty');
+const empty = Symbol("empty");
 
 /**
  * Permission levels. See {@tutorial UnderstandingPermissionLevels} for more information how to use this class
@@ -77,7 +77,7 @@ class PermissionLevels extends Collection {
 	 * @returns {boolean}
 	 */
 	isValid() {
-		return this.every(level => level === empty || (typeof level === 'object' && typeof level.break === 'boolean' && typeof level.fetch === 'boolean' && typeof level.check === 'function'));
+		return this.every(level => level === empty || (typeof level === "object" && typeof level.break === "boolean" && typeof level.fetch === "boolean" && typeof level.check === "function"));
 	}
 
 	/**
@@ -89,12 +89,12 @@ class PermissionLevels extends Collection {
 		const errors = [];
 		for (const [index, level] of this) {
 			if (level === empty) continue;
-			if (typeof level !== 'object') errors.push(`Permission level ${index} must be an object`);
-			if (typeof level.break !== 'boolean') errors.push(`"break" in permission level ${index} must be a boolean`);
-			if (typeof level.fetch !== 'boolean') errors.push(`"fetch" in permission level ${index} must be a boolean`);
-			if (typeof level.check !== 'function') errors.push(`"check" in permission level ${index} must be a function`);
+			if (typeof level !== "object") errors.push(`Permission level ${index} must be an object`);
+			if (typeof level.break !== "boolean") errors.push(`"break" in permission level ${index} must be a boolean`);
+			if (typeof level.fetch !== "boolean") errors.push(`"fetch" in permission level ${index} must be a boolean`);
+			if (typeof level.check !== "function") errors.push(`"check" in permission level ${index} must be a function`);
 		}
-		return errors.join('\n');
+		return errors.join("\n");
 	}
 
 	/**

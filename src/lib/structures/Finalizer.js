@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Finalizers. See {@tutorial CreatingFinalizers} for more information how to use this class
@@ -23,7 +23,7 @@ class Finalizer extends Piece {
 		try {
 			await this.run(message, command, response, runTime);
 		} catch (err) {
-			this.client.emit('finalizerError', message, command, response, runTime, this, err);
+			this.client.emit("finalizerError", message, command, response, runTime, this, err);
 		}
 	}
 

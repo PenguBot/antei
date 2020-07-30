@@ -1,9 +1,9 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { mergeDefault, isObject } = require('./util');
+const { mergeDefault, isObject } = require("./util");
 
 const colorBase = {
-	shard: { background: 'cyan', text: 'black' },
+	shard: { background: "cyan", text: "black" },
 	message: {},
 	time: {}
 };
@@ -25,10 +25,10 @@ exports.DEFAULTS = {
 		},
 		createPiecesFolders: true,
 		disabledCorePieces: [],
-		language: 'en-US',
+		language: "en-US",
 		noPrefixDM: false,
-		prefix: '',
-		readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`,
+		prefix: "",
+		readyMessage: client => `Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? "" : "s"}.`,
 		typing: false,
 		customPromptDefaults: {
 			time: 30000,
@@ -38,9 +38,9 @@ exports.DEFAULTS = {
 		},
 		owners: [],
 		// eslint-disable-next-line no-process-env
-		production: process.env.NODE_ENV === 'production',
+		production: process.env.NODE_ENV === "production",
 		prefixCaseInsensitive: false,
-		providers: { default: 'json' },
+		providers: { default: "json" },
 		pieceDefaults: {
 			arguments: {
 				enabled: true,
@@ -51,9 +51,9 @@ exports.DEFAULTS = {
 				autoAliases: true,
 				bucket: 1,
 				cooldown: 0,
-				cooldownLevel: 'author',
-				description: '',
-				extendedHelp: language => language.get('COMMAND_HELP_NO_EXTENDED'),
+				cooldownLevel: "author",
+				description: "",
+				extendedHelp: language => language.get("COMMAND_HELP_NO_EXTENDED"),
 				enabled: true,
 				flagSupport: true,
 				guarded: false,
@@ -64,9 +64,9 @@ exports.DEFAULTS = {
 				promptTime: 30000,
 				requiredSettings: [],
 				requiredPermissions: 0,
-				runIn: ['text', 'dm'],
+				runIn: ["text", "dm"],
 				subcommands: false,
-				usage: '',
+				usage: "",
 				quotedStringSupport: false,
 				deletable: false
 			},
@@ -94,7 +94,7 @@ exports.DEFAULTS = {
 				ignoreEdits: true,
 				ignoreBlacklistedUsers: true,
 				ignoreBlacklistedGuilds: true,
-				allowedTypes: ['DEFAULT']
+				allowedTypes: ["DEFAULT"]
 			},
 			providers: { enabled: true },
 			serializers: {
@@ -123,50 +123,50 @@ exports.DEFAULTS = {
 		timestamps: true,
 		utc: false,
 		types: {
-			debug: 'log',
-			error: 'error',
-			log: 'log',
-			verbose: 'log',
-			warn: 'warn',
-			wtf: 'error'
+			debug: "log",
+			error: "error",
+			log: "log",
+			verbose: "log",
+			warn: "warn",
+			wtf: "error"
 		},
 		colors: {
-			debug: mergeDefault(colorBase, { time: { background: 'magenta' } }),
-			error: mergeDefault(colorBase, { time: { background: 'red' } }),
-			log: mergeDefault(colorBase, { time: { background: 'blue' } }),
-			verbose: mergeDefault(colorBase, { time: { text: 'gray' } }),
-			warn: mergeDefault(colorBase, { time: { background: 'lightyellow', text: 'black' } }),
-			wtf: mergeDefault(colorBase, { message: { text: 'red' }, time: { background: 'red' } })
+			debug: mergeDefault(colorBase, { time: { background: "magenta" } }),
+			error: mergeDefault(colorBase, { time: { background: "red" } }),
+			log: mergeDefault(colorBase, { time: { background: "blue" } }),
+			verbose: mergeDefault(colorBase, { time: { text: "gray" } }),
+			warn: mergeDefault(colorBase, { time: { background: "lightyellow", text: "black" } }),
+			wtf: mergeDefault(colorBase, { message: { text: "red" }, time: { background: "red" } })
 		}
 	},
 
 	QUERYBUILDER: {
 		datatypes: [
-			['any', { type: 'TEXT' }],
-			['json', { type: 'JSON', serializer: (value) => `'${JSON.stringify(value).replace(/'/g, "''")}'` }],
-			['boolean', { type: 'BOOLEAN', serializer: value => value }],
-			['bool', { extends: 'boolean' }],
-			['snowflake', { type: 'VARCHAR(19)' }],
-			['channel', { extends: 'snowflake' }],
-			['textchannel', { extends: 'channel' }],
-			['voicechannel', { extends: 'channel' }],
-			['categorychannel', { extends: 'channel' }],
-			['guild', { extends: 'snowflake' }],
-			['number', { type: 'FLOAT', serializer: value => value }],
-			['float', { extends: 'number' }],
-			['integer', { extends: 'number', type: 'INTEGER' }],
-			['command', { type: 'TEXT' }],
-			['language', { type: 'VARCHAR(5)' }],
-			['role', { extends: 'snowflake' }],
-			['string', { type: ({ max }) => max ? `VARCHAR(${max})` : 'TEXT' }],
-			['url', { type: 'TEXT' }],
-			['user', { extends: 'snowflake' }]
+			["any", { type: "TEXT" }],
+			["json", { type: "JSON", serializer: value => `'${JSON.stringify(value).replace(/'/g, "''")}'` }],
+			["boolean", { type: "BOOLEAN", serializer: value => value }],
+			["bool", { extends: "boolean" }],
+			["snowflake", { type: "VARCHAR(19)" }],
+			["channel", { extends: "snowflake" }],
+			["textchannel", { extends: "channel" }],
+			["voicechannel", { extends: "channel" }],
+			["categorychannel", { extends: "channel" }],
+			["guild", { extends: "snowflake" }],
+			["number", { type: "FLOAT", serializer: value => value }],
+			["float", { extends: "number" }],
+			["integer", { extends: "number", type: "INTEGER" }],
+			["command", { type: "TEXT" }],
+			["language", { type: "VARCHAR(5)" }],
+			["role", { extends: "snowflake" }],
+			["string", { type: ({ max }) => max ? `VARCHAR(${max})` : "TEXT" }],
+			["url", { type: "TEXT" }],
+			["user", { extends: "snowflake" }]
 		],
 		queryBuilderOptions: {
-			array: () => 'TEXT',
-			arraySerializer: (values) => `'${JSON.stringify(values)}'`,
-			formatDatatype: (name, datatype, def = null) => `${name} ${datatype}${def !== null ? ` NOT NULL DEFAULT ${def}` : ''}`,
-			serializer: (value) => `'${(isObject(value) ? JSON.stringify(value) : String(value)).replace(/'/g, "''")}'`
+			array: () => "TEXT",
+			arraySerializer: values => `'${JSON.stringify(values)}'`,
+			formatDatatype: (name, datatype, def = null) => `${name} ${datatype}${def !== null ? ` NOT NULL DEFAULT ${def}` : ""}`,
+			serializer: value => `'${(isObject(value) ? JSON.stringify(value) : String(value)).replace(/'/g, "''")}'`
 		}
 	}
 
@@ -178,30 +178,30 @@ exports.TIME = {
 	HOUR: 1000 * 60 * 60,
 	DAY: 1000 * 60 * 60 * 24,
 
-	DAYS: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-	MONTHS: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	DAYS: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+	MONTHS: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 
 	TIMESTAMP: {
 		TOKENS: new Map([
-			['Y', 4],
-			['Q', 1],
-			['M', 4],
-			['D', 4],
-			['d', 4],
-			['X', 1],
-			['x', 1],
-			['H', 2],
-			['h', 2],
-			['a', 1],
-			['A', 1],
-			['m', 2],
-			['s', 2],
-			['S', 3],
-			['Z', 2],
-			['l', 4],
-			['L', 4],
-			['T', 1],
-			['t', 1]
+			["Y", 4],
+			["Q", 1],
+			["M", 4],
+			["D", 4],
+			["d", 4],
+			["X", 1],
+			["x", 1],
+			["H", 2],
+			["h", 2],
+			["a", 1],
+			["A", 1],
+			["m", 2],
+			["s", 2],
+			["S", 3],
+			["Z", 2],
+			["l", 4],
+			["L", 4],
+			["T", 1],
+			["t", 1]
 		])
 	},
 
@@ -210,12 +210,12 @@ exports.TIME = {
 		wildcardRegex: /\bh\b|\B\?\B/g,
 		allowedNum: [[0, 59], [0, 23], [1, 31], [1, 12], [0, 6]],
 		predefined: {
-			'@annually': '0 0 1 1 *',
-			'@yearly': '0 0 1 1 *',
-			'@monthly': '0 0 1 * *',
-			'@weekly': '0 0 * * 0',
-			'@daily': '0 0 * * *',
-			'@hourly': '0 * * * *'
+			"@annually": "0 0 1 1 *",
+			"@yearly": "0 0 1 1 *",
+			"@monthly": "0 0 1 * *",
+			"@weekly": "0 0 * * 0",
+			"@daily": "0 0 * * *",
+			"@hourly": "0 * * * *"
 		},
 		tokens: {
 			jan: 1,
@@ -242,7 +242,7 @@ exports.TIME = {
 
 };
 
-exports.TIME.CRON.tokensRegex = new RegExp(Object.keys(exports.TIME.CRON.tokens).join('|'), 'g');
+exports.TIME.CRON.tokensRegex = new RegExp(Object.keys(exports.TIME.CRON.tokens).join("|"), "g");
 
 exports.MENTION_REGEX = {
 	userOrMember: /^(?:<@!?)?(\d{17,19})>?$/,

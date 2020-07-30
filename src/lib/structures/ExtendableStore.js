@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Extendable = require('./Extendable');
-const Store = require('./base/Store');
+const Extendable = require("./Extendable");
+const Store = require("./base/Store");
 
 /**
  * Stores all of our extendables that extend Discord.js and Klasa structures
@@ -15,7 +15,7 @@ class ExtendableStore extends Store {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
-		super(client, 'extendables', Extendable);
+		super(client, "extendables", Extendable);
 	}
 
 	/**

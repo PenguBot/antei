@@ -1,8 +1,8 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { mergeDefault } = require('./util');
-const { DEFAULTS: { QUERYBUILDER } } = require('./constants');
-const Type = require('./Type');
+const { mergeDefault } = require("./util");
+const { DEFAULTS: { QUERYBUILDER } } = require("./constants");
+const Type = require("./Type");
 
 /**
  * @extends {Map<string, Required<QueryBuilderDatatype>>}
@@ -111,7 +111,7 @@ class QueryBuilder extends Map {
 	 */
 	add(name, data) {
 		// Resolve extends by pointing to another datatype
-		if (typeof data.extends === 'string') {
+		if (typeof data.extends === "string") {
 			const datatype = this.get(data.extends);
 			if (datatype) this.set(name, Object.assign(Object.create(datatype), data));
 			else throw new Error(`"extends" in datatype ${name} does not point to a registered datatype.`);
@@ -148,7 +148,7 @@ class QueryBuilder extends Map {
 	generateDatatype(schemaEntry) {
 		const datatype = this.get(schemaEntry.type) || null;
 		const parsedDefault = this.serialize(schemaEntry.default, schemaEntry, datatype);
-		const type = typeof datatype.type === 'function' ? datatype.type(schemaEntry) : datatype.type;
+		const type = typeof datatype.type === "function" ? datatype.type(schemaEntry) : datatype.type;
 		const parsedDatatype = schemaEntry.array ? datatype.array(type) : type;
 		return datatype.formatDatatype(schemaEntry.path, parsedDatatype, parsedDefault);
 	}
@@ -181,13 +181,13 @@ class QueryBuilder extends Map {
 	debug() {
 		const errors = [];
 		for (const [name, datatype] of this) {
-			if (!['string', 'function'].includes(typeof datatype.type)) errors.push(`"type" in datatype ${name} must be a string or a function, got: ${new Type(datatype.type)}`);
-			if (typeof datatype.array !== 'function') errors.push(`"array" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
-			if (typeof datatype.arraySerializer !== 'function') errors.push(`"arraySerializer" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
-			if (typeof datatype.formatDatatype !== 'function') errors.push(`"formatDatatype" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
-			if (typeof datatype.serializer !== 'function') errors.push(`"serializer" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
+			if (!["string", "function"].includes(typeof datatype.type)) errors.push(`"type" in datatype ${name} must be a string or a function, got: ${new Type(datatype.type)}`);
+			if (typeof datatype.array !== "function") errors.push(`"array" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
+			if (typeof datatype.arraySerializer !== "function") errors.push(`"arraySerializer" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
+			if (typeof datatype.formatDatatype !== "function") errors.push(`"formatDatatype" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
+			if (typeof datatype.serializer !== "function") errors.push(`"serializer" in datatype ${name} must be a function, got: ${new Type(datatype.array)}`);
 		}
-		return errors.join('\n');
+		return errors.join("\n");
 	}
 
 }

@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Task pieces. See {@tutorial CreatingTasks} for more information how to use this class

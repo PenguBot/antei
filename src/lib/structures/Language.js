@@ -1,9 +1,9 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { pathExists } = require('fs-nextra');
-const { join } = require('path');
-const Piece = require('./base/Piece');
-const { mergeDefault, isClass } = require('../util/util');
+const { pathExists } = require("fs-nextra");
+const { join } = require("path");
+const Piece = require("./base/Piece");
+const { mergeDefault, isClass } = require("../util/util");
 
 /**
  * Base class for all Klasa Languages. See {@tutorial CreatingLanguages} for more information how to use this class
@@ -25,8 +25,8 @@ class Language extends Piece {
 		const value = this.language[term];
 		/* eslint-disable new-cap */
 		switch (typeof value) {
-			case 'function': return value(...args);
-			case 'undefined':
+			case "function": return value(...args);
+			case "undefined":
 				if (this === this.store.default) return this.language.DEFAULT(term);
 				return `${this.language.DEFAULT(term)}\n\n**${this.language.DEFAULT_LANGUAGE}:**\n${this.store.default.get(term, ...args)}`;
 			default: return value;
@@ -54,7 +54,7 @@ class Language extends Piece {
 				}
 			}
 		}
-		return;
+
 	}
 
 }

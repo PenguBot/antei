@@ -1,12 +1,12 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Event } = require('klasa');
-const gateways = ['users', 'clientStorage'];
+const { Event } = require("klasa");
+const gateways = ["users", "clientStorage"];
 
 module.exports = class extends Event {
 
 	constructor(...args) {
-		super(...args, { event: 'settingsDelete' });
+		super(...args, { event: "settingsDelete" });
 	}
 
 	run(settings) {

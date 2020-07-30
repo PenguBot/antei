@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Argument = require('./Argument');
+const Argument = require("./Argument");
 
 /**
  * Base Abstracted class for Multi-Resolving D.JS and Klasa Structures.

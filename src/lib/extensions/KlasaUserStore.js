@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { UserStore } = require('discord.js');
+const { UserStore } = require("discord.js");
 
 /**
  * Contains extensions to the base UserStore class

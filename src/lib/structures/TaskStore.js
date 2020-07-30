@@ -1,7 +1,7 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Task = require('./Task');
-const Store = require('./base/Store');
+const Task = require("./Task");
+const Store = require("./base/Store");
 
 /**
  * Stores all task pieces for use in Klasa
@@ -15,7 +15,7 @@ class TaskStore extends Store {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
-		super(client, 'tasks', Task);
+		super(client, "tasks", Task);
 	}
 
 }

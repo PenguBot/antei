@@ -1,15 +1,15 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Argument } = require('klasa');
+const { Argument } = require("klasa");
 
 module.exports = class extends Argument {
 
 	get date() {
-		return this.store.get('date');
+		return this.store.get("date");
 	}
 
 	get duration() {
-		return this.store.get('duration');
+		return this.store.get("duration");
 	}
 
 	run(arg, possible, message) {
@@ -24,7 +24,7 @@ module.exports = class extends Argument {
 			}
 		}
 		if (date && !isNaN(date.getTime()) && date.getTime() > Date.now()) return date;
-		throw message.language.get('RESOLVER_INVALID_TIME', possible.name);
+		throw message.language.get("RESOLVER_INVALID_TIME", possible.name);
 	}
 
 };

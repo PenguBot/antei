@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Inhibitor } = require('klasa');
+const { Inhibitor } = require("klasa");
 
 module.exports = class extends Inhibitor {
 
@@ -14,12 +14,12 @@ module.exports = class extends Inhibitor {
 		let existing;
 
 		try {
-			existing = this.client.finalizers.get('commandCooldown').getCooldown(message, command);
+			existing = this.client.finalizers.get("commandCooldown").getCooldown(message, command);
 		} catch (err) {
 			return;
 		}
 
-		if (existing && existing.limited) throw message.language.get('INHIBITOR_COOLDOWN', Math.ceil(existing.remainingTime / 1000), command.cooldownLevel !== 'author');
+		if (existing && existing.limited) throw message.language.get("INHIBITOR_COOLDOWN", Math.ceil(existing.remainingTime / 1000), command.cooldownLevel !== "author");
 	}
 
 };

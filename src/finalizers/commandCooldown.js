@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Finalizer, RateLimitManager } = require('klasa');
+const { Finalizer, RateLimitManager } = require("klasa");
 
 module.exports = class extends Finalizer {
 
@@ -15,7 +15,7 @@ module.exports = class extends Finalizer {
 		try {
 			this.getCooldown(message, command).drip();
 		} catch (err) {
-			this.client.emit('error', `${message.author.username}[${message.author.id}] has exceeded the RateLimit for ${message.command}`);
+			this.client.emit("error", `${message.author.username}[${message.author.id}] has exceeded the RateLimit for ${message.command}`);
 		}
 	}
 

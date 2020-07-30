@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const { Serializer } = require('klasa');
+const { Serializer } = require("klasa");
 
 module.exports = class extends Serializer {
 
@@ -12,18 +12,18 @@ module.exports = class extends Serializer {
 	}
 
 	async validate(data, { entry, language }) {
-		if (entry.type === 'piece') {
+		if (entry.type === "piece") {
 			for (const store of this.client.pieceStores.values()) {
 				const pce = store.get(data);
 				if (pce) return pce;
 			}
-			throw language.get('RESOLVER_INVALID_PIECE', entry.key, entry.type);
+			throw language.get("RESOLVER_INVALID_PIECE", entry.key, entry.type);
 		}
 		const store = this.client.pieceStores.get(`${entry.type}s`);
-		if (!store) throw language.get('RESOLVER_INVALID_STORE', entry.type);
-		const parsed = typeof data === 'string' ? store.get(data) : data;
+		if (!store) throw language.get("RESOLVER_INVALID_STORE", entry.type);
+		const parsed = typeof data === "string" ? store.get(data) : data;
 		if (parsed && parsed instanceof store.holds) return parsed;
-		throw language.get('RESOLVER_INVALID_PIECE', entry.key, entry.type);
+		throw language.get("RESOLVER_INVALID_PIECE", entry.key, entry.type);
 	}
 
 	serialize(value) {

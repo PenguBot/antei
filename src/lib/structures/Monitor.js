@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Monitors. See {@tutorial CreatingMonitors} for more information how to use this class
@@ -100,7 +100,7 @@ class Monitor extends Piece {
 		try {
 			await this.run(message);
 		} catch (err) {
-			this.client.emit('monitorError', message, this, err);
+			this.client.emit("monitorError", message, this, err);
 		}
 	}
 
@@ -130,8 +130,8 @@ class Monitor extends Piece {
 			!(this.ignoreOthers && this.client.user !== message.author) &&
 			!(this.ignoreWebhooks && message.webhookID) &&
 			!(this.ignoreEdits && message._edits.length) &&
-			!(this.ignoreBlacklistedUsers && this.client.settings.get('userBlacklist').includes(message.author.id)) &&
-			!(this.ignoreBlacklistedGuilds && message.guild && this.client.settings.get('guildBlacklist').includes(message.guild.id));
+			!(this.ignoreBlacklistedUsers && this.client.settings.get("userBlacklist").includes(message.author.id)) &&
+			!(this.ignoreBlacklistedGuilds && message.guild && this.client.settings.get("guildBlacklist").includes(message.guild.id));
 	}
 
 	/**

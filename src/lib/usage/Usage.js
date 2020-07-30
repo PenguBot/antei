@@ -1,11 +1,11 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const Tag = require('./Tag');
-const TextPrompt = require('./TextPrompt');
+const Tag = require("./Tag");
+const TextPrompt = require("./TextPrompt");
 
-const open = ['[', '(', '<'];
-const close = [']', ')', '>'];
-const space = [' ', '\n'];
+const open = ["[", "(", "<"];
+const close = ["]", ")", ">"];
+const space = [" ", "\n"];
 
 /**
  * Converts usage strings into objects to compare against later
@@ -26,14 +26,14 @@ class Usage {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, "client", { value: client });
 
 		/**
 		 * The usage string re-deliminated with the usageDelim
 		 * @since 0.0.1
 		 * @type {string}
 		 */
-		this.deliminatedUsage = usageString !== '' ? ` ${usageString.split(' ').join(usageDelim)}` : '';
+		this.deliminatedUsage = usageString !== "" ? ` ${usageString.split(" ").join(usageDelim)}` : "";
 
 		/**
 		 * The usage string
@@ -130,14 +130,14 @@ class Usage {
 		const usage = {
 			tags: [],
 			opened: 0,
-			current: '',
+			current: "",
 			openRegex: false,
 			openReq: false,
 			last: false,
 			char: 0,
 			from: 0,
-			at: '',
-			fromTo: ''
+			at: "",
+			fromTo: ""
 		};
 
 		for (const [i, char] of Object.entries(usageString)) {
@@ -146,9 +146,9 @@ class Usage {
 			usage.at = `at char #${usage.char} '${char}'`;
 			usage.fromTo = `from char #${usage.from} to #${usage.char} '${usage.current}'`;
 
-			if (usage.last && char !== ' ') throw `${usage.at}: there can't be anything else after the repeat tag.`;
+			if (usage.last && char !== " ") throw `${usage.at}: there can't be anything else after the repeat tag.`;
 
-			if (char === '/' && usage.current[usage.current.length - 1] !== '\\') usage.openRegex = !usage.openRegex;
+			if (char === "/" && !usage.current.endsWith("\\")) usage.openRegex = !usage.openRegex;
 
 			if (usage.openRegex) {
 				usage.current += char;
@@ -196,7 +196,7 @@ class Usage {
 		if (usage.openReq !== required) throw `${usage.at}: Invalid closure of '${open[usage.openReq]}${usage.current}' with '${close[required]}'`;
 		if (!usage.current) throw `${usage.at}: empty tag found`;
 		usage.opened--;
-		if (usage.current === '...') {
+		if (usage.current === "...") {
 			if (usage.openReq) throw `${usage.at}: repeat tag cannot be required`;
 			if (usage.tags.length < 1) throw `${usage.fromTo}: there can't be a repeat at the beginning`;
 			usage.tags[usage.tags.length - 1].repeat = true;
@@ -204,7 +204,7 @@ class Usage {
 		} else {
 			usage.tags.push(new Tag(usage.current, usage.tags.length + 1, required));
 		}
-		usage.current = '';
+		usage.current = "";
 	}
 
 	/**
@@ -216,7 +216,7 @@ class Usage {
 	 * @private
 	 */
 	static tagSpace(usage, char) {
-		if (char === '\n') throw `${usage.at}: there can't be a line break in the usage string`;
+		if (char === "\n") throw `${usage.at}: there can't be a line break in the usage string`;
 		if (usage.opened) throw `${usage.at}: spaces aren't allowed inside a tag`;
 		if (usage.current) throw `${usage.fromTo}: there can't be a literal outside a tag.`;
 	}

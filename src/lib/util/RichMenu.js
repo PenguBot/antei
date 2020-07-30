@@ -1,6 +1,6 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 
-const RichDisplay = require('./RichDisplay');
+const RichDisplay = require("./RichDisplay");
 
 /**
  * Klasa's RichMenu, for helping paginated embeds with reaction buttons
@@ -56,16 +56,16 @@ class RichMenu extends RichDisplay {
 		 * @type {RichMenuEmojisObject}
 		 */
 		Object.assign(this.emojis, {
-			zero: '0⃣',
-			one: '1⃣',
-			two: '2⃣',
-			three: '3⃣',
-			four: '4⃣',
-			five: '5⃣',
-			six: '6⃣',
-			seven: '7⃣',
-			eight: '8⃣',
-			nine: '9⃣'
+			zero: "0⃣",
+			one: "1⃣",
+			two: "2⃣",
+			three: "3⃣",
+			four: "4⃣",
+			five: "5⃣",
+			six: "6⃣",
+			seven: "7⃣",
+			eight: "8⃣",
+			nine: "9⃣"
 		});
 
 		/**
@@ -89,7 +89,7 @@ class RichMenu extends RichDisplay {
 	 * @throws 'You cannot directly add pages in a RichMenu'
 	 */
 	addPage() {
-		throw new Error('You cannot directly add pages in a RichMenu');
+		throw new Error("You cannot directly add pages in a RichMenu");
 	}
 
 	/**
