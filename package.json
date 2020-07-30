@@ -1,0 +1,23 @@
+{
+  "name": "antei",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "repository": "git@github.com:PenguBot/antei.git",
+  "author": "Pengubot (https://github.com/PenguBot)",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@pengubot/eslint-config": "^1.0.0",
+    "@types/node": "^14.0.27",
+    "eslint": "^7.5.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "@klasa/querybuilder": "^0.0.1",
+    "@klasa/settings-gateway": "^0.0.10",
+    "discord.js": "discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
+    "fs-nextra": "^0.5.1",
+    "tsyringe": "^4.3.0",
+    "typeorm": "^0.2.25",
+    "typeorm-naming-strategies": "^1.1.0"
+  }
+}
