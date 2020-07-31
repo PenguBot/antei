@@ -29,7 +29,7 @@ class Store extends Collection {
 		 * The client this Store was created with
 		 * @since 0.0.1
 		 * @name Store#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: client });

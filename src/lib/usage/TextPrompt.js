@@ -32,7 +32,7 @@ class TextPrompt {
 		 * The client this TextPrompt was created with
 		 * @since 0.5.0
 		 * @name TextPrompt#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: message.client });

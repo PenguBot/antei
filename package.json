@@ -6,6 +6,7 @@
   "author": "Pengubot (https://github.com/PenguBot)",
   "license": "Apache-2.0",
   "dependencies": {
+    "@klasa/cache": "^0.0.3",
     "@klasa/querybuilder": "^0.0.1",
     "@klasa/settings-gateway": "^0.0.10",
     "discord.js": "^12.2.0",

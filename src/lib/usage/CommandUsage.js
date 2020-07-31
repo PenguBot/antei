@@ -11,7 +11,7 @@ class CommandUsage extends Usage {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
+	 * @param {AnteiClient} client The klasa client
 	 * @param {usageString} usageString The usage string for this command
 	 * @param {usageDelim} usageDelim The usage deliminator for this command
 	 * @param {Command} command The command this parsed usage is for

@@ -40,7 +40,7 @@ class Piece {
 		/**
 		 * The client this Piece was created with
 		 * @since 0.0.1
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 */
 		this.client = store.client;
 

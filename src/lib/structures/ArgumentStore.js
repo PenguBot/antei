@@ -12,7 +12,7 @@ class ArgumentStore extends AliasStore {
 	/**
 	 * Constructs our ArgumentStore for use in Klasa
 	 * @since 0.5.0
-	 * @param {KlasaClient} client The Klasa Client
+	 * @param {AnteiClient} client The Klasa Client
 	 */
 	constructor(client) {
 		super(client, "arguments", Argument);

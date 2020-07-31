@@ -17,7 +17,6 @@ const EventStore = require("./structures/EventStore");
 const ExtendableStore = require("./structures/ExtendableStore");
 const FinalizerStore = require("./structures/FinalizerStore");
 const InhibitorStore = require("./structures/InhibitorStore");
-const LanguageStore = require("./structures/LanguageStore");
 const MonitorStore = require("./structures/MonitorStore");
 const TaskStore = require("./structures/TaskStore");
 
@@ -38,7 +37,7 @@ const plugins = new Set();
  * @extends external:Client
  * @tutorial GettingStarted
  */
-class KlasaClient extends Discord.Client {
+class AnteiClient extends Discord.Client {
 
 	/**
 	 * Defaulted as `Successfully initialized. Ready to serve ${this.guilds.size} guilds.`
@@ -46,7 +45,7 @@ class KlasaClient extends Discord.Client {
 	 */
 
 	/**
-	 * Defaulted to KlasaClient.defaultPermissionLevels
+	 * Defaulted to AnteiClient.defaultPermissionLevels
 	 * @typedef {PermissionLevels} PermissionLevelsOverload
 	 */
 
@@ -119,7 +118,6 @@ class KlasaClient extends Discord.Client {
 	 * @property {ExtendableOptions} [extendables={}] The default extendable options
 	 * @property {FinalizerOptions} [finalizers={}] The default finalizer options
 	 * @property {InhibitorOptions} [inhibitors={}] The default inhibitor options
-	 * @property {LanguageOptions} [languages={}] The default language options
 	 * @property {MonitorOptions} [monitors={}] The default monitor options
 	 * @property {ProviderOptions} [providers={}] The default provider options
 	 */
@@ -147,7 +145,7 @@ class KlasaClient extends Discord.Client {
 		/**
 		 * The options the client was instantiated with.
 		 * @since 0.5.0
-		 * @name KlasaClient#options
+		 * @name AnteiClient#options
 		 * @type {KlasaClientOptions}
 		 */
 
@@ -206,13 +204,6 @@ class KlasaClient extends Discord.Client {
 		 * @type {MonitorStore}
 		 */
 		this.monitors = new MonitorStore(this);
-
-		/**
-		 * The cache where languages are stored
-		 * @since 0.2.1
-		 * @type {LanguageStore}
-		 */
-		this.languages = new LanguageStore(this);
 
 		/**
 		 * The cache where providers are stored
@@ -288,7 +279,6 @@ class KlasaClient extends Discord.Client {
 			.registerStore(this.inhibitors)
 			.registerStore(this.finalizers)
 			.registerStore(this.monitors)
-			.registerStore(this.languages)
 			.registerStore(this.providers)
 			.registerStore(this.events)
 			.registerStore(this.extendables)
@@ -354,7 +344,7 @@ class KlasaClient extends Discord.Client {
 
 	/**
 	 * Obtains the OAuth Application of the bot from Discord.
-	 * When ran, this function will update {@link KlasaClient#application}.
+	 * When ran, this function will update {@link AnteiClient#application}.
 	 * @since 0.0.1
 	 * @returns {external:ClientApplication}
 	 */
@@ -464,7 +454,7 @@ class KlasaClient extends Discord.Client {
 	}
 
 	/**
-	 * Caches a plugin module to be used when creating a KlasaClient instance
+	 * Caches a plugin module to be used when creating a AnteiClient instance
 	 * @since 0.5.0
 	 * @param {Object} mod The module of the plugin to use
 	 * @returns {this}
@@ -480,7 +470,7 @@ class KlasaClient extends Discord.Client {
 	/**
 	 * Register all built-in gateways
 	 * @since 0.5.0
-	 * @param {KlasaClient} client The client to register the gateways into
+	 * @param {AnteiClient} client The client to register the gateways into
 	 * @private
 	 */
 	static registerGateways(client) {
@@ -513,28 +503,28 @@ class KlasaClient extends Discord.Client {
 
 }
 
-module.exports = KlasaClient;
+module.exports = AnteiClient;
 
 /**
  * The plugin symbol to be used in external packages
  * @since 0.5.0
  * @type {Symbol}
  */
-KlasaClient.plugin = Symbol("KlasaPlugin");
+AnteiClient.plugin = Symbol("KlasaPlugin");
 
 /**
  * The base Permissions that the {@link Client#invite} asks for. Defaults to [VIEW_CHANNEL, SEND_MESSAGES]
  * @since 0.5.0
  * @type {Permissions}
  */
-KlasaClient.basePermissions = new Permissions(3072);
+AnteiClient.basePermissions = new Permissions(3072);
 
 /**
  * The default PermissionLevels
  * @since 0.2.1
  * @type {PermissionLevels}
  */
-KlasaClient.defaultPermissionLevels = new PermissionLevels()
+AnteiClient.defaultPermissionLevels = new PermissionLevels()
 	.add(0, () => true)
 	.add(6, ({ guild, member }) => guild && member.permissions.has(FLAGS.MANAGE_GUILD), { fetch: true })
 	.add(7, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
@@ -549,7 +539,7 @@ const { Schema } = require("@klasa/settings-gateway/dist/lib/schema/Schema");
  * @since 0.5.0
  * @type {Schema}
  */
-KlasaClient.defaultGuildSchema = new Schema()
+AnteiClient.defaultGuildSchema = new Schema()
 	.add("prefix", "string")
 	.add("language", "language")
 	.add("disableNaturalPrefix", "boolean")
@@ -565,48 +555,48 @@ KlasaClient.defaultGuildSchema = new Schema()
  * @since 0.5.0
  * @type {Schema}
  */
-KlasaClient.defaultUserSchema = new Schema();
+AnteiClient.defaultUserSchema = new Schema();
 
 /**
  * The default Client Schema
  * @since 0.5.0
  * @type {Schema}
  */
-KlasaClient.defaultClientSchema = new Schema()
+AnteiClient.defaultClientSchema = new Schema()
 	.add("userBlacklist", "user", { array: true })
 	.add("guildBlacklist", "string", { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	.add("schedules", "any", { array: true });
 
 /**
  * Emitted when Klasa is fully ready and initialized.
- * @event KlasaClient#klasaReady
+ * @event AnteiClient#klasaReady
  * @since 0.3.0
  */
 
 /**
  * A central logging event for Klasa.
- * @event KlasaClient#log
+ * @event AnteiClient#log
  * @since 0.3.0
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling verbose logs
- * @event KlasaClient#verbose
+ * @event AnteiClient#verbose
  * @since 0.4.0
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling wtf logs (what a terrible failure)
- * @event KlasaClient#wtf
+ * @event AnteiClient#wtf
  * @since 0.4.0
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * Emitted when an unknown command is called.
- * @event KlasaClient#commandUnknown
+ * @event AnteiClient#commandUnknown
  * @since 0.4.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {string} command The command attempted to run
@@ -616,7 +606,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has been inhibited.
- * @event KlasaClient#commandInhibited
+ * @event AnteiClient#commandInhibited
  * @since 0.3.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command triggered
@@ -625,7 +615,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has been run.
- * @event KlasaClient#commandRun
+ * @event AnteiClient#commandRun
  * @since 0.3.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
@@ -634,7 +624,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has been run.
- * @event KlasaClient#commandSuccess
+ * @event AnteiClient#commandSuccess
  * @since 0.5.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
@@ -644,7 +634,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has encountered an error.
- * @event KlasaClient#commandError
+ * @event AnteiClient#commandError
  * @since 0.3.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
@@ -654,7 +644,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when an invalid argument is passed to a command.
- * @event KlasaClient#argumentError
+ * @event AnteiClient#argumentError
  * @since 0.5.0
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
@@ -664,7 +654,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when an event has encountered an error.
- * @event KlasaClient#eventError
+ * @event AnteiClient#eventError
  * @since 0.5.0
  * @param {Event} event The event that errored
  * @param {any[]} args The event arguments
@@ -673,7 +663,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a monitor has encountered an error.
- * @event KlasaClient#monitorError
+ * @event AnteiClient#monitorError
  * @since 0.4.0
  * @param {KlasaMessage} message The message that triggered the monitor
  * @param {Monitor} monitor The monitor run
@@ -682,7 +672,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a finalizer has encountered an error.
- * @event KlasaClient#finalizerError
+ * @event AnteiClient#finalizerError
  * @since 0.5.0
  * @param {KlasaMessage} message The message that triggered the finalizer
  * @param {Command} command The command this finalizer is for (may be different than message.command)
@@ -694,7 +684,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a task has encountered an error.
- * @event KlasaClient#taskError
+ * @event AnteiClient#taskError
  * @since 0.5.0
  * @param {ScheduledTask} scheduledTask The scheduled task
  * @param {Task} task The task run
@@ -703,14 +693,14 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a {@link Settings} instance synchronizes with the database.
- * @event KlasaClient#settingsSync
+ * @event AnteiClient#settingsSync
  * @since 0.5.0
  * @param {Settings} entry The patched Settings instance
  */
 
 /**
  * Emitted when {@link Settings#update} or {@link Settings#reset} is run.
- * @event KlasaClient#settingsUpdate
+ * @event AnteiClient#settingsUpdate
  * @since 0.5.0
  * @param {Settings} entry The patched Settings instance
  * @param {SettingsUpdateResultEntry[]} changes The keys that were updated
@@ -718,49 +708,49 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when {@link Settings#destroy} is run.
- * @event KlasaClient#settingsDelete
+ * @event AnteiClient#settingsDelete
  * @since 0.5.0
  * @param {Settings} entry The entry which got deleted
  */
 
 /**
  * Emitted when a new entry in the database has been created upon update.
- * @event KlasaClient#settingsCreate
+ * @event AnteiClient#settingsCreate
  * @since 0.5.0
  * @param {Settings} entry The entry which got created
  */
 
 /**
  * Emitted when a piece is loaded. (This can be spammy on bot startup or anytime you reload all of a piece type.)
- * @event KlasaClient#pieceLoaded
+ * @event AnteiClient#pieceLoaded
  * @since 0.4.0
  * @param {Piece} piece The piece that was loaded
  */
 
 /**
  * Emitted when a piece is unloaded.
- * @event KlasaClient#pieceUnloaded
+ * @event AnteiClient#pieceUnloaded
  * @since 0.4.0
  * @param {Piece} piece The piece that was unloaded
  */
 
 /**
  * Emitted when a piece is reloaded.
- * @event KlasaClient#pieceReloaded
+ * @event AnteiClient#pieceReloaded
  * @since 0.4.0
  * @param {Piece} piece The piece that was reloaded
  */
 
 /**
  * Emitted when a piece is enabled.
- * @event KlasaClient#pieceEnabled
+ * @event AnteiClient#pieceEnabled
  * @since 0.4.0
  * @param {Piece} piece The piece that was enabled
  */
 
 /**
  * Emitted when a piece is disabled.
- * @event KlasaClient#pieceDisabled
+ * @event AnteiClient#pieceDisabled
  * @since 0.4.0
  * @param {Piece} piece The piece that was disabled
  */

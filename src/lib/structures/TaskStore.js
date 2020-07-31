@@ -12,7 +12,7 @@ class TaskStore extends Store {
 	/**
 	 * Constructs our TaskStore for use in Klasa
 	 * @since 0.5.0
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Klasa client
 	 */
 	constructor(client) {
 		super(client, "tasks", Task);

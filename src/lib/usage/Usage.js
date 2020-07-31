@@ -14,7 +14,7 @@ class Usage {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
+	 * @param {AnteiClient} client The klasa client
 	 * @param {string} usageString The raw usage string
 	 * @param {string} usageDelim The deliminator for this usage
 	 */
@@ -23,7 +23,7 @@ class Usage {
 		 * The client this Usage was created with
 		 * @since 0.0.1
 		 * @name Usage#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: client });

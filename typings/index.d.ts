@@ -44,7 +44,7 @@ declare module 'klasa' {
 
 //#region Classes
 
-	export class KlasaClient extends Client {
+	export class AnteiClient extends Client {
 		public constructor(options?: KlasaClientOptions);
 		public login(token?: string): Promise<string>;
 		private validatePermissionLevels(): PermissionLevels;
@@ -56,16 +56,15 @@ declare module 'klasa' {
 		public static defaultClientSchema: Schema;
 		public static defaultPermissionLevels: PermissionLevels;
 		public static plugin: symbol;
-		public static use(mod: any): typeof KlasaClient;
+		public static use(mod: any): typeof AnteiClient;
 	}
 
-	export { KlasaClient as Client };
+	export { AnteiClient as Client };
 
 //#region Extensions
 
 	export class KlasaGuild extends Guild {
 		public settings: Settings;
-		public readonly language: Language;
 	}
 
 	export interface CachedPrefix {
@@ -94,8 +93,8 @@ declare module 'klasa' {
 //#region Parsers
 
 	export class Resolver {
-		public constructor(client: KlasaClient);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient);
+		public readonly client: AnteiClient;
 
 		public boolean(input: boolean | string): Promise<boolean>;
 		public channel(input: Channel | Snowflake): Promise<Channel>;
@@ -138,8 +137,8 @@ declare module 'klasa' {
 //#region Schedule
 
 	export class Schedule {
-		public constructor(client: KlasaClient);
-		public client: KlasaClient;
+		public constructor(client: AnteiClient);
+		public client: AnteiClient;
 		public tasks: ScheduledTask[];
 		public timeInterval: number;
 		private _interval: NodeJS.Timer;
@@ -162,8 +161,8 @@ declare module 'klasa' {
 	}
 
 	export class ScheduledTask {
-		public constructor(client: KlasaClient, taskName: string, time: Date | number | string, options?: ScheduledTaskOptions);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, taskName: string, time: Date | number | string, options?: ScheduledTaskOptions);
+		public readonly client: AnteiClient;
 		public readonly store: Schedule;
 		public taskName: string;
 		public recurring: Cron | null;
@@ -180,7 +179,7 @@ declare module 'klasa' {
 		public toJSON(): ScheduledTaskJSON;
 
 		private static _resolveTime(time: Date | number | Cron | string): [Date, Cron];
-		private static _generateID(client: KlasaClient, time: Date | number): string;
+		private static _generateID(client: AnteiClient, time: Date | number): string;
 		private static _validate(st: ScheduledTask): void;
 	}
 
@@ -252,7 +251,7 @@ declare module 'klasa' {
 
 	export abstract class Piece {
 		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], directory: string, options?: PieceOptions);
-		public readonly client: KlasaClient;
+		public readonly client: AnteiClient;
 		public readonly type: string;
 		public readonly path: string;
 		public file: string[];
@@ -281,7 +280,7 @@ declare module 'klasa' {
 		public aliases: string[];
 		public abstract run(arg: string | undefined, possible: Possible, message: KlasaMessage): any;
 		public static regex: MentionRegex;
-		private static minOrMax(client: KlasaClient, value: number, min: number, max: number, possible: Possible, message: KlasaMessage, suffix: string): boolean;
+		private static minOrMax(client: AnteiClient, value: number, min: number, max: number, possible: Possible, message: KlasaMessage, suffix: string): boolean;
 	}
 
 	export abstract class Command extends AliasPiece {
@@ -296,8 +295,8 @@ declare module 'klasa' {
 		public requiredPermissions: Permissions;
 		public cooldownLevel: 'author' | 'channel' | 'guild';
 		public deletable: boolean;
-		public description: string | ((language: Language) => string);
-		public extendedHelp: string | ((language: Language) => string);
+		public description: string;
+		public extendedHelp: string;
 		public flagSupport: boolean;
 		public fullCategory: string[];
 		public guarded: boolean;
@@ -359,14 +358,6 @@ declare module 'klasa' {
 		protected _run(message: KlasaMessage, command: Command): Promise<boolean | string>;
 	}
 
-	export abstract class Language extends Piece {
-		public constructor(store: LanguageStore, file: string[], directory: string, options?: LanguageOptions);
-		public language: Record<string, string | string[] | ((...args: any[]) => string | string[])>;
-
-		public get<T = string, A extends readonly unknown[] = readonly unknown[]>(term: string, ...args: A): T;
-		public toJSON(): PieceLanguageJSON;
-	}
-
 	export abstract class Monitor extends Piece {
 		public constructor(store: MonitorStore, file: string[], directory: string, options?: MonitorOptions);
 		public allowedTypes: MessageType[];
@@ -400,8 +391,8 @@ declare module 'klasa' {
 //#region Stores
 
 	export abstract class Store<K, V extends Piece, VConstructor = Constructor<V>> extends Collection<K, V> {
-		public constructor(client: KlasaClient, name: string, holds: VConstructor);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, name: string, holds: VConstructor);
+		public readonly client: AnteiClient;
 		public readonly holds: VConstructor;
 		public readonly name: string;
 		public readonly userDirectory: string;
@@ -444,10 +435,6 @@ declare module 'klasa' {
 		public run(message: KlasaMessage, command: Command, selective?: boolean): Promise<void>;
 	}
 
-	export class LanguageStore extends Store<string, Language, typeof Language> {
-		public readonly default: Language;
-	}
-
 	export class MonitorStore extends Store<string, Monitor, typeof Monitor> {
 		public run(message: KlasaMessage): Promise<void>;
 	}
@@ -470,7 +457,7 @@ declare module 'klasa' {
 	}
 
 	export class CommandUsage extends Usage {
-		public constructor(client: KlasaClient, usageString: string, usageDelim: string | null, command: Command);
+		public constructor(client: AnteiClient, usageString: string, usageDelim: string | null, command: Command);
 		public names: string[];
 		public commands: string;
 		public nearlyFullUsage: string;
@@ -505,7 +492,7 @@ declare module 'klasa' {
 
 	export class TextPrompt {
 		public constructor(message: KlasaMessage, usage: Usage, options?: TextPromptOptions);
-		public readonly client: KlasaClient;
+		public readonly client: AnteiClient;
 		public message: KlasaMessage;
 		public target: KlasaUser;
 		public channel: TextChannel | DMChannel;
@@ -542,8 +529,8 @@ declare module 'klasa' {
 	}
 
 	export class Usage {
-		public constructor(client: KlasaClient, usageString: string, usageDelim: string | null);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, usageString: string, usageDelim: string | null);
+		public readonly client: AnteiClient;
 		public deliminatedUsage: string;
 		public usageString: string;
 		public usageDelim: string | null;
@@ -814,8 +801,8 @@ declare module 'klasa' {
 		public static sleep<T = any>(delay: number, args?: T): Promise<T>;
 		public static toTitleCase(str: string): string;
 		public static tryParse<T = Record<string, any>>(value: string): T | string;
-		public static resolveGuild(client: KlasaClient, guild: GuildResolvable): KlasaGuild;
-		private static initClean(client: KlasaClient): void;
+		public static resolveGuild(client: AnteiClient, guild: GuildResolvable): KlasaGuild;
+		private static initClean(client: AnteiClient): void;
 
 		public static titleCaseVariants: TitleCaseVariants;
 		public static PRIMITIVE_TYPES: string[];
@@ -879,7 +866,6 @@ declare module 'klasa' {
 		extendables?: ExtendableOptions;
 		finalizers?: FinalizerOptions;
 		inhibitors?: InhibitorOptions;
-		languages?: LanguageOptions;
 		monitors?: MonitorOptions;
 		providers?: ProviderOptions;
 		serializers?: SerializerOptions;
@@ -890,7 +876,7 @@ declare module 'klasa' {
 		default?: string;
 	}
 
-	export type ReadyMessage = string | ((client: KlasaClient) => string);
+	export type ReadyMessage = string | ((client: AnteiClient) => string);
 
 	export interface GatewaysOptions extends Partial<Record<string, GatewayStorageOptions>> {
 		clientStorage?: GatewayStorageOptions;
@@ -1017,8 +1003,8 @@ declare module 'klasa' {
 		cooldown?: number;
 		cooldownLevel?: 'author' | 'channel' | 'guild';
 		deletable?: boolean;
-		description?: string | string[] | ((language: Language) => string | string[]);
-		extendedHelp?: string | string[] | ((language: Language) => string | string[]);
+		description?: string | string[];
+		extendedHelp?: string | string[];
 		flagSupport?: boolean;
 		guarded?: boolean;
 		hidden?: boolean;
@@ -1054,7 +1040,7 @@ declare module 'klasa' {
 	}
 
 	export interface EventOptions extends PieceOptions {
-		emitter?: NodeJS.EventEmitter | FilterKeyInstances<KlasaClient, NodeJS.EventEmitter>;
+		emitter?: NodeJS.EventEmitter | FilterKeyInstances<AnteiClient, NodeJS.EventEmitter>;
 		event?: string;
 		once?: boolean;
 	}
@@ -1062,7 +1048,6 @@ declare module 'klasa' {
 	export interface SerializerOptions extends AliasPieceOptions { }
 	export interface ProviderOptions extends PieceOptions { }
 	export interface FinalizerOptions extends PieceOptions { }
-	export interface LanguageOptions extends PieceOptions { }
 	export interface TaskOptions extends PieceOptions { }
 
 	export interface PieceJSON {
@@ -1108,7 +1093,6 @@ declare module 'klasa' {
 	export interface PieceSerializerJSON extends AliasPieceJSON, Required<SerializerOptions> { }
 	export interface PieceProviderJSON extends PieceJSON, Required<ProviderOptions> { }
 	export interface PieceFinalizerJSON extends PieceJSON, Required<FinalizerOptions> { }
-	export interface PieceLanguageJSON extends PieceJSON, Required<LanguageOptions> { }
 	export interface PieceTaskJSON extends PieceJSON, Required<TaskOptions> { }
 
 	// Usage
@@ -1364,7 +1348,7 @@ declare module 'klasa' {
 	module 'discord.js' {
 
 		export interface Client {
-			constructor: typeof KlasaClient;
+			constructor: typeof AnteiClient;
 			readonly invite: string;
 			readonly owners: Set<User>;
 			options: Required<KlasaClientOptions>;
@@ -1376,7 +1360,6 @@ declare module 'klasa' {
 			inhibitors: InhibitorStore;
 			finalizers: FinalizerStore;
 			monitors: MonitorStore;
-			languages: LanguageStore;
 			providers: ProviderStore;
 			tasks: TaskStore;
 			serializers: SerializerStore;
@@ -1390,8 +1373,8 @@ declare module 'klasa' {
 			schedule: Schedule;
 			ready: boolean;
 			mentionPrefix: RegExp | null;
-			registerStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): KlasaClient;
-			unregisterStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): KlasaClient;
+			registerStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): AnteiClient;
+			unregisterStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): AnteiClient;
 			sweepMessages(lifetime?: number, commandLifeTime?: number): number;
 			on(event: 'argumentError', listener: (message: KlasaMessage, command: Command, params: any[], error: string) => void): this;
 			on(event: 'commandError', listener: (message: KlasaMessage, command: Command, params: any[], error: Error | string) => void): this;
@@ -1463,12 +1446,10 @@ declare module 'klasa' {
 
 		export interface Guild {
 			settings: Settings;
-			readonly language: Language;
 		}
 
 		export interface Message extends PartialSendAliases {
 			guildSettings: Settings;
-			language: Language;
 			command: Command | null;
 			commandText: string | null;
 			prefix: RegExp | null;

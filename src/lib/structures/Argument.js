@@ -27,7 +27,7 @@ class Argument extends AliasPiece {
 	/**
 	 * Checks min and max values
 	 * @since 0.5.0
-	 * @param {KlasaClient} client The client of this bot
+	 * @param {AnteiClient} client The client of this bot
 	 * @param {number} value The value to check against
 	 * @param {?number} min The minimum value
 	 * @param {?number} max The maximum value

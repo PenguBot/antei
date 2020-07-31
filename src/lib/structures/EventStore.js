@@ -12,7 +12,7 @@ class EventStore extends Store {
 	/**
 	 * Constructs our EventStore for use in Klasa
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client initializing this store.
+	 * @param {AnteiClient} client The klasa client initializing this store.
 	 */
 	constructor(client) {
 		super(client, "events", Event);

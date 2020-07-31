@@ -12,7 +12,7 @@ class CommandStore extends AliasStore {
 	/**
 	 * Constructs our CommandStore for use in Klasa
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa Client
+	 * @param {AnteiClient} client The Klasa Client
 	 */
 	constructor(client) {
 		super(client, "commands", Command);

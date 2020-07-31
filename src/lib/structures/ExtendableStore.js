@@ -12,7 +12,7 @@ class ExtendableStore extends Store {
 	/**
 	 * Constructs our ExtendableStore for use in Klasa
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Klasa client
 	 */
 	constructor(client) {
 		super(client, "extendables", Extendable);
