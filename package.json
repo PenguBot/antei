@@ -1,0 +1,41 @@
+{
+  "name": "@pengubot/antei",
+  "version": "0.0.1",
+  "description": "Antei Framework for PenguBot",
+  "bugs": {
+    "url": "https://github.com/pengubot/antei/issues"
+  },
+  "license": "MIT",
+  "author": "pengubot",
+  "main": "src/index.js",
+  "types": "typings/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pengubot/antei.git"
+  },
+  "scripts": {
+    "lint": "npx eslint --fix src && npx eslint --fix --config .eslintrcmd.json --ext md guides && npx tslint --fix 'typings/*.ts'",
+    "test:lint": "npx eslint src && npx tslint 'typings/*.ts' && npx eslint --config .eslintrcmd.json --ext md guides && npx markdownlint guides README.md",
+    "docs": "npx dg --source src --custom guides/.docconfig.json --output dist/docs.json --logging"
+  },
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "fs-nextra": "^0.4.7"
+  },
+  "peerDependencies": {
+    "discord.js": "github:discordjs/discord.js#master"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "docgen": "github:dirigeants/docsgen",
+    "eslint": "^6.8.0",
+    "eslint-config-klasa": "github:dirigeants/klasa-lint",
+    "eslint-plugin-markdown": "^1.0.0",
+    "markdownlint-cli": "^0.21.0",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": ">=14.5.0"
+  }
+}
