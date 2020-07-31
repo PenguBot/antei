@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-declare module 'klasa' {
+declare module '@pengubot/antei' {
 
 	import { ExecOptions } from 'child_process';
 
@@ -1625,7 +1625,7 @@ declare module 'discord.js' {
 		Task,
 		TaskStore,
 		Timestamp
-	} from 'klasa';
+	} from '@pengubot/antei';
 
 	export interface Client {
 		constructor: typeof KlasaClient;
