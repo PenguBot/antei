@@ -1,5 +1,8 @@
 const { promises: fsp } = require("fs");
 const path = require("path");
+const { default: i18Next } = require("i18next");
+const i18NextNodeBackend = require("i18next-node-fs-backend");
+const { Cache } = require("@klasa/cache");
 
 class LanguageHandler {
 
@@ -17,6 +20,24 @@ class LanguageHandler {
 			jsonIndent: 2,
 			loadPath: path.resolve(this.directory, path.sep, "{{lng}}/{{ns}}.json")
 		};
+	}
+
+	async init() {
+		const { namespaces, languages } = await this.walkLanguageDirectory(this.directory);
+
+		i18Next.use(i18NextNodeBackend);
+
+		await i18Next.init({
+			backend: this.options,
+			debug: false,
+			fallbackLng: this.client.options.language || "en-US",
+			load: "all",
+			ns: namespaces,
+			preload: languages
+		});
+
+		// Cache<string, TFunction>
+		this.languages = new Cache(languages.map(item => [item, i18Next.getFixedT(item)]));
 	}
 
 	/**

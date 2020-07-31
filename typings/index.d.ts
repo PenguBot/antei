@@ -45,7 +45,7 @@ declare module 'klasa' {
 //#region Classes
 
 	export class AnteiClient extends Client {
-		public constructor(options?: KlasaClientOptions);
+		public constructor(options?: AnteiClientOptions);
 		public login(token?: string): Promise<string>;
 		private validatePermissionLevels(): PermissionLevels;
 
@@ -816,7 +816,7 @@ declare module 'klasa' {
 
 //#region Typedefs
 
-	export interface KlasaClientOptions extends ClientOptions {
+	export interface AnteiClientOptions extends ClientOptions {
 		commandEditing?: boolean;
 		commandLogging?: boolean;
 		commandMessageLifetime?: number;
@@ -896,7 +896,7 @@ declare module 'klasa' {
 	}
 
 	export interface ConstantsDefaults {
-		CLIENT: Required<KlasaClientOptions>;
+		CLIENT: Required<AnteiClientOptions>;
 		CONSOLE: Required<ConsoleOptions>;
 	}
 
@@ -1351,7 +1351,7 @@ declare module 'klasa' {
 			constructor: typeof AnteiClient;
 			readonly invite: string;
 			readonly owners: Set<User>;
-			options: Required<KlasaClientOptions>;
+			options: Required<AnteiClientOptions>;
 			userBaseDirectory: string;
 			console: KlasaConsole;
 			users: KlasaUserStore;
