@@ -13,7 +13,7 @@ class Argument extends AliasPiece {
 
 	/**
 	 * The run method to be overwritten in actual Arguments
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} argument The string argument string to resolve
 	 * @param {Possible} possible This current usage possible
 	 * @param {KlasaMessage} message The message that triggered the command
@@ -26,7 +26,7 @@ class Argument extends AliasPiece {
 
 	/**
 	 * Checks min and max values
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The client of this bot
 	 * @param {number} value The value to check against
 	 * @param {?number} min The minimum value
@@ -57,7 +57,7 @@ class Argument extends AliasPiece {
 
 /**
  * Standard regular expressions for matching mentions and snowflake ids
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Object}
  * @property {RegExp} userOrMember Regex for users or members
  * @property {RegExp} channel Regex for channels

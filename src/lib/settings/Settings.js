@@ -42,14 +42,14 @@ class Settings {
 	 */
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Gateway} manager The Gateway that manages this Settings instance
 	 * @param {Object} data The data that is cached in this Settings instance
 	 */
 	constructor(manager, data) {
 		/**
 		 * The client this Settings was created with.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {KlasaClient}
 		 * @name Settings#client
 		 * @readonly
@@ -58,7 +58,7 @@ class Settings {
 
 		/**
 		 * The Gateway that manages this Settings instance.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Gateway}
 		 * @name Settings#gateway
 		 * @readonly
@@ -67,7 +67,7 @@ class Settings {
 
 		/**
 		 * The ID that identifies this instance.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 * @name Settings#id
 		 * @readonly
@@ -76,7 +76,7 @@ class Settings {
 
 		/**
 		 * Whether this entry exists in the DB or not.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {?boolean}
 		 * @name Settings#_existsInDB
 		 * @private
@@ -90,7 +90,7 @@ class Settings {
 
 	/**
 	 * Check whether this Settings is being synchronized in the Gateway's sync queue.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {boolean}
 	 */
 	get synchronizing() {
@@ -99,7 +99,7 @@ class Settings {
 
 	/**
 	 * Get a value from the configuration. Accepts nested objects separating by dot.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string|string[]} path The path of the key's value to get from this instance
 	 * @returns {*}
 	 */
@@ -117,7 +117,7 @@ class Settings {
 
 	/**
 	 * Clone this instance.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Settings}
 	 */
 	clone() {
@@ -126,7 +126,7 @@ class Settings {
 
 	/**
 	 * Sync the data from the database with the cache.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {boolean} [force=false] Whether the sync should download from the database
 	 * @returns {Promise<this>}
 	 */
@@ -149,7 +149,7 @@ class Settings {
 
 	/**
 	 * Delete this entry from the database and cache.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	async destroy() {
@@ -162,7 +162,7 @@ class Settings {
 
 	/**
 	 * Reset a value from an entry.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(string|string[])} [keys] The key to reset
 	 * @param {KlasaGuild} [guild] A KlasaGuild instance for multilingual support
 	 * @param {SettingsResetOptions} [options={}] The options for the reset
@@ -209,7 +209,7 @@ class Settings {
 
 	/**
 	 * Update a value from an entry.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(string|Object)} key The key to modify
 	 * @param {*} [value] The value to parse and save
 	 * @param {GuildResolvable} [guild=null] A guild resolvable
@@ -269,7 +269,7 @@ class Settings {
 
 	/**
 	 * Get a list.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The Message instance
 	 * @param {(Schema|string)} path The path to resolve
 	 * @returns {string}
@@ -304,7 +304,7 @@ class Settings {
 
 	/**
 	 * Resolve a string.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The Message to use
 	 * @param {(SchemaPiece|string)} path The path to resolve
 	 * @returns {string}
@@ -320,7 +320,7 @@ class Settings {
 
 	/**
 	 * Update this Settings instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Array<Array<*>>} entries The entries to update
 	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
 	 * @param {SettingsUpdateOptions} options The parse options
@@ -358,7 +358,7 @@ class Settings {
 
 	/**
 	 * Parse a value
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} value The value to parse
 	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
 	 * @param {SettingsUpdateOptions} options The parse options
@@ -383,7 +383,7 @@ class Settings {
 
 	/**
 	 * Save the data to the database.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {SettingsUpdateResult} result The data to save
 	 * @private
 	 */
@@ -402,7 +402,7 @@ class Settings {
 
 	/**
 	 * Parse a single value for an array
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {SchemaPiece} piece The SchemaPiece pointer that parses this entry
 	 * @param {string[]} route The path bits for property accesses
 	 * @param {*} parsed The parsed value
@@ -444,7 +444,7 @@ class Settings {
 
 	/**
 	 * Parse all values from an array
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {SchemaPiece} piece The SchemaPiece pointer that parses this entry
 	 * @param {Array<*>} values The values to parse
 	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
@@ -463,7 +463,7 @@ class Settings {
 
 	/**
 	 * Set a value by its path
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {SchemaPiece} piece The piece that manages the key
 	 * @param {*} parsedID The parsed ID value
 	 * @param {boolean} force Whether this should skip the equality checks or not
@@ -486,7 +486,7 @@ class Settings {
 
 	/**
 	 * Path this Settings instance.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Object} data The data to patch
 	 * @param {Object} [instance=this] The reference of this instance for recursion
 	 * @param {Schema} [schema=this.gateway.schema] The Schema that sets the schema for this configuration's gateway
@@ -505,7 +505,7 @@ class Settings {
 
 	/**
 	 * Returns the JSON-compatible object of this instance.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {SettingsJSON}
 	 */
 	toJSON() {
@@ -514,7 +514,7 @@ class Settings {
 
 	/**
 	 * Returns a better string when an instance of this class gets stringified.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {

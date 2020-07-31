@@ -15,7 +15,7 @@ class Language extends Piece {
 
 	/**
 	 * The method to get language strings
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {string} term The string or function to look up
 	 * @param {...*} args Any arguments to pass to the lookup
 	 * @returns {string|Function}
@@ -36,7 +36,7 @@ class Language extends Piece {
 
 	/**
 	 * The init method to be optionally overwritten in actual languages
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @returns {void}
 	 * @abstract
 	 */
@@ -47,7 +47,7 @@ class Language extends Piece {
 				try {
 					const CorePiece = (req => req.default || req)(require(loc));
 					if (!isClass(CorePiece)) return;
-					const coreLang = new CorePiece(this.client, this.store, this.file, true);
+					const coreLang = new CorePiece(this.store, this.file, core);
 					this.language = mergeDefault(coreLang.language, this.language);
 				} catch (error) {
 					return;

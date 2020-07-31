@@ -24,19 +24,18 @@ class Monitor extends Piece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
 	 * @param {MonitorStore} store The Monitor Store
 	 * @param {string} file The path from the pieces folder to the monitor file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {MonitorOptions} [options={}] Optional Monitor settings
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
 
 		/**
 		 * The types of messages allowed for this monitor
 		 * @see https://discord.js.org/#/docs/main/master/typedef/MessageType
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string[]}
 		 */
 		this.allowedTypes = options.allowedTypes;
@@ -57,35 +56,35 @@ class Monitor extends Piece {
 
 		/**
 		 * Whether the monitor ignores others or not
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ignoreOthers = options.ignoreOthers;
 
 		/**
 		 * Whether the monitor ignores webhooks or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ignoreWebhooks = options.ignoreWebhooks;
 
 		/**
 		 * Whether the monitor ignores edits or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ignoreEdits = options.ignoreEdits;
 
 		/**
 		 * Wether the monitor should ignore blacklisted users
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ignoreBlacklistedUsers = options.ignoreBlacklistedUsers;
 
 		/**
 		 * Wether the monitor should ignore blacklisted guilds
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ignoreBlacklistedGuilds = options.ignoreBlacklistedGuilds;
@@ -93,7 +92,7 @@ class Monitor extends Piece {
 
 	/**
 	 * Run a monitor and catch any uncaught promises
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message object from Discord.js
 	 * @private
 	 */
@@ -119,7 +118,7 @@ class Monitor extends Piece {
 
 	/**
 	 * If the monitor should run based on the filter options
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message to check
 	 * @returns {boolean}
 	 */

@@ -19,7 +19,7 @@ class QueryBuilder {
 	 */
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {QueryBuilderOptions} [options = {}] The default options for all datatypes plus formatDatatype
 	 */
 	constructor(options = {}) {
@@ -46,7 +46,7 @@ class QueryBuilder {
 
 		/**
 		 * The defined datatypes for this instance
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @readonly
 		 * @private
 		 */
@@ -76,7 +76,7 @@ class QueryBuilder {
 
 	/**
 	 * Get a datatype
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} type The datatype to get
 	 * @returns {?QueryBuilderDatatype}
 	 * @example
@@ -88,7 +88,7 @@ class QueryBuilder {
 
 	/**
 	 * Parse a SchemaPiece for the SQL datatype creation
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {schemaPiece} schemaPiece The SchemaPiece to process
 	 * @returns {string}
 	 * @example
@@ -106,7 +106,7 @@ class QueryBuilder {
 
 	/**
 	 * Parses the value
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} value The value to parse
 	 * @param {schemaPiece} schemaPiece The SchemaPiece instance that manages this instance
 	 * @param {QueryBuilderDatatype} datatype The QueryBuilder datatype

@@ -17,7 +17,7 @@ class AliasStore extends Store {
 
 		/**
 		 * The different aliases that represent the arguments in this store.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type external:Collection
 		 */
 		this.aliases = new Collection();
@@ -25,7 +25,7 @@ class AliasStore extends Store {
 
 	/**
 	 * Returns an AliasPiece in the store if it exists by its name or by an alias.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} name A argument or alias name
 	 * @returns {?AliasPiece}
 	 */
@@ -35,7 +35,7 @@ class AliasStore extends Store {
 
 	/**
 	 * Returns a boolean if the AliasPiece or alias is found within the store.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} name A command or alias name
 	 * @returns {boolean}
 	 */
@@ -45,7 +45,7 @@ class AliasStore extends Store {
 
 	/**
 	 * Sets up an AliasPiece in our store.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {AliasPiece} piece The command piece we are setting up
 	 * @returns {?AliasPiece}
 	 */
@@ -58,7 +58,7 @@ class AliasStore extends Store {
 
 	/**
 	 * Deletes an AliasPiece from the store.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {AliasPiece|string} name An AliasPiece object or a string representing an AliasPiece or alias name
 	 * @returns {boolean} whether or not the delete was successful.
 	 */
@@ -71,7 +71,7 @@ class AliasStore extends Store {
 
 	/**
 	 * Clears the AliasPieces and aliases from this store
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {void}
 	 */
 	clear() {

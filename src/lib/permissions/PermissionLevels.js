@@ -26,7 +26,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Creates a new PermissionLevels
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {number} levels How many permission levels there should be
 	 */
 	constructor(levels = 11) {
@@ -37,7 +37,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Adds levels to the levels cache
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {number} level The permission number for the level you are defining
 	 * @param {Function} check The permission checking function
 	 * @param {PermissionLevelOptions} [options={}] If the permission should auto fetch members
@@ -49,7 +49,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Removes levels from the levels cache
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} level The permission number for the level you are removing
 	 * @returns {this}
 	 */
@@ -59,7 +59,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Adds levels to the levels cache to be converted to valid permission structure
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {number} level The permission number for the level you are defining
 	 * @param {PermissionLevelOptions|symbol} obj Whether the level should break (stop processing higher levels, and inhibit a no permission error)
 	 * @returns {this}
@@ -73,7 +73,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Checks if all permission levels are valid
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @returns {boolean}
 	 */
 	isValid() {
@@ -82,7 +82,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Returns any errors in the perm levels
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @returns {string} Error message(s)
 	 */
 	debug() {
@@ -99,7 +99,7 @@ class PermissionLevels extends Collection {
 
 	/**
 	 * Runs the defined permissionLevels
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message to pass to perm level functions
 	 * @param {number} min The minimum permissionLevel ok to pass
 	 * @returns {PermissionLevelsData}

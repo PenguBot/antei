@@ -85,7 +85,7 @@ class Util {
 
 	/**
 	 * Splits up an array into chunks
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {any[]} entries The object to be merged
 	 * @param {number} chunkSize The object to merge
 	 * @returns {any[]}
@@ -101,7 +101,7 @@ class Util {
 
 	/**
 	 * Merges two objects
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} objTarget The object to be merged
 	 * @param {*} objSource The object to merge
 	 * @returns {*}
@@ -113,7 +113,7 @@ class Util {
 
 	/**
 	 * Deep clone a value
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} source The object to clone
 	 * @returns {*}
 	 */
@@ -145,7 +145,7 @@ class Util {
 
 	/**
 	 * Verify if the input is a function.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Function} input The function to verify
 	 * @returns {boolean}
 	 */
@@ -155,7 +155,7 @@ class Util {
 
 	/**
 	 * Verify if the input is a class constructor.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Function} input The function to verify
 	 * @returns {boolean}
 	 */
@@ -167,7 +167,7 @@ class Util {
 
 	/**
 	 * Verify if the input is an object literal (or class).
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Object} input The object to verify
 	 * @returns {boolean}
 	 */
@@ -177,7 +177,7 @@ class Util {
 
 	/**
 	 * Verify if a number is a finite number.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} input The number to verify
 	 * @returns {boolean}
 	 */
@@ -187,7 +187,7 @@ class Util {
 
 	/**
 	 * Check whether a value is a primitive
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} value The value to check
 	 * @returns {boolean}
 	 */
@@ -197,7 +197,7 @@ class Util {
 
 	/**
 	 * Verify if an object is a promise.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Promise} input The promise to verify
 	 * @returns {boolean}
 	 */
@@ -209,7 +209,7 @@ class Util {
 
 	/**
 	 * Try parse a stringified JSON string.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} value The value to parse
 	 * @returns {*}
 	 */
@@ -223,7 +223,7 @@ class Util {
 
 	/**
 	 * Turn a dotted path into a json object.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} path The dotted path
 	 * @param {*} value The value
 	 * @param {Object<string, *>} [obj = {}] The object to edit
@@ -247,7 +247,7 @@ class Util {
 
 	/**
 	 * Convert an object to a tuple
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Object<string, *>} object The object to convert
 	 * @param {string} [prefix=''] The prefix for the key
 	 * @returns {Array<Array<*>>}
@@ -267,7 +267,7 @@ class Util {
 
 	/**
 	 * Compare if both arrays are strictly equal
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {any[]} arr1 The first array to compare
 	 * @param {any[]} arr2 The second array to compare
 	 * @returns {boolean}
@@ -284,7 +284,7 @@ class Util {
 
 	/**
 	 * Sets default properties on an object that aren't already specified.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Object} def Default properties
 	 * @param {Object} [given] Object to assign defaults to
 	 * @returns {Object}
@@ -302,7 +302,7 @@ class Util {
 
 	/**
 	 * Resolves a guild
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The KlasaClient
 	 * @param {GuildResolvable} guild A guild resolvable
 	 * @returns {?KlasaGuild}
@@ -315,7 +315,7 @@ class Util {
 			if ((guild instanceof GuildChannel) ||
 				(guild instanceof Message)) return guild.guild;
 		} else if (type === "string" && /^\d{17,19}$/.test(guild)) {
-			return client.guilds.get(guild) || null;
+			return client.guilds.cache.get(guild) || null;
 		}
 		return null;
 	}
@@ -324,7 +324,7 @@ class Util {
 
 /**
  * Promisified version of child_process.exec for use with await
- * @since 0.3.0
+ * @since 0.0.1
  * @param {string} command The command to run
  * @param {external:ExecOptions} [options] The options to pass to exec
  * @returns {Promise<{ stdout: string, stderr: string }>}
@@ -335,7 +335,7 @@ Util.exec = promisify(exec);
 
 /**
  * Promisified version of setTimeout for use with await
- * @since 0.3.0
+ * @since 0.0.1
  * @param {number} delay The amount of time in ms to delay
  * @param {*} [args] Any args to pass to the .then (mostly pointless in this form)
  * @returns {Promise<*>} The args value passed in
@@ -346,7 +346,7 @@ Util.sleep = promisify(setTimeout);
 
 /**
  * Object with certain title case variants for words
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Object}
  * @static
  */
@@ -359,7 +359,7 @@ Util.titleCaseVariants = {
 
 /**
  * The primitive types
- * @since 0.5.0
+ * @since 0.0.1
  * @type {string[]}
  * @static
  */

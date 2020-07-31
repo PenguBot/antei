@@ -9,7 +9,7 @@ const TextPrompt = require("./TextPrompt");
 class CommandPrompt extends TextPrompt {
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message for the command
 	 * @param {CommandUsage} usage The usage of the command
 	 * @param {TextPromptOptions} [options={}] The options for this CommandPrompt
@@ -19,7 +19,7 @@ class CommandPrompt extends TextPrompt {
 
 		/**
 		 * The typing state of this CommandPrompt
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 * @private
 		 */
@@ -30,7 +30,7 @@ class CommandPrompt extends TextPrompt {
 
 	/**
 	 * Runs the internal validation, and re-prompts according to the settings
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Promise<any[]>} The parameters resolved
 	 */
 	run() {

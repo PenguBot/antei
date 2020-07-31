@@ -25,13 +25,13 @@ class SchemaPiece {
 	 * @param {string} key The name of this piece instance
 	 * @param {string} type The type for this piece instance
 	 * @param {SchemaPieceOptions} [options={}] The options for this SchemaPiece instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	constructor(parent, key, type, options = {}) {
 		/**
 		 * The KlasaClient for this SchemaPiece
 		 * @name SchemaPiece#Client
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @readonly
 		 * @type {KlasaClient}
 		 */
@@ -40,7 +40,7 @@ class SchemaPiece {
 		/**
 		 * The parent of this SchemaPiece, either a SchemaFolder instance or Schema instance
 		 * @name SchemaPiece#parent
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @readonly
 		 * @type {SchemaFolder|Schema}
 		 */
@@ -49,7 +49,7 @@ class SchemaPiece {
 		/**
 		 * The name of this SchemaPiece instance
 		 * @name SchemaPiece#key
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @readonly
 		 * @type {string}
 		 */
@@ -58,7 +58,7 @@ class SchemaPiece {
 		/**
 		 * The path of this SchemaPiece instance
 		 * @name SchemaPiece#path
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @readonly
 		 * @type {string}
 		 */
@@ -66,49 +66,49 @@ class SchemaPiece {
 
 		/**
 		 * The type this SchemaPiece instance is for
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.type = type.toLowerCase();
 
 		/**
 		 * Whether or not this key should hold an array of data, or a single piece of data
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.array = "array" in options ? options.array : Array.isArray(options.default);
 
 		/**
 		 * The default data this key will revert back to if reset, or if the key is never set
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {*}
 		 */
 		this.default = "default" in options ? options.default : this._generateDefault();
 
 		/**
 		 * The minimum value for this key.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {?number}
 		 */
 		this.min = "min" in options ? options.min : null;
 
 		/**
 		 * The maximum value for this key.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {?number}
 		 */
 		this.max = "max" in options ? options.max : null;
 
 		/**
 		 * Whether this key should be configurable by the config command. When type is any, this key defaults to false.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.configurable = "configurable" in options ? options.configurable : this.type !== "any";
 
 		/**
 		 * The filter to use for this key when resolving.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Function}
 		 */
 		this.filter = "filter" in options ? options.filter : null;
@@ -116,7 +116,7 @@ class SchemaPiece {
 
 	/**
 	 * The serializer for this SchemaPiece
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {Serializer}
 	 * @readonly
 	 */
@@ -126,7 +126,7 @@ class SchemaPiece {
 
 	/**
 	 * Edit this SchemaPiece's properties
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {SchemaPieceEditOptions} [options={}] The options for this SchemaPiece
 	 * @returns {this}
 	 */
@@ -147,7 +147,7 @@ class SchemaPiece {
 
 	/**
 	 * Checks whether or not this SchemaPiece is valid.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {boolean}
 	 */
 	isValid() {
@@ -181,7 +181,7 @@ class SchemaPiece {
 
 	/**
 	 * Parses a value into a resolved format for Settings
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} value A value to parse
 	 * @param {external:Guild} [guild] A guild to use during parsing.
 	 * @returns {*}
@@ -195,7 +195,7 @@ class SchemaPiece {
 
 	/**
 	 * Generate a default value if none is given
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {(Array<*>|false|null)}
 	 * @private
 	 */
@@ -207,7 +207,7 @@ class SchemaPiece {
 
 	/**
 	 * Get a JSON object containing data from this SchemaPiece
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Object}
 	 */
 	toJSON() {

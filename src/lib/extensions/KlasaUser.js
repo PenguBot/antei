@@ -22,7 +22,7 @@ module.exports = Structures.extend("User", User => {
 
 			/**
 			 * The user level settings for this context (user || default)
-			 * @since 0.5.0
+			 * @since 0.0.1
 			 * @type {Settings}
 			 */
 			this.settings = this.client.gateways.users.get(this.id, true);
@@ -30,7 +30,7 @@ module.exports = Structures.extend("User", User => {
 
 		/**
 		 * Returns the JSON-compatible object of this instance.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @returns {KlasaUserJSON}
 		 */
 		toJSON() {

@@ -44,7 +44,7 @@ class Usage {
 
 		/**
 		 * The usage delim
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.usageDelim = usageDelim;
@@ -58,7 +58,7 @@ class Usage {
 
 		/**
 		 * Stores one-off custom resolvers for use with the custom type arg
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Object}
 		 */
 		this.customResolvers = {};
@@ -70,7 +70,7 @@ class Usage {
 	 * @param {Function} resolver The one-off custom resolver
 	 * @returns {this}
 	 * @chainable
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	createCustomResolver(type, resolver) {
 		this.customResolvers[type] = resolver;
@@ -83,7 +83,7 @@ class Usage {
 	 * @param {(string|Function)} response The custom response or i18n function
 	 * @returns {this}
 	 * @chainable
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	customizeResponse(name, response) {
 		this.parsedUsage.some(tag => tag.register(name, response));
@@ -92,7 +92,7 @@ class Usage {
 
 	/**
 	 * Creates a TextPrompt instance to collect and resolve arguments with.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message context from the prompt
 	 * @param {TextPromptOptions} [options] The options for the prompt
 	 * @returns {TextPrompt}
@@ -103,7 +103,7 @@ class Usage {
 
 	/**
 	 * Defines json stringify behavior of this class.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Tag[]}
 	 */
 	toJSON() {
@@ -112,7 +112,7 @@ class Usage {
 
 	/**
 	 * Defines to string behavior of this class.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {

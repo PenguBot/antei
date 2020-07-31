@@ -36,7 +36,7 @@ class Store extends Collection {
 
 		/**
 		 * The name of what this holds
-		 * @since 0.3.0
+		 * @since 0.0.1
 		 * @name Store#name
 		 * @type {string}
 		 * @readonly
@@ -54,7 +54,7 @@ class Store extends Collection {
 
 		/**
 		 * The core directories pieces of this store can hold
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name Store#coreDirectories
 		 * @type {Set<string>}
 		 * @readonly
@@ -75,13 +75,13 @@ class Store extends Collection {
 
 	/**
 	 * Registers a core directory to check for pieces
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} directory The directory to check for core pieces
 	 * @returns {this}
 	 * @protected
 	 */
 	registerCoreDirectory(directory) {
-		this.coreDirectories.add(directory + this.name);
+		this.coreDirectories.add(join(directory, this.name));
 		return this;
 	}
 
@@ -107,7 +107,7 @@ class Store extends Collection {
 		try {
 			const Piece = (req => req.default || req)(require(loc));
 			if (!isClass(Piece)) throw new TypeError("The exported structure is not a class.");
-			piece = this.set(new Piece(this.client, this, file, directory));
+			piece = this.set(new Piece(this, file, directory));
 		} catch (error) {
 			if (this.client.listenerCount("wtf")) this.client.emit("wtf", `Failed to load file '${loc}'. Error:\n${error.stack || error}`);
 			else this.client.console.wtf(`Failed to load file '${loc}'. Error:\n${error.stack || error}`);
@@ -138,7 +138,7 @@ class Store extends Collection {
 	 * @returns {?Piece}
 	 */
 	set(piece) {
-		if (!(piece instanceof this.holds)) return this.client.emit("error", `Only ${this} may be stored in this Store.`);
+		if (!(piece instanceof this.holds)) throw new TypeError(`Only ${this} may be stored in this Store.`);
 		const existing = this.get(piece.name);
 		if (existing) this.delete(existing);
 		else if (this.client.listenerCount("pieceLoaded")) this.client.emit("pieceLoaded", piece);
@@ -172,7 +172,7 @@ class Store extends Collection {
 
 	/**
 	 * Defines toString behavior for stores
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @returns {string} This store name
 	 */
 	toString() {

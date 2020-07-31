@@ -142,7 +142,7 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The options the client was instantiated with.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name KlasaClient#options
 		 * @type {KlasaClientOptions}
 		 */
@@ -156,14 +156,14 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The console for this instance of klasa. You can disable timestamps, colors, and add writable streams as configuration options to configure this.
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {KlasaConsole}
 		 */
 		this.console = new KlasaConsole(this.options.console);
 
 		/**
 		 * The cache where argument resolvers are stored
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {ArgumentStore}
 		 */
 		this.arguments = new ArgumentStore(this);
@@ -198,7 +198,7 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The cache where languages are stored
-		 * @since 0.2.1
+		 * @since 0.0.1
 		 * @type {LanguageStore}
 		 */
 		this.languages = new LanguageStore(this);
@@ -226,21 +226,21 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The cache where tasks are stored
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {TaskStore}
 		 */
 		this.tasks = new TaskStore(this);
 
 		/**
 		 * The Serializers where serializers are stored
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {SerializerStore}
 		 */
 		this.serializers = new SerializerStore(this);
 
 		/**
 		 * A Store registry
-		 * @since 0.3.0
+		 * @since 0.0.1
 		 * @type {external:Collection}
 		 */
 		this.pieceStores = new Discord.Collection();
@@ -254,7 +254,7 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The GatewayDriver instance where the gateways are stored
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {GatewayDriver}
 		 */
 		this.gateways = new GatewayDriver(this);
@@ -285,7 +285,7 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The Settings instance that handles this client's settings
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Settings}
 		 */
 		this.settings = null;
@@ -314,7 +314,7 @@ class KlasaClient extends Discord.Client {
 
 		/**
 		 * The Schedule that runs the tasks
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Schedule}
 		 */
 		this.schedule = new Schedule(this);
@@ -325,6 +325,13 @@ class KlasaClient extends Discord.Client {
 		 * @type {boolean}
 		 */
 		this.ready = false;
+
+		/**
+		 * The regexp for a prefix mention
+		 * @since 0.0.1
+		 * @type {RegExp}
+		 */
+		this.mentionPrefix = null;
 
 		// Run all plugin functions in this context
 		for (const plugin of plugins) plugin.call(this);
@@ -342,13 +349,18 @@ class KlasaClient extends Discord.Client {
 	}
 
 	/**
-	 * The owner for this bot
-	 * @since 0.1.1
-	 * @type {?KlasaUser}
+	 * The owners for this bot
+	 * @since 0.0.1
+	 * @type {Set<KlasaUser>}
 	 * @readonly
 	 */
-	get owner() {
-		return this.users.cache.get(this.options.ownerID) || null;
+	get owners() {
+		const owners = new Set();
+		for (const owner of this.options.owners) {
+			const user = this.users.cache.get(owner);
+			if (user) owners.add(user);
+		}
+		return owners;
 	}
 
 	/**
@@ -377,7 +389,7 @@ class KlasaClient extends Discord.Client {
 
 	/**
 	 * Registers a custom store to the client
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @param {Store} store The store that pieces will be stored in
 	 * @returns {this}
 	 * @chainable
@@ -389,7 +401,7 @@ class KlasaClient extends Discord.Client {
 
 	/**
 	 * Un-registers a custom store from the client
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @param {Store} storeName The store that pieces will be stored in
 	 * @returns {this}
 	 * @chainable
@@ -425,7 +437,7 @@ class KlasaClient extends Discord.Client {
 	/**
 	 * Sweeps all text-based channels' messages and removes the ones older than the max message or command message lifetime.
 	 * If the message has been edited, the time of the edit is used rather than the time of the original message.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
 	 * will be removed from the caches. The default is based on [ClientOptions#messageCacheLifetime]{@link https://discord.js.org/#/docs/main/master/typedef/ClientOptions?scrollTo=messageCacheLifetime}
 	 * @param {number} [commandLifetime=this.options.commandMessageLifetime] Messages that are older than this (in seconds)
@@ -464,14 +476,14 @@ class KlasaClient extends Discord.Client {
 
 	/**
 	 * Caches a plugin module to be used when creating a KlasaClient instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Object} mod The module of the plugin to use
 	 * @returns {this}
 	 * @chainable
 	 */
 	static use(mod) {
 		const plugin = mod[this.plugin];
-		if (typeof plugin !== "function") throw new TypeError("The provided module does not include a plugin function");
+		if (!util.isFunction(plugin)) throw new TypeError("The provided module does not include a plugin function");
 		plugins.add(plugin);
 		return this;
 	}
@@ -482,34 +494,33 @@ module.exports = KlasaClient;
 
 /**
  * The plugin symbol to be used in external packages
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Symbol}
  */
 KlasaClient.plugin = Symbol("KlasaPlugin");
 
 /**
  * The base Permissions that the {@link Client#invite} asks for. Defaults to [VIEW_CHANNEL, SEND_MESSAGES]
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Permissions}
  */
 KlasaClient.basePermissions = new Permissions(3072);
 
 /**
  * The default PermissionLevels
- * @since 0.2.1
+ * @since 0.0.1
  * @type {PermissionLevels}
  */
 KlasaClient.defaultPermissionLevels = new PermissionLevels()
 	.add(0, () => true)
 	.add(6, ({ guild, member }) => guild && member.permissions.has(FLAGS.MANAGE_GUILD), { fetch: true })
 	.add(7, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
-	.add(9, ({ author, client }) => author === client.owner, { break: true })
-	.add(10, ({ author, client }) => author === client.owner);
-
+	.add(9, ({ author, client }) => client.owners.has(author), { break: true })
+	.add(10, ({ author, client }) => client.owners.has(author));
 
 /**
  * The default Guild Schema
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Schema}
  */
 KlasaClient.defaultGuildSchema = new Schema()
@@ -525,14 +536,14 @@ KlasaClient.defaultGuildSchema = new Schema()
 
 /**
  * The default User Schema
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Schema}
  */
 KlasaClient.defaultUserSchema = new Schema();
 
 /**
  * The default Client Schema
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Schema}
  */
 KlasaClient.defaultClientSchema = new Schema()
@@ -543,34 +554,34 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when Klasa is fully ready and initialized.
  * @event KlasaClient#klasaReady
- * @since 0.3.0
+ * @since 0.0.1
  */
 
 /**
  * A central logging event for Klasa.
  * @event KlasaClient#log
- * @since 0.3.0
+ * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling verbose logs
  * @event KlasaClient#verbose
- * @since 0.4.0
+ * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling wtf logs (what a terrible failure)
  * @event KlasaClient#wtf
- * @since 0.4.0
+ * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * Emitted when an unknown command is called.
  * @event KlasaClient#commandUnknown
- * @since 0.4.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the command
  * @param {string} command The command attempted to run
  * @param {RegExp} prefix The prefix used
@@ -580,7 +591,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a command has been inhibited.
  * @event KlasaClient#commandInhibited
- * @since 0.3.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command triggered
  * @param {?string[]} response The reason why it was inhibited if not silent
@@ -589,7 +600,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a command has been run.
  * @event KlasaClient#commandRun
- * @since 0.3.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {string[]} args The raw arguments of the command
@@ -598,7 +609,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a command has been run.
  * @event KlasaClient#commandSuccess
- * @since 0.5.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {any[]} params The resolved parameters of the command
@@ -608,17 +619,26 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a command has encountered an error.
  * @event KlasaClient#commandError
- * @since 0.3.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {any[]} params The resolved parameters of the command
- * @param {(string|Object)} error The command error
+ * @param {Object} error The command error
  */
 
 /**
+ * Emitted when an invalid argument is passed to a command.
+ * @event KlasaClient#argumentError
+ * @since 0.0.1
+ * @param {KlasaMessage} message The message that triggered the command
+ * @param {Command} command The command run
+ * @param {any[]} params The resolved parameters of the command
+ * @param {string} error The argument error
+ */
+/**
  * Emitted when an event has encountered an error.
  * @event KlasaClient#eventError
- * @since 0.5.0
+ * @since 0.0.1
  * @param {Event} event The event that errored
  * @param {any[]} args The event arguments
  * @param {(string|Object)} error The event error
@@ -627,7 +647,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a monitor has encountered an error.
  * @event KlasaClient#monitorError
- * @since 0.4.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the monitor
  * @param {Monitor} monitor The monitor run
  * @param {(Error|string)} error The monitor error
@@ -636,7 +656,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a finalizer has encountered an error.
  * @event KlasaClient#finalizerError
- * @since 0.5.0
+ * @since 0.0.1
  * @param {KlasaMessage} message The message that triggered the finalizer
  * @param {Command} command The command this finalizer is for (may be different than message.command)
  * @param {KlasaMessage|any} response The response from the command
@@ -648,7 +668,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when a task has encountered an error.
  * @event KlasaClient#taskError
- * @since 0.5.0
+ * @since 0.0.1
  * @param {ScheduledTask} scheduledTask The scheduled task
  * @param {Task} task The task run
  * @param {(Error|string)} error The task error
@@ -657,7 +677,7 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when {@link Settings#update} or {@link Settings#reset} is run.
  * @event KlasaClient#settingsUpdateEntry
- * @since 0.5.0
+ * @since 0.0.1
  * @param {Settings} entry The patched Settings instance
  * @param {SettingsUpdateResultEntry[]} updated The keys that were updated
  */
@@ -665,48 +685,48 @@ KlasaClient.defaultClientSchema = new Schema()
 /**
  * Emitted when {@link Settings#destroy} is run.
  * @event KlasaClient#settingsDeleteEntry
- * @since 0.5.0
+ * @since 0.0.1
  * @param {Settings} entry The entry which got deleted
  */
 
 /**
  * Emitted when a new entry in the database has been created upon update.
  * @event KlasaClient#settingsCreateEntry
- * @since 0.5.0
+ * @since 0.0.1
  * @param {Settings} entry The entry which got created
  */
 
 /**
  * Emitted when a piece is loaded. (This can be spammy on bot startup or anytime you reload all of a piece type.)
  * @event KlasaClient#pieceLoaded
- * @since 0.4.0
+ * @since 0.0.1
  * @param {Piece} piece The piece that was loaded
  */
 
 /**
  * Emitted when a piece is unloaded.
  * @event KlasaClient#pieceUnloaded
- * @since 0.4.0
+ * @since 0.0.1
  * @param {Piece} piece The piece that was unloaded
  */
 
 /**
  * Emitted when a piece is reloaded.
  * @event KlasaClient#pieceReloaded
- * @since 0.4.0
+ * @since 0.0.1
  * @param {Piece} piece The piece that was reloaded
  */
 
 /**
  * Emitted when a piece is enabled.
  * @event KlasaClient#pieceEnabled
- * @since 0.4.0
+ * @since 0.0.1
  * @param {Piece} piece The piece that was enabled
  */
 
 /**
  * Emitted when a piece is disabled.
  * @event KlasaClient#pieceDisabled
- * @since 0.4.0
+ * @since 0.0.1
  * @param {Piece} piece The piece that was disabled
  */

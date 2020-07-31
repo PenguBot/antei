@@ -10,7 +10,7 @@ const RateLimit = require("./RateLimit");
 class RateLimitManager extends Collection {
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} bucket The amount of times a RateLimit can drip before it's limited
 	 * @param {number} cooldown The amount of milliseconds for the ratelimits from this manager to expire
 	 */
@@ -19,7 +19,7 @@ class RateLimitManager extends Collection {
 
 		/**
 		 * The sweep interval for this RateLimitManager
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name RateLimitManager#sweepInterval
 		 * @type {?NodeJS.Timer}
 		 * @private
@@ -31,7 +31,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * The amount of times a RateLimit from this manager can drip before it's limited
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {number}
 	 */
 	get bucket() {
@@ -46,7 +46,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * The amount of milliseconds for the ratelimits from this manager to expire
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {number}
 	 */
 	get cooldown() {
@@ -61,7 +61,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * Gets a {@link RateLimit} from this manager or creates it if it does not exist
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} id The id for the RateLimit
 	 * @returns {RateLimit}
 	 */
@@ -71,7 +71,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * Creates a {@link RateLimit} for this manager
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} id The id the RateLimit belongs to
 	 * @returns {RateLimit}
 	 */
@@ -83,7 +83,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * Wraps {@link external:Collection}'s set method to set interval to sweep inactive RateLimits
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} id The id the RateLimit belongs to
 	 * @param {RateLimit} rateLimit The this for the sweep
 	 * @returns {this}
@@ -97,7 +97,7 @@ class RateLimitManager extends Collection {
 
 	/**
 	 * Wraps {@link external:Collection}'s sweep method to clear the interval when this manager is empty
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {Function} fn The filter function
 	 * @param {any} thisArg The this for the sweep
 	 * @returns {number}

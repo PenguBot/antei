@@ -43,7 +43,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * Constructs our RichMenu instance
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {external:MessageEmbed} [embed=new MessageEmbed()] A Template embed to apply to all pages
 	 */
 	constructor(embed) {
@@ -51,7 +51,7 @@ class RichMenu extends RichDisplay {
 
 		/**
 		 * The default emojis to use for this menu
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @name RichMenu#emojis
 		 * @type {RichMenuEmojisObject}
 		 */
@@ -70,14 +70,14 @@ class RichMenu extends RichDisplay {
 
 		/**
 		 * If options have been paginated yet
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.paginated = false;
 
 		/**
 		 * The options of this Menu
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {MenuOptions[]}
 		 */
 		this.options = [];
@@ -85,7 +85,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * You cannot directly add pages in a RichMenu
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @throws 'You cannot directly add pages in a RichMenu'
 	 */
 	addPage() {
@@ -94,7 +94,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * Adds a MenuOptions
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {string} name The name of the option
 	 * @param {string} body The description of the option
 	 * @param {boolean} [inline=false] Whether the option should be inline
@@ -108,7 +108,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * Runs this RichMenu
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message A message to edit or use to send a new message with
 	 * @param {RichMenuRunOptions} [options={}] The options to use with this RichMenu
 	 * @returns {ReactionHandler}
@@ -120,7 +120,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * Determines the emojis to use in this menu
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {Emoji[]} emojis An array of emojis to use
 	 * @param {boolean} stop Whether the stop emoji should be included
 	 * @param {boolean} jump Whether the jump emoji should be included
@@ -136,7 +136,7 @@ class RichMenu extends RichDisplay {
 
 	/**
 	 * Converts MenuOptions into display pages
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {void}
 	 * @private
 	 */

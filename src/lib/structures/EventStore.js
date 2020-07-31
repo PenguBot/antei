@@ -19,7 +19,7 @@ class EventStore extends Store {
 
 		/**
 		 * Once events that have already run (so once means once)
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Set<string>}
 		 * @private
 		 */

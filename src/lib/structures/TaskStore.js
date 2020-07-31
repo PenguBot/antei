@@ -11,7 +11,7 @@ class TaskStore extends Store {
 
 	/**
 	 * Constructs our TaskStore for use in Klasa
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {

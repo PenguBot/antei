@@ -9,7 +9,7 @@ const { TIME: { DAY, CRON: { allowedNum, partRegex, wildcardRegex, predefined, t
 class Cron {
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} cron The cron pattern to use
 	 */
 	constructor(cron) {
@@ -20,7 +20,7 @@ class Cron {
 
 	/**
 	 * Get the next date that matches with the current pattern
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {date} [outset=new Date()] The Date instance to compare with
 	 * @param {boolean} [origin=true] Whether this next call is origin
 	 * @returns {date}
@@ -46,7 +46,7 @@ class Cron {
 
 	/**
 	 * Normalize the pattern
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} cron The pattern to normalize
 	 * @returns {string}
 	 * @private
@@ -72,7 +72,7 @@ class Cron {
 
 	/**
 	 * Parse the pattern
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} cron The pattern to parse
 	 * @returns {Array<number[]>}
 	 * @private
@@ -85,7 +85,7 @@ class Cron {
 
 	/**
 	 * Parse the current part
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} cronPart The part of the pattern to parse
 	 * @param {number} id The id that identifies the current part
 	 * @returns {number[]}
@@ -108,7 +108,7 @@ class Cron {
 
 	/**
 	 * Get an array of numbers with the selected range
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} min The minimum value
 	 * @param {number} max The maximum value
 	 * @param {number} step The step value

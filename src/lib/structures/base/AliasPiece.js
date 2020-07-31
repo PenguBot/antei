@@ -17,18 +17,18 @@ class AliasPiece extends Piece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
 	 * @param {Store} store The store this piece is for
 	 * @param {string[]} file The path from the pieces folder to the extendable file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {AliasPieceOptions} [options={}] The options for this piece
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
+
 
 		/**
 		 * The aliases for this piece
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string[]}
 		 */
 		this.aliases = options.aliases;
@@ -36,7 +36,7 @@ class AliasPiece extends Piece {
 
 	/**
 	 * Defines the JSON.stringify behavior of this argument.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Object}
 	 */
 	toJSON() {

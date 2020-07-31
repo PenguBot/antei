@@ -9,20 +9,20 @@ class Stopwatch {
 
 	/**
 	 * Starts a new Stopwatch
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {number} [digits=2] The number of digits to appear after the decimal point when returning the friendly duration
 	 */
 	constructor(digits = 2) {
 		/**
 		 * The number of digits to appear after the decimal point when returning the friendly duration.
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.digits = digits;
 
 		/**
 		 * The start time of this stopwatch
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {number}
 		 * @private
 		 */
@@ -30,7 +30,7 @@ class Stopwatch {
 
 		/**
 		 * The end time of this stopwatch
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {?number}
 		 * @private
 		 */
@@ -39,7 +39,7 @@ class Stopwatch {
 
 	/**
 	 * The duration of this stopwatch since start or start to end if this stopwatch has stopped.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @type {number}
 	 * @readonly
 	 */
@@ -49,7 +49,7 @@ class Stopwatch {
 
 	/**
 	 * If the stopwatch is running or not
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @type {boolean}
 	 * @readonly
 	 */
@@ -59,7 +59,7 @@ class Stopwatch {
 
 	/**
 	 * Restarts the Stopwatch (Returns a running state)
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 * @chainable
 	 */
@@ -71,7 +71,7 @@ class Stopwatch {
 
 	/**
 	 * Resets the Stopwatch to 0 duration (Returns a stopped state)
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 * @chainable
 	 */
@@ -83,7 +83,7 @@ class Stopwatch {
 
 	/**
 	 * Starts the Stopwatch
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 * @chainable
 	 */
@@ -97,7 +97,7 @@ class Stopwatch {
 
 	/**
 	 * Stops the Stopwatch, freezing the duration
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 * @chainable
 	 */
@@ -108,7 +108,7 @@ class Stopwatch {
 
 	/**
 	 * Defines toString behavior
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {

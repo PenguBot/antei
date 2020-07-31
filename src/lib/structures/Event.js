@@ -19,39 +19,38 @@ class Event extends Piece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
 	 * @param {EventStore} store The Event Store
 	 * @param {string} file The path from the pieces folder to the event file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {EventOptions} [options={}] Optional Event settings
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
 
 		/**
 		 * If this event should only be run once and then unloaded
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.once = options.once;
 
 		/**
 		 * The emitter this event is for
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {EventEmitter}
 		 */
 		this.emitter = (typeof options.emitter === "string" ? this.client[options.emitter] : options.emitter) || this.client;
 
 		/**
 		 * The event to listen for
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.event = options.event || this.name;
 
 		/**
 		 * Stored bound on method, so it can be properly unlistened to later
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Function}
 		 * @private
 		 */
@@ -122,7 +121,7 @@ class Event extends Piece {
 
 	/**
 	 * Attaches the proper listener to the emitter
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {void}
 	 * @private
 	 */
@@ -132,7 +131,7 @@ class Event extends Piece {
 
 	/**
 	 * Removes the listener from the emitter
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {void}
 	 * @private
 	 */

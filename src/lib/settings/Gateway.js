@@ -38,13 +38,13 @@ class Gateway extends GatewayStorage {
 
 		/**
 		 * The synchronization queue for all Settings instances
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {external:Collection<string, Promise<Settings>>}
 		 */
 		this.syncQueue = new Collection();
 
 		/**
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 * @private
 		 */
@@ -53,7 +53,7 @@ class Gateway extends GatewayStorage {
 
 	/**
 	 * The Settings that this class should make.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {Settings}
 	 * @readonly
 	 * @private
@@ -64,7 +64,7 @@ class Gateway extends GatewayStorage {
 
 	/**
 	 * Get an entry from the cache.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} id The key to get from the cache
 	 * @param {boolean} [create = false] Whether SG should create a new instance of Settings in the background, if the entry does not already exist.
 	 * @returns {?Settings}

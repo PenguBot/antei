@@ -38,7 +38,7 @@ class ScheduledTask {
 
 	/**
 	 * Initializes a new ScheduledTask
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The client that initialized this instance
 	 * @param {string} taskName The name of the task this ScheduledTask is for
 	 * @param {TimeResolvable} time The time or {@link Cron} pattern
@@ -49,7 +49,7 @@ class ScheduledTask {
 
 		/**
 		 * The Client instance that initialized this instance
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name ScheduledTask#client
 		 * @type {KlasaClient}
 		 * @readonly
@@ -58,49 +58,49 @@ class ScheduledTask {
 
 		/**
 		 * The name of the Task this scheduled task will run
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.taskName = taskName;
 
 		/**
 		 * Whether this scheduled task is scheduled with the {@link Cron} pattern
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {?Cron}
 		 */
 		this.recurring = _recurring;
 
 		/**
 		 * The Date when this scheduled task ends
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Date}
 		 */
 		this.time = "time" in options ? new Date(options.time) : _time;
 
 		/**
 		 * The id for this scheduled task
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.id = options.id || this.constructor._generateID(this.client);
 
 		/**
 		 * If the task should catch up in the event the bot is down
-		 * @since 0.5.0
-		 * @type {string}
+		 * @since 0.0.1
+		 * @type {boolean}
 		 */
 		this.catchUp = "catchUp" in options ? options.catchUp : true;
 
 		/**
 		 * The stored metadata to send to the Task
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {*}
 		 */
 		this.data = "data" in options && isObject(options.data) ? options.data : {};
 
 		/**
 		 * If the ScheduledTask is being run currently
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 * @private
 		 */
@@ -111,7 +111,7 @@ class ScheduledTask {
 
 	/**
 	 * The Schedule class that manages all scheduled tasks
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @name ScheduledTask#store
 	 * @type {Schedule}
 	 * @readonly
@@ -122,7 +122,7 @@ class ScheduledTask {
 
 	/**
 	 * The Task instance this scheduled task will run
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {?Task}
 	 * @readonly
 	 */
@@ -132,7 +132,7 @@ class ScheduledTask {
 
 	/**
 	 * Run the current task and bump it if needed
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	async run() {
@@ -153,7 +153,7 @@ class ScheduledTask {
 
 	/**
 	 * Update the task
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {ScheduledTaskUpdateOptions} [options={}] The options to update
 	 * @returns {this}
 	 * @example
@@ -185,7 +185,7 @@ class ScheduledTask {
 
 	/**
 	 * Delete the task
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Promise<Schedule>}
 	 * @example
 	 * ScheduledTask.delete()
@@ -198,7 +198,7 @@ class ScheduledTask {
 
 	/**
 	 * Override for JSON.stringify
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {ScheduledTaskJSON}
 	 */
 	toJSON() {
@@ -214,7 +214,7 @@ class ScheduledTask {
 
 	/**
 	 * Resolve the time and cron
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {TimeResolvable} time The time or {@link Cron} pattern
 	 * @returns {any[]}
 	 * @private
@@ -232,19 +232,18 @@ class ScheduledTask {
 
 	/**
 	 * Generate a new ID based on timestamp and shard
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The Discord client
 	 * @returns {string}
 	 * @private
 	 */
 	static _generateID(client) {
-		const id = client.shard ? (Array.isArray(client.shard.id) ? client.shard.id[0] : client.shard.id).toString(36) : "";
-		return Date.now().toString(36) + id;
+		return `${Date.now().toString(36)}${client.options.shards[0].toString(36)}`;
 	}
 
 	/**
 	 * Validate a task
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {ScheduledTask} st The task to validate
 	 * @private
 	 */

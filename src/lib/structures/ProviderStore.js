@@ -20,7 +20,7 @@ class ProviderStore extends Store {
 
 	/**
 	 * The default provider set in {@link KlasaClientOptions.providers}
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {?Provider}
 	 * @readonly
 	 */

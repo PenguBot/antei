@@ -28,14 +28,13 @@ class Piece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
 	 * @param {Store} store The store this piece is for
-	 * @param {string[]} file The path from the pieces folder to the extendable file
+	 * @param {string[]} file The path from the pieces folder to the piece file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {PieceOptions} [options={}] The options for this piece
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		const defaults = client.options.pieceDefaults[store.name];
+	constructor(store, file, directory, options = {}) {
+		const defaults = store.client.options.pieceDefaults[store.name];
 		if (defaults) options = mergeDefault(defaults, options);
 
 		/**
@@ -43,7 +42,7 @@ class Piece {
 		 * @since 0.0.1
 		 * @type {KlasaClient}
 		 */
-		this.client = client;
+		this.client = store.client;
 
 		/**
 		 * The file location where this Piece is stored
@@ -68,14 +67,14 @@ class Piece {
 
 		/**
 		 * The store this Piece is from
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Store}
 		 */
 		this.store = store;
 
 		/**
 		 * The base directory this Piece is stored in
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.directory = directory;
@@ -93,7 +92,7 @@ class Piece {
 
 	/**
 	 * The absolute path to this piece
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {string}
 	 * @readonly
 	 */
@@ -160,7 +159,7 @@ class Piece {
 
 	/**
 	 * Defines toString behavior for pieces
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @returns {string} This piece name
 	 */
 	toString() {

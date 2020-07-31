@@ -24,14 +24,13 @@ class Extendable extends Piece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
 	 * @param {ExtendableStore} store The extendable store
 	 * @param {string[]} file The path from the pieces folder to the extendable file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {ExtendableOptions} [options={}] The options for this extendable
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
 
 		const staticPropertyNames = Object.getOwnPropertyNames(this.constructor)
 			.filter(name => !["length", "prototype", "name"].includes(name));
@@ -40,7 +39,7 @@ class Extendable extends Piece {
 
 		/**
 		 * The static property descriptors of this extendable
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {any}
 		 * @private
 		 */
@@ -49,7 +48,7 @@ class Extendable extends Piece {
 
 		/**
 		 * The instance property descriptors of this extendable
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {any}
 		 * @private
 		 */
@@ -58,7 +57,7 @@ class Extendable extends Piece {
 
 		/**
 		 * The original property descriptors for each of the original classes
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Map<any, OriginalPropertyDescriptors>}
 		 * @private
 		 */

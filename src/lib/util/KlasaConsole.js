@@ -89,7 +89,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Constructs our KlasaConsole instance
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {ConsoleOptions} [options] The options for the klasa console
 	 */
 	constructor(options = {}) {
@@ -99,7 +99,7 @@ class KlasaConsole extends Console {
 
 		/**
 		 * The standard output stream for this console, defaulted to process.stderr.
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @name KlasaConsole#stdout
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
@@ -108,7 +108,7 @@ class KlasaConsole extends Console {
 
 		/**
 		 * The standard error output stream for this console, defaulted to process.stderr.
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @name KlasaConsole#stderr
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
@@ -119,14 +119,14 @@ class KlasaConsole extends Console {
 
 		/**
 		 * Whether or not timestamps should be enabled for this console.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {?Timestamp}
 		 */
 		this.template = options.timestamps !== false ? new Timestamp(options.timestamps === true ? "YYYY-MM-DD HH:mm:ss" : options.timestamps) : null;
 
 		/**
 		 * The colors for this console.
-		 * @since 0.4.0
+		 * @since 0.0.1
 		 * @type {object}
 		 */
 		this.colors = {};
@@ -138,7 +138,7 @@ class KlasaConsole extends Console {
 
 		/**
 		 * Whether the timestamp should be in utc or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.utc = options.utc;
@@ -155,7 +155,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Logs everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {Array<*>} data The data we want to print
 	 * @param {string} [type="log"] The type of log, particularly useful for coloring
 	 * @private
@@ -170,7 +170,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls a log write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -180,7 +180,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls a warn write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -190,7 +190,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls an error write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -200,7 +200,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls a debug write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -210,7 +210,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls a verbose write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -220,7 +220,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Calls a wtf (what a terrible failure) write with everything to the console/writable stream.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {...*} data The data we want to print
 	 * @returns {void}
 	 */
@@ -230,7 +230,7 @@ class KlasaConsole extends Console {
 
 	/**
 	 * Flattens our data into a readable string.
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {*} data Some data to flatten
 	 * @returns {string}
 	 * @private

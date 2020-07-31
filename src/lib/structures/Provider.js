@@ -94,7 +94,7 @@ class Provider extends Piece {
 
 	/**
 	 * Retrieves all entries' keys from a table.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} table The table to query
 	 * @returns {string[]}
 	 * @abstract
@@ -143,7 +143,7 @@ class Provider extends Piece {
 
 	/**
 	 * The shutdown method to be optionally overwritten in actual provider pieces.
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @returns {*}
 	 * @abstract
 	 */
@@ -170,7 +170,7 @@ class Provider extends Piece {
 
 	/**
 	 * Parse the gateway input for easier operation
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(Object<string, *>|SettingsUpdateResult[])} updated The updated entries
 	 * @returns {Object<string, *>}
 	 * @protected

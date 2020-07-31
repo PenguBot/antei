@@ -5,7 +5,7 @@ const { isFunction, deepClone } = require("../../util/util");
 /**
  * The base Schema for {@link Gateway}s
  * @extends Map
- * @since 0.5.0
+ * @since 0.0.1
  */
 class Schema extends Map {
 
@@ -17,7 +17,7 @@ class Schema extends Map {
 
 		/**
 		 * Returns the path for this schema
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name Schema#path
 		 * @type {string}
 		 * @readonly
@@ -26,7 +26,7 @@ class Schema extends Map {
 
 		/**
 		 * The type of this SchemaFolder (always 'Folder')
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name SchemaFolder#type
 		 * @type {string}
 		 * @readonly
@@ -36,7 +36,7 @@ class Schema extends Map {
 
 	/**
 	 * Get the configurable keys for the current SchemaFolder or Schema instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @readonly
 	 * @type {Array<string>}
 	 */
@@ -48,7 +48,7 @@ class Schema extends Map {
 
 	/**
 	 * Get the defaults for the current SchemaFolder or Schema instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @readonly
 	 * @type {Object}
 	 */
@@ -58,7 +58,7 @@ class Schema extends Map {
 
 	/**
 	 * Get the paths for the current SchemaFolder or Schema instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @readonly
 	 * @type {Map<string, SchemaFolder|SchemaPiece>}
 	 */
@@ -70,7 +70,7 @@ class Schema extends Map {
 
 	/**
 	 * Adds a Folder or Piece instance to the current SchemaFolder or Schema instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} key The name of this new piece you are trying to add.
 	 * @param {string|Function} typeOrCallback A function to add a folder or a string to add a new SchemaPiece
 	 * @param {SchemaPieceOptions} [options] An object of options used for SchemaPieces
@@ -128,7 +128,7 @@ class Schema extends Map {
 
 	/**
 	 * Remove a key from the schema
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} key The key to remove
 	 * @returns {this}
 	 */
@@ -139,7 +139,7 @@ class Schema extends Map {
 
 	/**
 	 * Get a SchemaPiece or a SchemaFolder given a path
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string|string[]} key The key to get from the schema
 	 * @returns {?SchemaPiece|SchemaFolder}
 	 */
@@ -154,7 +154,7 @@ class Schema extends Map {
 	/**
 	 * Returns a new Iterator object that contains the keys for each element contained in this folder.
 	 * Identical to [Map.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/keys)
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {boolean} recursive Whether the iteration should be recursive
 	 * @yields {string}
 	 */
@@ -172,7 +172,7 @@ class Schema extends Map {
 	/**
 	 * Returns a new Iterator object that contains the values for each element contained in this folder.
 	 * Identical to [Map.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/values)
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {boolean} recursive Whether the iteration should be recursive
 	 * @yields {(SchemaFolder|SchemaPiece)}
 	 */
@@ -190,7 +190,7 @@ class Schema extends Map {
 	/**
 	 * Returns a new Iterator object that contains the `[key, value]` pairs for each element contained in this folder.
 	 * Identical to [Map.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map/entries)
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {boolean} recursive Whether the iteration should be recursive
 	 * @yields {Array<string|SchemaFolder|SchemaPiece>}
 	 */
@@ -207,7 +207,7 @@ class Schema extends Map {
 
 	/**
 	 * Get a JSON object containing data from this SchemaFolder
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Object}
 	 */
 	toJSON() {

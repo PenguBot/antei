@@ -16,27 +16,27 @@ class Schedule {
 	 */
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The Client that initialized this instance
 	 */
 	constructor(client) {
 		/**
 		 * The Client instance that initialized this instance
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {KlasaClient}
 		 */
 		this.client = client;
 
 		/**
 		 * An array of all processed ScheduledTask instances
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {ScheduledTask[]}
 		 */
 		this.tasks = [];
 
 		/**
 		 * The current interval that runs the tasks
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {NodeJS.Timer}
 		 * @private
 		 */
@@ -45,7 +45,7 @@ class Schedule {
 
 	/**
 	 * Get all the tasks from the cache
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {ScheduledTaskOptions[]}
 	 * @private
 	 */
@@ -55,7 +55,7 @@ class Schedule {
 
 	/**
 	 * Init the Schedule
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	async init() {
 		const tasks = this._tasks;
@@ -74,7 +74,7 @@ class Schedule {
 
 	/**
 	 * Execute the current tasks
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	async execute() {
 		if (!this.client.ready) return;
@@ -113,7 +113,7 @@ class Schedule {
 
 	/**
 	 * Adds a new task to the database
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} taskName The name of the task
 	 * @param {(date|number|string)} time The time or Cron pattern
 	 * @param {ScheduledTaskOptions} [options] The options for the ScheduleTask instance
@@ -147,7 +147,7 @@ class Schedule {
 
 	/**
 	 * Delete a Task by its ID
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} id The ID to search for
 	 * @returns {this}
 	 */
@@ -165,7 +165,7 @@ class Schedule {
 
 	/**
 	 * Clear all the ScheduledTasks
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	async clear() {
 		// this._tasks is unedited as Settings#clear will clear the array
@@ -175,7 +175,7 @@ class Schedule {
 
 	/**
 	 * Adds a task to the cache
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} taskName The name of the task
 	 * @param {(date|number|string)} time The time or Cron pattern
 	 * @param {ScheduledTaskOptions} [options={}] The options for the ScheduledTask instance
@@ -200,7 +200,7 @@ class Schedule {
 
 	/**
 	 * Inserts the ScheduledTask instance in its sorted position for optimization
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {ScheduledTask} task The ScheduledTask instance to insert
 	 * @returns {ScheduledTask}
 	 * @private
@@ -214,17 +214,17 @@ class Schedule {
 
 	/**
 	 * Clear the current interval
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @private
 	 */
 	_clearInterval() {
-		clearInterval(this._interval);
+		this.client.clearInterval(this._interval);
 		this._interval = null;
 	}
 
 	/**
 	 * Sets the interval when needed
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @private
 	 */
 	_checkInterval() {
@@ -235,7 +235,7 @@ class Schedule {
 	/**
 	 * Returns a new Iterator object that contains the values for each element contained in the task queue.
 	 * @name @@iterator
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @method
 	 * @instance
 	 * @generator

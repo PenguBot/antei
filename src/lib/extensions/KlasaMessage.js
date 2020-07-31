@@ -1,6 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
 const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require("discord.js");
+const { regExpEsc } = require("../util/util");
 
 module.exports = Structures.extend("Message", Message => {
 	/**
@@ -10,50 +11,56 @@ module.exports = Structures.extend("Message", Message => {
 	class KlasaMessage extends Message {
 
 		/**
+		 * @typedef {object} CachedPrefix
+		 * @property {number} length The length of the prefix
+		 * @property {RegExp | null} regex The RegExp for the prefix
+		 */
+
+		/**
 		 * @param {...*} args Normal D.JS Message args
 		 */
 		constructor(...args) {
 			super(...args);
 
 			/**
-			 * The guild level settings for this context (guild || default)
-			 * @since 0.5.0
-			 * @type {Settings}
-			 */
-			this.guildSettings = this.guild ? this.guild.settings : this.client.gateways.guilds.defaults;
-
-			/**
 			 * The command being run
 			 * @since 0.0.1
 			 * @type {?Command}
 			 */
-			this.command = null;
+			this.command = this.command || null;
+
+			/**
+			 * The name of the command being run
+			 * @since 0.0.1
+			 * @type {?string}
+			 */
+			this.commandText = this.commandText || null;
 
 			/**
 			 * The prefix used
 			 * @since 0.0.1
 			 * @type {?RegExp}
 			 */
-			this.prefix = null;
+			this.prefix = this.prefix || null;
 
 			/**
 			 * The length of the prefix used
 			 * @since 0.0.1
 			 * @type {?number}
 			 */
-			this.prefixLength = null;
+			this.prefixLength = typeof this.prefixLength === "number" ? this.prefixLength : null;
 
 			/**
 			 * A command prompt/argument handler
-			 * @since 0.5.0
+			 * @since 0.0.1
 			 * @type {CommandPrompt}
 			 * @private
 			 */
-			this.prompter = null;
+			this.prompter = this.prompter || null;
 
 			/**
 			 * The responses to this message
-			 * @since 0.5.0
+			 * @since 0.0.1
 			 * @type {external:KlasaMessage[]}
 			 * @private
 			 */
@@ -62,7 +69,7 @@ module.exports = Structures.extend("Message", Message => {
 
 		/**
 		 * The previous responses to this message
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {KlasaMessage[]}
 		 * @readonly
 		 */
@@ -92,7 +99,7 @@ module.exports = Structures.extend("Message", Message => {
 
 		/**
 		 * The flags resolved by this class
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Object}
 		 * @readonly
 		 */
@@ -118,33 +125,7 @@ module.exports = Structures.extend("Message", Message => {
 		 */
 		get reactable() {
 			if (!this.guild) return true;
-			return this.channel.readable && this.channel.permissionsFor(this.guild.me).has(FLAGS.ADD_REACTIONS, false);
-		}
-
-		/**
-		 * Gets the level id of this message (with respect to @{link Command#cooldownLevel})
-		 * @since 0.5.0
-		 * @type {?string}
-		 * @readonly
-		 * @private
-		 */
-		get levelID() {
-			if (!this.command) return null;
-			return this.guild ? this[this.command.cooldownLevel].id : this.author.id;
-		}
-
-		/**
-		 * Awaits a response from the author.
-		 * @param {string} text The text to prompt the author
-		 * @param {number} [time=30000] The time to wait before giving up
-		 * @returns {KlasaMessage}
-		 */
-		async prompt(text, time = 30000) {
-			const message = await this.channel.send(text);
-			const responses = await this.channel.awaitMessages(msg => msg.author === this.author, { time, max: 1 });
-			message.delete();
-			if (responses.size === 0) throw this.language.get("MESSAGE_PROMPT_TIMEOUT");
-			return responses.first();
+			return this.channel.readable && this.channel.permissionsFor(this.guild.me).has([FLAGS.ADD_REACTIONS, FLAGS.READ_MESSAGE_HISTORY], false);
 		}
 
 		/**
@@ -249,7 +230,7 @@ module.exports = Structures.extend("Message", Message => {
 
 		/**
 		 * Sends a message that will be editable via command editing (if nothing is attached)
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @param {string} key The Language key to send
 		 * @param {Array<*>} [localeArgs] The language arguments to pass
 		 * @param {external:MessageOptions} [options] The D.JS message options plus Language arguments
@@ -262,18 +243,19 @@ module.exports = Structures.extend("Message", Message => {
 
 		/**
 		 * Since d.js is dumb and has 2 patch methods, this is for edits
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @param {*} data The data passed from the original constructor
 		 * @private
 		 */
 		patch(data) {
 			super.patch(data);
 			this.language = this.guild ? this.guild.language : this.client.languages.default;
+			this._parseCommand();
 		}
 
 		/**
 		 * Extends the patch method from D.JS to attach and update the language to this instance
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @param {*} data The data passed from the original constructor
 		 * @private
 		 */
@@ -282,36 +264,128 @@ module.exports = Structures.extend("Message", Message => {
 
 			/**
 			 * The language in this setting
-			 * @since 0.3.0
+			 * @since 0.0.1
 			 * @type {Language}
 			 */
 			this.language = this.guild ? this.guild.language : this.client.languages.default;
+
+			/**
+			 * The guild level settings for this context (guild || default)
+			 * @since 0.0.1
+			 * @type {Settings}
+			 */
+			this.guildSettings = this.guild ? this.guild.settings : this.client.gateways.guilds.defaults;
+
+			this._parseCommand();
 		}
 
 		/**
-		 * Register's this message as a Command Message
-		 * @since 0.5.0
-		 * @param {Object} commandInfo The info about the command and prefix used
-		 * @property {Command} command The command run
-		 * @property {RegExp} prefix The prefix used
-		 * @property {number} prefixLength The length of the prefix used
-		 * @returns {this}
+		 * Parses this message as a command
+		 * @since 0.0.1
 		 * @private
 		 */
-		_registerCommand({ command, prefix, prefixLength }) {
-			this.command = command;
-			this.prefix = prefix;
-			this.prefixLength = prefixLength;
-			this.prompter = this.command.usage.createPrompt(this, {
-				quotedStringSupport: this.command.quotedStringSupport,
-				time: this.command.promptTime,
-				limit: this.command.promptLimit
-			});
-			this.client.emit("commandRun", this, this.command, this.args);
-			return this;
+		_parseCommand() {
+			// Clear existing command state so edits to non-commands do not re-run commands
+			this.prefix = null;
+			this.prefixLength = null;
+			this.commandText = null;
+			this.command = null;
+			this.prompter = null;
+
+			try {
+				const prefix = this._mentionPrefix() || this._customPrefix() || this._naturalPrefix() || this._prefixLess();
+
+				if (!prefix) return;
+
+				this.prefix = prefix.regex;
+				this.prefixLength = prefix.length;
+				this.commandText = this.content.slice(prefix.length).trim().split(" ")[0].toLowerCase();
+				this.command = this.client.commands.get(this.commandText) || null;
+
+				if (!this.command) return;
+
+				this.prompter = this.command.usage.createPrompt(this, {
+					flagSupport: this.command.flagSupport,
+					quotedStringSupport: this.command.quotedStringSupport,
+					time: this.command.promptTime,
+					limit: this.command.promptLimit
+				});
+			} catch (error) {
+
+			}
+		}
+
+		/**
+		 * Checks if the per-guild or default prefix is used
+		 * @since 0.0.1
+		 * @returns {CachedPrefix | null}
+		 * @private
+		 */
+		_customPrefix() {
+			if (!this.guildSettings.prefix) return null;
+			for (const prf of Array.isArray(this.guildSettings.prefix) ? this.guildSettings.prefix : [this.guildSettings.prefix]) {
+				const testingPrefix = this.constructor.prefixes.get(prf) || this.constructor.generateNewPrefix(prf, this.client.options.prefixCaseInsensitive ? "i" : "");
+				if (testingPrefix.regex.test(this.content)) return testingPrefix;
+			}
+			return null;
+		}
+
+		/**
+		 * Checks if the mention was used as a prefix
+		 * @since 0.0.1
+		 * @returns {CachedPrefix | null}
+		 * @private
+		 */
+		_mentionPrefix() {
+			const mentionPrefix = this.client.mentionPrefix.exec(this.content);
+			return mentionPrefix ? { length: mentionPrefix[0].length, regex: this.client.mentionPrefix } : null;
+		}
+
+		/**
+		 * Checks if the natural prefix is used
+		 * @since 0.0.1
+		 * @returns {CachedPrefix | null}
+		 * @private
+		 */
+		_naturalPrefix() {
+			if (this.guildSettings.disableNaturalPrefix || !this.client.options.regexPrefix) return null;
+			const results = this.client.options.regexPrefix.exec(this.content);
+			return results ? { length: results[0].length, regex: this.client.options.regexPrefix } : null;
+		}
+
+		/**
+		 * Checks if a prefixless scenario is possible
+		 * @since 0.0.1
+		 * @returns {CachedPrefix | null}
+		 * @private
+		 */
+		_prefixLess() {
+			return this.client.options.noPrefixDM && this.channel.type === "dm" ? { length: 0, regex: null } : null;
+		}
+
+		/**
+		 * Caches a new prefix regexp
+		 * @since 0.0.1
+		 * @param {string} prefix The prefix to store
+		 * @param {string} flags The flags for the RegExp
+		 * @returns {CachedPrefix}
+		 * @private
+		 */
+		static generateNewPrefix(prefix, flags) {
+			const prefixObject = { length: prefix.length, regex: new RegExp(`^${regExpEsc(prefix)}`, flags) };
+			this.prefixes.set(prefix, prefixObject);
+			return prefixObject;
 		}
 
 	}
+
+	/**
+	 * Cache of RegExp prefixes
+	 * @since 0.0.1
+	 * @type {Map<string, CachedPrefix>}
+	 * @private
+	 */
+	KlasaMessage.prefixes = new Map();
 
 	return KlasaMessage;
 });

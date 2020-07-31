@@ -1,10 +1,7 @@
-// Copyright 2017-2019 dirigeants - MIT License
-
 const { Permissions } = require("discord.js");
 const AliasPiece = require("./base/AliasPiece");
 const Usage = require("../usage/Usage");
 const CommandUsage = require("../usage/CommandUsage");
-const RateLimitManager = require("../util/RateLimitManager");
 const { isFunction } = require("../util/util");
 
 /**
@@ -30,6 +27,7 @@ class Command extends AliasPiece {
 	 * @property {boolean} [deletable=false] If the responses should be deleted if the triggering message is deleted
 	 * @property {(string|Function)} [description=''] The help description for the command
 	 * @property {ExtendedHelp} [extendedHelp] Extended help strings
+	 * @property {boolean} [flagSupport=true] Whether flags should be parsed or not
 	 * @property {boolean} [guarded=false] If the command can be disabled on a guild level (does not effect global disable)
 	 * @property {boolean} [hidden=false] If the command should be hidden
 	 * @property {boolean} [nsfw=false] If the command should only run in nsfw channels
@@ -46,14 +44,13 @@ class Command extends AliasPiece {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa Client
 	 * @param {CommandStore} store The Command store
 	 * @param {Array} file The path from the pieces folder to the command file
 	 * @param {string} directory The base directory to the pieces folder
 	 * @param {CommandOptions} [options={}] Optional Command settings
 	 */
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
 
 		this.name = this.name.toLowerCase();
 
@@ -72,7 +69,7 @@ class Command extends AliasPiece {
 
 		/**
 		 * Whether this command should have it's responses deleted if the triggering message is deleted
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.deletable = options.deletable;
@@ -108,21 +105,21 @@ class Command extends AliasPiece {
 
 		/**
 		 * Whether this command should not be able to be disabled in a guild or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.guarded = options.guarded;
 
 		/**
 		 * Whether this command is hidden or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.hidden = options.hidden;
 
 		/**
 		 * Whether this command should only run in NSFW channels or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.nsfw = options.nsfw;
@@ -136,21 +133,28 @@ class Command extends AliasPiece {
 
 		/**
 		 * The number or attempts allowed for re-prompting an argument
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.promptLimit = options.promptLimit;
 
 		/**
 		 * The time allowed for re-prompting of this command
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.promptTime = options.promptTime;
 
 		/**
+		 * Whether to use flag support for this command or not
+		 * @since 0.0.1
+		 * @type {boolean}
+		 */
+		this.flagSupport = options.flagSupport;
+
+		/**
 		 * Whether to use quoted string support for this command or not
-		 * @since 0.2.1
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.quotedStringSupport = options.quotedStringSupport;
@@ -171,7 +175,7 @@ class Command extends AliasPiece {
 
 		/**
 		 * Whether to enable subcommands or not
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.subcommands = options.subcommands;
@@ -181,11 +185,11 @@ class Command extends AliasPiece {
 		 * @since 0.0.1
 		 * @type {CommandUsage}
 		 */
-		this.usage = new CommandUsage(client, options.usage, options.usageDelim, this);
+		this.usage = new CommandUsage(this.client, options.usage, options.usageDelim, this);
 
 		/**
 		 * The level at which cooldowns should apply
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {string}
 		 */
 		this.cooldownLevel = options.cooldownLevel;
@@ -193,32 +197,18 @@ class Command extends AliasPiece {
 		if (!["author", "channel", "guild"].includes(this.cooldownLevel)) throw new Error("Invalid cooldownLevel");
 
 		/**
-		 * Any active cooldowns for the command
+		 * The number of times this command can be run before ratelimited by the cooldown
 		 * @since 0.0.1
-		 * @type {RateLimitManager}
-		 * @private
+		 * @type {number}
 		 */
-		this.cooldowns = new RateLimitManager(options.bucket, options.cooldown * 1000);
-	}
+		this.bucket = options.bucket;
 
-	/**
-	 * The number of times this command can be run before ratelimited by the cooldown
-	 * @since 0.5.0
-	 * @type {number}
-	 * @readonly
-	 */
-	get bucket() {
-		return this.cooldowns.bucket;
-	}
-
-	/**
-	 * The cooldown in seconds this command has
-	 * @since 0.0.1
-	 * @type {number}
-	 * @readonly
-	 */
-	get cooldown() {
-		return this.cooldowns.cooldown / 1000;
+		/**
+		 * The amount of time before the users can run the command again in seconds based on cooldownLevel
+		 * @since 0.0.1
+		 * @type {number}
+		 */
+		this.cooldown = options.cooldown;
 	}
 
 	/**
@@ -273,7 +263,7 @@ class Command extends AliasPiece {
 
 	/**
 	 * Registers a one-off custom resolver. See tutorial {@link CommandsCustomResolvers}
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} type The type of the usage argument
 	 * @param {Function} resolver The one-off custom resolver
 	 * @returns {this}
@@ -286,7 +276,7 @@ class Command extends AliasPiece {
 
 	/**
 	 * Customizes the response of an argument if it fails resolution. See tutorial {@link CommandsCustomResponses}
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} name The name of the usage argument
 	 * @param {(string|Function)} response The custom response or i18n function
 	 * @returns {this}

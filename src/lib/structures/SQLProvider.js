@@ -15,7 +15,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * The addColumn method which inserts/creates a new table to the database.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} table The table to check against
 	 * @param {(SchemaFolder | SchemaPiece)} piece The SchemaFolder or SchemaPiece added to the schema
 	 * @returns {*}
@@ -27,7 +27,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * The removeColumn method which inserts/creates a new table to the database.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} table The table to check against
 	 * @param {string[]} columns The column names to remove
 	 * @returns {*}
@@ -39,7 +39,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * The updateColumn method which alters the datatype from a column.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} table The table to check against
 	 * @param {SchemaPiece} piece The modified SchemaPiece
 	 * @returns {*}
@@ -51,7 +51,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * The getColumns method which gets the name of all columns.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} table The table to check against
 	 * @returns {string[]}
 	 * @abstract
@@ -62,7 +62,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * Parse the gateway input for easier operation
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(SettingsUpdateResultEntry[]|Array<Array<string>>|Object<string, *>)} [updated] The updated entries
 	 * @param {boolean} [resolve=true] Whether this should resolve the values using QueryBuilder#resolve or not
 	 * @returns {Array<any[]>}
@@ -92,7 +92,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * Parses an entry
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(string|Gateway)} gateway The gateway with the schema to parse
 	 * @param {Object} entry An entry to parse
 	 * @returns {Object}
@@ -113,7 +113,7 @@ class SQLProvider extends Provider {
 
 	/**
 	 * Parse SQL values.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} value The value to parse
 	 * @param {SchemaPiece} schemaPiece The SchemaPiece this is parsing inner keys for
 	 * @returns {*}

@@ -11,13 +11,16 @@ class TextPrompt {
 
 	/**
 	 * @typedef {Object} TextPromptOptions
+	 * @property {KlasaUser} [target=message.author] The intended target of this TextPrompt, if someone other than the author
+	 * @property {external:TextBasedChannel} [channel=message.channel] The channel to prompt in, if other than this channel
 	 * @property {number} [limit=Infinity] The number of re-prompts before this TextPrompt gives up
 	 * @property {number} [time=30000] The time-limit for re-prompting
 	 * @property {boolean} [quotedStringSupport=false] Whether this prompt should respect quoted strings
+	 * @property {boolean} [flagSupport=true] Whether this prompt should respect flags
 	 */
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message this prompt is for
 	 * @param {Usage} usage The usage for this prompt
 	 * @param {TextPromptOptions} [options={}] The options of this prompt
@@ -27,7 +30,7 @@ class TextPrompt {
 
 		/**
 		 * The client this TextPrompt was created with
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name TextPrompt#client
 		 * @type {KlasaClient}
 		 * @readonly
@@ -36,14 +39,28 @@ class TextPrompt {
 
 		/**
 		 * The message this prompt is for
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {KlasaMessage}
 		 */
 		this.message = message;
 
 		/**
+		 * The target this prompt is for
+		 * @since 0.0.1
+		 * @type {KlasaUser}
+		 */
+		this.target = options.target || message.author;
+
+		/**
+		 * The channel to prompt in
+		 * @since 0.0.1
+		 * @type {external:TextBasedChannel}
+		 */
+		this.channel = options.channel || message.channel;
+
+		/**
 		 * The usage for this prompt
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Usage|CommandUsage}
 		 */
 		this.usage = usage;
@@ -57,7 +74,7 @@ class TextPrompt {
 
 		/**
 		 * The flag arguments resolved by this class
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Object}
 		 */
 		this.flags = {};
@@ -78,24 +95,31 @@ class TextPrompt {
 
 		/**
 		 * The time-limit for re-prompting
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.time = options.time;
 
 		/**
 		 * The number of re-prompts before this TextPrompt gives up
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.limit = options.limit;
 
 		/**
 		 * Whether this prompt should respect quoted strings
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.quotedStringSupport = options.quotedStringSupport;
+
+		/**
+		 * Whether this prompt should respect flags
+		 * @since 0.0.1
+		 * @type {boolean}
+		 */
+		this.flagSupport = options.flagSupport;
 
 		/**
 		 * Whether the current usage is a repeating arg
@@ -131,7 +155,7 @@ class TextPrompt {
 
 		/**
 		 * A cache of the users responses
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type external:Collection
 		 */
 		this.responses = new Collection();
@@ -139,20 +163,34 @@ class TextPrompt {
 
 	/**
 	 * Runs the custom prompt.
-	 * @since 0.5.0
-	 * @param {string} prompt The message to initially prompt with
+	 * @since 0.0.1
+	 * @param {StringResolvable | MessageOptions | MessageAdditions | APIMessage} prompt The message to initially prompt with
 	 * @returns {any[]} The parameters resolved
 	 */
 	async run(prompt) {
-		const message = await this.message.prompt(prompt, this.time);
+		const message = await this.prompt(prompt);
 		this.responses.set(message.id, message);
 		this._setup(message.content);
 		return this.validateArgs();
 	}
 
 	/**
+	 * Prompts the target for a response
+	 * @param {StringResolvable | MessageOptions | MessageAdditions | APIMessage} text The text to prompt
+	 * @returns {KlasaMessage}
+	 * @private
+	 */
+	async prompt(text) {
+		const message = await this.channel.send(text);
+		const responses = await message.channel.awaitMessages(msg => msg.author === this.target, { time: this.time, max: 1 });
+		message.delete();
+		if (responses.size === 0) throw this.message.language.get("MESSAGE_PROMPT_TIMEOUT");
+		return responses.first();
+	}
+
+	/**
 	 * Collects missing required arguments.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} prompt The reprompt error
 	 * @returns {any[]}
 	 * @private
@@ -161,14 +199,13 @@ class TextPrompt {
 		this._prompted++;
 		if (this.typing) this.message.channel.stopTyping();
 		const possibleAbortOptions = this.message.language.get("TEXT_PROMPT_ABORT_OPTIONS");
-		const message = await this.message.prompt(
-			this.message.language.get("MONITOR_COMMAND_HANDLER_REPROMPT", `<@!${this.message.author.id}>`, prompt, this.time / 1000, possibleAbortOptions),
-			this.time
+		const edits = this.message.edits.length;
+		const message = await this.prompt(
+			this.message.language.get("MONITOR_COMMAND_HANDLER_REPROMPT", `<@!${this.target.id}>`, prompt, this.time / 1000, possibleAbortOptions)
 		);
+		if (this.message.edits.length !== edits || message.prefix || possibleAbortOptions.includes(message.content.toLowerCase())) throw this.message.language.get("MONITOR_COMMAND_HANDLER_ABORTED");
 
 		this.responses.set(message.id, message);
-
-		if (possibleAbortOptions.includes(message.content.toLowerCase())) throw this.message.language.get("MONITOR_COMMAND_HANDLER_ABORTED");
 
 		if (this.typing) this.message.channel.startTyping();
 		this.args[this.args.lastIndexOf(null)] = message.content;
@@ -180,7 +217,7 @@ class TextPrompt {
 
 	/**
 	 * Collects repeating arguments.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {any[]}
 	 * @private
 	 */
@@ -189,9 +226,8 @@ class TextPrompt {
 		let message;
 		const possibleCancelOptions = this.message.language.get("TEXT_PROMPT_ABORT_OPTIONS");
 		try {
-			message = await this.message.prompt(
-				this.message.language.get("MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT", `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions),
-				this.time
+			message = await this.prompt(
+				this.message.language.get("MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT", `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions)
 			);
 			this.responses.set(message.id, message);
 		} catch (err) {
@@ -273,7 +309,7 @@ class TextPrompt {
 
 	/**
 	 * Pushes a parameter into this.params, and resets the re-prompt count.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {any} param The resolved parameter
 	 * @returns {any[]}
 	 * @private
@@ -285,7 +321,7 @@ class TextPrompt {
 
 	/**
 	 * Decides if the prompter should reprompt or throw the error found while validating.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} err The error found while validating
 	 * @returns {any[]}
 	 * @private
@@ -298,7 +334,7 @@ class TextPrompt {
 
 	/**
 	 * Finalizes parameters and arguments for this prompt.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {any[]}
 	 * @private
 	 */
@@ -310,13 +346,13 @@ class TextPrompt {
 
 	/**
 	 * Splits the original message string into arguments.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} original The original message string
 	 * @returns {void}
 	 * @private
 	 */
 	_setup(original) {
-		const { content, flags } = this.constructor.getFlags(original, this.usage.usageDelim);
+		const { content, flags } = this.flagSupport ? this.constructor.getFlags(original, this.usage.usageDelim) : { content: original, flags: {} };
 		this.flags = flags;
 		this.args = this.quotedStringSupport ?
 			this.constructor.getQuotedStringArgs(content, this.usage.usageDelim).map(arg => arg.trim()) :
@@ -325,7 +361,7 @@ class TextPrompt {
 
 	/**
 	 * Parses a message into string args
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} content The remaining content
 	 * @param {string} delim The delimiter
 	 * @returns {Object}
@@ -391,7 +427,7 @@ class TextPrompt {
 
 	/**
 	 * Generate a new delimiter's RegExp and cache it
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} delim The delimiter
 	 * @returns {RegExp}
 	 * @private
@@ -406,7 +442,7 @@ class TextPrompt {
 
 /**
  * Map of RegExps caching usageDelim's RegExps.
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Map<string, RegExp>}
  * @static
  * @private
@@ -415,7 +451,7 @@ TextPrompt.delims = new Map();
 
 /**
  * Regular Expression to match flags with quoted string support.
- * @since 0.5.0
+ * @since 0.0.1
  * @type {RegExp}
  * @static
  */

@@ -22,7 +22,7 @@ class Colors {
 	/**
 	 * Constructs our Colors instance
 	 * @param {ColorsFormatOptions} [options = {}] The options for this format
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 */
 	constructor(options = {}) {
 		const { opening, closing } = this.constructor.text(options.text, this.constructor.background(options.background, this.constructor.style(options.style)));
@@ -30,21 +30,21 @@ class Colors {
 		/**
 		 * The opening tags
 		 * @type {string}
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 */
 		this.opening = this.constructor.useColors ? `\u001B[${opening.join(";")}m` : "";
 
 		/**
 		 * The closing tags
 		 * @type {string}
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 */
 		this.closing = this.constructor.useColors ? `\u001B[${closing.join(";")}m` : "";
 	}
 
 	/**
 	 * Format a string
-	 * @since 0.4.0
+	 * @since 0.0.1
 	 * @param {string} string The string to format
 	 * @returns {string}
 	 */
@@ -54,7 +54,7 @@ class Colors {
 
 	/**
 	 * Apply the style
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(string|string[])} [styles] The style or styles to apply
 	 * @param {ColorsFormatData} [data={}] The data
 	 * @returns {ColorsFormatData}
@@ -75,7 +75,7 @@ class Colors {
 
 	/**
 	 * Apply the background
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} [background] The background to apply
 	 * @param {ColorsFormatData} [data={}] The data
 	 * @returns {ColorsFormatData}
@@ -91,7 +91,7 @@ class Colors {
 
 	/**
 	 * Apply the text format
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} [text] The text format to apply
 	 * @param {ColorsFormatData} [data={}] The data
 	 * @returns {ColorsFormatData}

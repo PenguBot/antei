@@ -17,13 +17,13 @@ class GatewayDriver {
 	 */
 
 	/**
-	 * @since 0.3.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
 		/**
 		 * The client this GatewayDriver was created with.
-		 * @since 0.3.0
+		 * @since 0.0.1
 		 * @name GatewayDriver#client
 		 * @type {KlasaClient}
 		 * @readonly
@@ -32,7 +32,7 @@ class GatewayDriver {
 
 		/**
 		 * The register creation queue.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name GatewayDriver#_queue
 		 * @type {Array<Function>}
 		 * @readonly
@@ -68,7 +68,7 @@ class GatewayDriver {
 
 	/**
 	 * Registers a new Gateway.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} name The name for the new gateway
 	 * @param {GatewayDriverRegisterOptions} [options = {}] The options for the new gateway
 	 * @returns {this}
@@ -89,7 +89,7 @@ class GatewayDriver {
 
 	/**
 	 * Initializes all gateways from the queue
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	async init() {
 		await Promise.all([...this._queue].map(fn => fn()));
@@ -98,7 +98,7 @@ class GatewayDriver {
 
 	/**
 	 * Sync all gateways
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(string|string[])} input The arguments to pass to each Gateway#sync
 	 * @returns {Promise<Array<Gateway>>}
 	 */
@@ -109,7 +109,7 @@ class GatewayDriver {
 	/**
 	 * Returns a new Iterator object that contains the values for each gateway contained in this driver.
 	 * @name @@iterator
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @method
 	 * @instance
 	 * @generator
@@ -123,7 +123,7 @@ class GatewayDriver {
 
 	/**
 	 * The GatewayDriver with all gateways, types and keys as JSON.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {Object}
 	 */
 	toJSON() {
@@ -136,7 +136,7 @@ class GatewayDriver {
 
 	/**
 	 * The stringified GatewayDriver with all the managed gateways.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {

@@ -11,7 +11,7 @@ class LanguageStore extends Store {
 
 	/**
 	 * Constructs our LanguageStore for use in Klasa
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
@@ -20,7 +20,7 @@ class LanguageStore extends Store {
 
 	/**
 	 * The default language set in {@link KlasaClientOptions.language}
-	 * @since 0.2.1
+	 * @since 0.0.1
 	 * @type {?Language}
 	 * @readonly
 	 */

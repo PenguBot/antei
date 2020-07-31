@@ -6,21 +6,21 @@
 class RateLimit {
 
 	/**
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {number} bucket The number of requests before this is limited
 	 * @param {number} cooldown The amount of milliseconds for the ratelimit to expire
 	 */
 	constructor(bucket, cooldown) {
 		/**
 		 * The number of requests before this is limited
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.bucket = bucket;
 
 		/**
 		 * The amount of milliseconds for the ratelimit to expire
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.cooldown = cooldown;
@@ -30,7 +30,7 @@ class RateLimit {
 
 	/**
 	 * Whether this RateLimit is expired or not, allowing the bucket to be reset
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {boolean}
 	 * @readonly
 	 */
@@ -40,7 +40,7 @@ class RateLimit {
 
 	/**
 	 * Whether this RateLimit is limited or not
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {boolean}
 	 * @readonly
 	 */
@@ -50,7 +50,7 @@ class RateLimit {
 
 	/**
 	 * The remaining time in milliseconds before this RateLimit instance is reset
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {number}
 	 * @readonly
 	 */
@@ -60,7 +60,7 @@ class RateLimit {
 
 	/**
 	 * Drips the RateLimit bucket
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	drip() {
@@ -73,7 +73,7 @@ class RateLimit {
 
 	/**
 	 * Resets the RateLimit back to it's full state
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	reset() {
@@ -82,13 +82,13 @@ class RateLimit {
 
 	/**
 	 * Resets the RateLimit's remaining uses back to full state
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	resetRemaining() {
 		/**
 		 * The remaining times this RateLimit can be dripped before the RateLimit bucket is empty
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 * @private
 		 */
@@ -99,13 +99,13 @@ class RateLimit {
 
 	/**
 	 * Resets the RateLimit's reset time back to full state
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {this}
 	 */
 	resetTime() {
 		/**
 		 * When this RateLimit is reset back to a full state
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 * @private
 		 */

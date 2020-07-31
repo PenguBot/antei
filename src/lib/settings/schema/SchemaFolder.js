@@ -5,7 +5,7 @@ const Schema = require("./Schema");
 /**
  * A Folder for organizing {@link SchemaPiece}s
  * @extends Schema
- * @since 0.5.0
+ * @since 0.0.1
  */
 class SchemaFolder extends Schema {
 
@@ -18,7 +18,7 @@ class SchemaFolder extends Schema {
 
 		/**
 		 * The parent of this SchemaFolder
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name SchemaFolder#parent
 		 * @type {Schema|SchemaFolder}
 		 * @readonly
@@ -27,7 +27,7 @@ class SchemaFolder extends Schema {
 
 		/**
 		 * The name of this SchemaFolder
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name SchemaFolder#key
 		 * @type {string}
 		 * @readonly

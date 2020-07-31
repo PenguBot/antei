@@ -23,7 +23,7 @@ class GatewayStorage {
 
 	/**
 	 * <warning>You should never create an instance of this class as it's abstract.</warning>
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaClient} client The client this GatewayStorage was created with
 	 * @param {string} type The name of this GatewayStorage
 	 * @param {Schema} schema The schema for this gateway
@@ -33,7 +33,7 @@ class GatewayStorage {
 	constructor(client, type, schema, provider) {
 		/**
 		 * The client this GatewayStorage was created with.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name GatewayStorage#client
 		 * @type {KlasaClient}
 		 * @readonly
@@ -42,7 +42,7 @@ class GatewayStorage {
 
 		/**
 		 * The type of this GatewayStorage.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name GatewayStorage#type
 		 * @type {string}
 		 * @readonly
@@ -51,7 +51,7 @@ class GatewayStorage {
 
 		/**
 		 * The name of this instance's provider.
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @name GatewayStorage#providerName
 		 * @type {string}
 		 * @readonly
@@ -59,13 +59,13 @@ class GatewayStorage {
 		Object.defineProperty(this, "providerName", { value: provider || this.client.options.providers.default });
 
 		/**
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {Schema}
 		 */
 		this.schema = schema;
 
 		/**
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {boolean}
 		 */
 		this.ready = false;
@@ -73,7 +73,7 @@ class GatewayStorage {
 
 	/**
 	 * Get the provider that manages the persistent data.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {?Provider}
 	 * @readonly
 	 */
@@ -83,7 +83,7 @@ class GatewayStorage {
 
 	/**
 	 * Get this gateway's defaults.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {Object}
 	 * @readonly
 	 */
@@ -93,7 +93,7 @@ class GatewayStorage {
 
 	/**
 	 * Resolve a path from a string.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} [key=null] A string to resolve
 	 * @param {GatewayGetPathOptions} [options={}] Whether the Gateway should avoid configuring the selected key
 	 * @returns {?GatewayGetPathResult}
@@ -141,7 +141,7 @@ class GatewayStorage {
 
 	/**
 	 * Inits the current Gateway.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 */
 	async init() {
 		// A gateway must not init twice
@@ -184,7 +184,7 @@ class GatewayStorage {
 
 	/**
 	 * Get a JSON object containing the schema and options.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {GatewayJSON}
 	 */
 	toJSON() {
@@ -197,7 +197,7 @@ class GatewayStorage {
 
 	/**
 	 * Stringify a value or the instance itself.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @returns {string}
 	 */
 	toString() {

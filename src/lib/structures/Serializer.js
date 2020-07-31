@@ -13,7 +13,7 @@ class Serializer extends AliasPiece {
 
 	/**
 	 * The serialize method to be overwritten in actual Serializers
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} data The data to serialize
 	 * @returns {string|number|boolean}
 	 */
@@ -23,7 +23,7 @@ class Serializer extends AliasPiece {
 
 	/**
 	 * The deserialize method to be overwritten in actual Serializers
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} data The data to deserialize
 	 * @param {SchemaPiece} piece The SchemaPiece we are deserializing for.
 	 * @param {Language} language The language to use when responding.
@@ -37,7 +37,7 @@ class Serializer extends AliasPiece {
 
 	/**
 	 * The stringify method to be overwritten in actual Serializers
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {*} data The data to stringify
 	 * @returns {string}
 	 */
@@ -49,7 +49,7 @@ class Serializer extends AliasPiece {
 
 /**
  * Standard regular expressions for matching mentions and snowflake ids
- * @since 0.5.0
+ * @since 0.0.1
  * @type {Object<string,RegExp>}
  * @property {RegExp} userOrMember Regex for users or members
  * @property {RegExp} channel Regex for channels

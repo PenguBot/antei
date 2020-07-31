@@ -12,7 +12,7 @@ class Finalizer extends Piece {
 
 	/**
 	 * Run a finalizer and catch any uncaught promises
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {KlasaMessage} message The message that called the command
 	 * @param {Command} command The command this finalizer is for (may be different than message.command)
 	 * @param {?KlasaMessage|KlasaMessage[]} response The bot's response message, if one is returned

@@ -11,6 +11,9 @@ Antei Framework for PenguBot
 [![PayPal Donate](https://img.shields.io/badge/paypal-donate-brightgreen.svg?label=Donate%20with%20Paypal&logo=paypal&colorB=00457C&style=flat-square&link=https://paypal.me/adityatripathid)](https://paypal.me/adityatripathid)
 </div>
 
+## Support
+[![Support](https://i.imgur.com/H1MveyG.png?2)](https://ko-fi.com/AdityaTD)
+
 ## Credits
 This project is based on [dirigeants/klasa](https://github.com/dirigeants/klasa)
 

@@ -55,13 +55,13 @@ class Duration {
 
 	/**
 	 * Create a new Duration instance
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} pattern The string to parse
 	 */
 	constructor(pattern) {
 		/**
 		 * The offset
-		 * @since 0.5.0
+		 * @since 0.0.1
 		 * @type {number}
 		 */
 		this.offset = this.constructor._parse(pattern.toLowerCase());
@@ -69,7 +69,7 @@ class Duration {
 
 	/**
 	 * Get the date from now
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @type {date}
 	 * @readonly
 	 */
@@ -79,7 +79,7 @@ class Duration {
 
 	/**
 	 * Get the date from
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {date} date The Date instance to get the date from
 	 * @returns {date}
 	 */
@@ -89,7 +89,7 @@ class Duration {
 
 	/**
 	 * Parse the pattern
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {string} pattern The pattern to parse
 	 * @returns {number}
 	 * @private
@@ -114,7 +114,7 @@ class Duration {
 
 	/**
 	 * Shows the user friendly duration of time between a period and now.
-	 * @since 0.5.0
+	 * @since 0.0.1
 	 * @param {(date|number|string)} earlier The time to compare
 	 * @param {boolean} [showIn] Whether the output should be prefixed
 	 * @returns {string}
@@ -154,7 +154,7 @@ module.exports = Duration;
 
 /**
  * The RegExp used for the pattern parsing
- * @since 0.5.0
+ * @since 0.0.1
  * @type {RegExp}
  * @static
  * @private
@@ -163,7 +163,7 @@ Duration.regex = /(-?\d*\.?\d+(?:e[-+]?\d+)?)\s*([a-zμ]*)/ig;
 
 /**
  * The RegExp used for removing commas
- * @since 0.5.0
+ * @since 0.0.1
  * @type {RegExp}
  * @static
  * @private
@@ -172,7 +172,7 @@ Duration.commas = /,/g;
 
 /**
  * The RegExp used for replacing a/an with 1
- * @since 0.5.0
+ * @since 0.0.1
  * @type {RegExp}
  * @static
  * @private
