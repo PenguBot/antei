@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { MessageEmbed: Embed } = require('discord.js');
 const ReactionHandler = require('./ReactionHandler');
 

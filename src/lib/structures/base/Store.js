@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { join, extname, relative, sep } = require('path');
 const { Collection } = require('discord.js');
 const fs = require('fs-nextra');

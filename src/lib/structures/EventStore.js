@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Event = require('./Event');
 const Store = require('./base/Store');
 

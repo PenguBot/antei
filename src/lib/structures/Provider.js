@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Piece = require('./base/Piece');
 const { isObject, mergeObjects, makeObject } = require('../util/util');
 

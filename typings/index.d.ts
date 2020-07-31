@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 declare module 'klasa' {
 
 	import { ExecOptions } from 'child_process';

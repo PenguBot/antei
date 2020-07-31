@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Collection } = require('discord.js');
 const RateLimit = require('./RateLimit');
 

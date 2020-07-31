@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Language = require('./Language');
 const Store = require('./base/Store');
 

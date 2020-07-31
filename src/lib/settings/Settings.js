@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { isObject, deepClone, toTitleCase, arraysStrictEquals, objectToTuples, resolveGuild } = require('../util/util');
 const Type = require('../util/Type');
 const SchemaPiece = require('./schema/SchemaPiece');

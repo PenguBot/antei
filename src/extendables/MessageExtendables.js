@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Extendable } = require('klasa');
 const { Permissions: { FLAGS }, DMChannel, TextChannel } = require('discord.js');
 

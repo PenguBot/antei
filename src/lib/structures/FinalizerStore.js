@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Finalizer = require('./Finalizer');
 const Store = require('./base/Store');
 

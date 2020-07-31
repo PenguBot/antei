@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Command, Stopwatch, Type, util } = require('klasa');
 const { inspect } = require('util');
 

@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { promisify } = require('util');
 const { exec } = require('child_process');
 const { Guild, GuildChannel, Message } = require('discord.js');

@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const GatewayStorage = require('./GatewayStorage');
 const Settings = require('./Settings');
 const { Collection } = require('discord.js');

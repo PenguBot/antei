@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { mergeDefault } = require('../../util/util');
 const { join } = require('path');
 

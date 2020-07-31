@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Structures } = require('discord.js');
 
 module.exports = Structures.extend('Guild', Guild => {

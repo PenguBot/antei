@@ -1,3 +1,6 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
+
 const { Language, util } = require('klasa');
 
 module.exports = class extends Language {

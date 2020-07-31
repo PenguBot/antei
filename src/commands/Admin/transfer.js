@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Command } = require('klasa');
 const fs = require('fs-nextra');
 const { resolve, join } = require('path');

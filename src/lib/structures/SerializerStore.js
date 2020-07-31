@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Serializer = require('./Serializer');
 const AliasStore = require('./base/AliasStore');
 

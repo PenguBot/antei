@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { isObject, mergeDefault } = require('./util');
 const { DEFAULTS: { QUERYBUILDER } } = require('./constants');
 

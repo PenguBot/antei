@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Discord = require('discord.js');
 const { Permissions, Permissions: { FLAGS } } = Discord;
 const path = require('path');

@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const Provider = require('./Provider');
 const { deepClone, tryParse, makeObject, isObject, objectToTuples } = require('../util/util');
 const Gateway = require('../settings/Gateway');

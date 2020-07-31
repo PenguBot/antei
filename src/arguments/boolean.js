@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Argument } = require('klasa');
 const truths = ['1', 'true', '+', 't', 'yes', 'y'];
 const falses = ['0', 'false', '-', 'f', 'no', 'n'];

@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Monitor, Stopwatch, util: { regExpEsc } } = require('klasa');
 
 module.exports = class extends Monitor {

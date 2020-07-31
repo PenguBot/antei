@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { Permissions } = require('discord.js');
 const AliasPiece = require('./base/AliasPiece');
 const Usage = require('../usage/Usage');

@@ -1,3 +1,5 @@
+// Copyright 2017-2019 dirigeants - MIT License
+
 const { TIME: { DAY, CRON: { allowedNum, partRegex, wildcardRegex, predefined, tokens, tokensRegex } } } = require('./constants');
 
 /**
