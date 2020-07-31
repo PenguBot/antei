@@ -32,14 +32,14 @@ class Colors {
 		 * @type {string}
 		 * @since 0.5.0
 		 */
-		this.opening = this.constructor.useColors ? `\u001B[${opening.join(';')}m` : '';
+		this.opening = this.constructor.useColors ? `\u001B[${opening.join(";")}m` : "";
 
 		/**
 		 * The closing tags
 		 * @type {string}
 		 * @since 0.5.0
 		 */
-		this.closing = this.constructor.useColors ? `\u001B[${closing.join(';')}m` : '';
+		this.closing = this.constructor.useColors ? `\u001B[${closing.join(";")}m` : "";
 	}
 
 	/**

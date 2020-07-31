@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { performance } = require('perf_hooks');
+const { performance } = require("perf_hooks");
 
 /**
  * Klasa's Stopwatch class, uses native node to replicate/extend previous performance now dependency.

@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Event } = require('klasa');
+const { Event } = require("klasa");
 
 module.exports = class extends Event {
 
@@ -8,7 +8,7 @@ module.exports = class extends Event {
 		if (!guild.available) return;
 		if (this.client.settings.guildBlacklist.includes(guild.id)) {
 			guild.leave();
-			this.client.emit('warn', `Blacklisted guild detected: ${guild.name} [${guild.id}]`);
+			this.client.emit("warn", `Blacklisted guild detected: ${guild.name} [${guild.id}]`);
 		}
 	}
 

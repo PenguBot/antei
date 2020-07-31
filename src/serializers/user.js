@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Serializer } = require('klasa');
+const { Serializer } = require("klasa");
 
 module.exports = class extends Serializer {
 
@@ -9,7 +9,7 @@ module.exports = class extends Serializer {
 		if (user) return user;
 		if (this.constructor.regex.userOrMember.test(data)) user = await this.client.users.fetch(this.constructor.regex.userOrMember.exec(data)[1]).catch(() => null);
 		if (user) return user;
-		throw language.get('RESOLVER_INVALID_USER', piece.key);
+		throw language.get("RESOLVER_INVALID_USER", piece.key);
 	}
 
 	serialize(value) {

@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const GatewayStorage = require('./GatewayStorage');
-const Settings = require('./Settings');
-const { Collection } = require('discord.js');
+const GatewayStorage = require("./GatewayStorage");
+const Settings = require("./Settings");
+const { Collection } = require("discord.js");
 
 /**
  * <danger>You should never create a Gateway instance by yourself.
@@ -48,7 +48,7 @@ class Gateway extends GatewayStorage {
 		 * @type {boolean}
 		 * @private
 		 */
-		Object.defineProperty(this, '_synced', { value: false, writable: true });
+		Object.defineProperty(this, "_synced", { value: false, writable: true });
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Gateway extends GatewayStorage {
 		if (entry) return entry.settings;
 		if (create) {
 			const settings = new this.Settings(this, { id });
-			if (this._synced && this.schema.size) settings.sync(true).catch(err => this.client.emit('error', err));
+			if (this._synced && this.schema.size) settings.sync(true).catch(err => this.client.emit("error", err));
 			return settings;
 		}
 		return null;

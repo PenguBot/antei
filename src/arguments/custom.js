@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Argument } = require('klasa');
+const { Argument } = require("klasa");
 
 module.exports = class extends Argument {
 
@@ -10,7 +10,7 @@ module.exports = class extends Argument {
 			return resolved;
 		} catch (err) {
 			if (err) throw err;
-			throw message.language.get('RESOLVER_INVALID_CUSTOM', possible.name, possible.type);
+			throw message.language.get("RESOLVER_INVALID_CUSTOM", possible.name, possible.type);
 		}
 	}
 

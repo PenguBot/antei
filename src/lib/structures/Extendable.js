@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Extendables. See {@tutorial CreatingExtendables} for more information how to use this class
@@ -34,9 +34,9 @@ class Extendable extends Piece {
 		super(client, store, file, directory, options);
 
 		const staticPropertyNames = Object.getOwnPropertyNames(this.constructor)
-			.filter(name => !['length', 'prototype', 'name'].includes(name));
+			.filter(name => !["length", "prototype", "name"].includes(name));
 		const instancePropertyNames = Object.getOwnPropertyNames(this.constructor.prototype)
-			.filter(name => name !== 'constructor');
+			.filter(name => name !== "constructor");
 
 		/**
 		 * The static property descriptors of this extendable
@@ -96,7 +96,7 @@ class Extendable extends Piece {
 	 * @chainable
 	 */
 	disable() {
-		if (this.client.listenerCount('pieceDisabled')) this.client.emit('pieceDisabled', this);
+		if (this.client.listenerCount("pieceDisabled")) this.client.emit("pieceDisabled", this);
 		this.enabled = false;
 		for (const [structure, originals] of this.originals) {
 			Object.defineProperties(structure, originals.staticPropertyDescriptors);
@@ -113,7 +113,7 @@ class Extendable extends Piece {
 	 * @chainable
 	 */
 	enable(init = false) {
-		if (!init && this.client.listenerCount('pieceEnabled')) this.client.emit('pieceEnabled', this);
+		if (!init && this.client.listenerCount("pieceEnabled")) this.client.emit("pieceEnabled", this);
 		this.enabled = true;
 		for (const structure of this.originals.keys()) {
 			Object.defineProperties(structure, this.staticPropertyDescriptors);

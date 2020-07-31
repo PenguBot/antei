@@ -1,9 +1,9 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Provider = require('./Provider');
-const { deepClone, tryParse, makeObject, isObject, objectToTuples } = require('../util/util');
-const Gateway = require('../settings/Gateway');
-const Type = require('../util/Type');
+const Provider = require("./Provider");
+const { deepClone, tryParse, makeObject, isObject, objectToTuples } = require("../util/util");
+const Gateway = require("../settings/Gateway");
+const Type = require("../util/Type");
 
 /**
  * Base class for all Klasa SQL Providers. See {@tutorial CreatingSQLProviders} for more information how to use this class
@@ -71,7 +71,7 @@ class SQLProvider extends Provider {
 	parseUpdateInput(updated, resolve) {
 		if (!updated) return [[], []];
 		if (Array.isArray(updated)) {
-			const keys = new Array(updated.length), values = new Array(updated.length);
+			const keys = new Array(updated.length); const values = new Array(updated.length);
 			const [first] = updated;
 
 			// [[k1, v1], [k2, v2], ...]
@@ -100,7 +100,7 @@ class SQLProvider extends Provider {
 	 */
 	parseEntry(gateway, entry) {
 		if (!entry) return null;
-		if (typeof gateway === 'string') gateway = this.client.gateways[gateway];
+		if (typeof gateway === "string") gateway = this.client.gateways[gateway];
 		if (!(gateway instanceof Gateway)) return entry;
 
 		const object = { id: entry.id };
@@ -120,30 +120,30 @@ class SQLProvider extends Provider {
 	 * @protected
 	 */
 	parseValue(value, schemaPiece) {
-		if (typeof value === 'undefined') return deepClone(schemaPiece.default);
+		if (typeof value === "undefined") return deepClone(schemaPiece.default);
 		if (schemaPiece.array) {
 			if (value === null) return deepClone(schemaPiece.default);
-			if (typeof value === 'string') value = tryParse(value);
+			if (typeof value === "string") value = tryParse(value);
 			if (!Array.isArray(value)) throw new Error(`Could not parse ${value} to an array. Returned empty array instead.`);
 		} else {
 			const type = typeof value;
 			switch (schemaPiece.type) {
-				case 'any':
-					if (type === 'string') return tryParse(value);
+				case "any":
+					if (type === "string") return tryParse(value);
 					break;
-				case 'integer':
-					if (type === 'number') return value;
-					if (type === 'string') return Number(value);
+				case "integer":
+					if (type === "number") return value;
+					if (type === "string") return Number(value);
 					if (value instanceof Buffer) return Number(value[0]);
 					break;
-				case 'boolean':
-					if (type === 'boolean') return value;
-					if (type === 'number') return value === 1;
-					if (type === 'string') return value === 'true';
+				case "boolean":
+					if (type === "boolean") return value;
+					if (type === "number") return value === 1;
+					if (type === "string") return value === "true";
 					if (value instanceof Buffer) return Boolean(value[0]);
 					break;
-				case 'string':
-					if (type === 'string') return /^\s|\s$/.test(value) ? value.trim() : value;
+				case "string":
+					if (type === "string") return /^\s|\s$/.test(value) ? value.trim() : value;
 					return String(value);
 				// no default
 			}

@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const AliasPiece = require('./base/AliasPiece');
-const { MENTION_REGEX } = require('../util/constants');
+const AliasPiece = require("./base/AliasPiece");
+const { MENTION_REGEX } = require("../util/constants");
 
 /**
  * Base class for all Klasa Serializers. See {@tutorial CreatingSerializers} for more information how to use this class

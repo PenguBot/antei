@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Structures } = require('discord.js');
+const { Structures } = require("discord.js");
 
-module.exports = Structures.extend('Guild', Guild => {
+module.exports = Structures.extend("Guild", Guild => {
 	/**
 	 * Klasa's Extended Guild
 	 * @extends external:Guild

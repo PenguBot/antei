@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Usage = require('./Usage');
-const CommandPrompt = require('./CommandPrompt');
+const Usage = require("./Usage");
+const CommandPrompt = require("./CommandPrompt");
 
 /**
  * Converts usage strings into objects to compare against later
@@ -31,7 +31,7 @@ class CommandUsage extends Usage {
 		 * @since 0.0.1
 		 * @type {string}
 		 */
-		this.commands = this.names.length === 1 ? this.names[0] : `《${this.names.join('|')}》`;
+		this.commands = this.names.length === 1 ? this.names[0] : `《${this.names.join("|")}》`;
 
 		/**
 		 * The concatenated string of this.commands and this.deliminatedUsage
@@ -60,7 +60,7 @@ class CommandUsage extends Usage {
 	 */
 	fullUsage(message) {
 		let prefix = message.prefixLength ? message.content.slice(0, message.prefixLength) : message.guildSettings.prefix;
-		if (message.prefix === this.client.monitors.get('commandHandler').prefixMention) prefix = `@${this.client.user.tag}`;
+		if (message.prefix === this.client.monitors.get("commandHandler").prefixMention) prefix = `@${this.client.user.tag}`;
 		else if (Array.isArray(prefix)) [prefix] = prefix;
 		return `${prefix.length !== 1 ? `${prefix} ` : prefix}${this.nearlyFullUsage}`;
 	}

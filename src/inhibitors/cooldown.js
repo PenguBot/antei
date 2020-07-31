@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Inhibitor } = require('klasa');
+const { Inhibitor } = require("klasa");
 
 module.exports = class extends Inhibitor {
 
@@ -13,7 +13,7 @@ module.exports = class extends Inhibitor {
 
 		const existing = command.cooldowns.get(message.levelID);
 
-		if (existing && existing.limited) throw message.language.get('INHIBITOR_COOLDOWN', Math.ceil(existing.remainingTime / 1000));
+		if (existing && existing.limited) throw message.language.get("INHIBITOR_COOLDOWN", Math.ceil(existing.remainingTime / 1000));
 	}
 
 };

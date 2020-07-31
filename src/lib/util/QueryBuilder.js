@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { isObject, mergeDefault } = require('./util');
-const { DEFAULTS: { QUERYBUILDER } } = require('./constants');
+const { isObject, mergeDefault } = require("./util");
+const { DEFAULTS: { QUERYBUILDER } } = require("./constants");
 
 class QueryBuilder {
 
@@ -50,7 +50,7 @@ class QueryBuilder {
 		 * @readonly
 		 * @private
 		 */
-		Object.defineProperty(this, '_datatypes', { value: Object.seal(datatypes) });
+		Object.defineProperty(this, "_datatypes", { value: Object.seal(datatypes) });
 
 		/**
 		 * The array resolver for the SQL database
@@ -99,7 +99,7 @@ class QueryBuilder {
 	parse(schemaPiece) {
 		const datatype = this.get(schemaPiece.type);
 		const parsedDefault = this.parseValue(schemaPiece.default, schemaPiece, datatype);
-		const type = typeof datatype.type === 'function' ? datatype.type(schemaPiece) : datatype.type;
+		const type = typeof datatype.type === "function" ? datatype.type(schemaPiece) : datatype.type;
 		const parsedDatatype = schemaPiece.array ? datatype.array(type) : type;
 		return this.formatDatatype(schemaPiece.path, parsedDatatype, parsedDefault);
 	}
@@ -121,7 +121,7 @@ class QueryBuilder {
 
 		return schemaPiece.array ?
 			this.arrayResolver(value, schemaPiece, datatype.resolver || (() => value)) :
-			typeof datatype.resolver === 'function' ? datatype.resolver(value, schemaPiece) : value;
+			typeof datatype.resolver === "function" ? datatype.resolver(value, schemaPiece) : value;
 	}
 
 }

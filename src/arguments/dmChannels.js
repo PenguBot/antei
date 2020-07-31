@@ -1,15 +1,15 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { MultiArgument } = require('klasa');
+const { MultiArgument } = require("klasa");
 
 module.exports = class extends MultiArgument {
 
 	constructor(...args) {
-		super(...args, { aliases: ['...dmChannel'] });
+		super(...args, { aliases: ["...dmChannel"] });
 	}
 
 	get base() {
-		return this.store.get('dmChannel');
+		return this.store.get("dmChannel");
 	}
 
 };

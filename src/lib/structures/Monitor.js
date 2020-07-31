@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Monitors. See {@tutorial CreatingMonitors} for more information how to use this class
@@ -101,7 +101,7 @@ class Monitor extends Piece {
 		try {
 			await this.run(message);
 		} catch (err) {
-			this.client.emit('monitorError', message, this, err);
+			this.client.emit("monitorError", message, this, err);
 		}
 	}
 

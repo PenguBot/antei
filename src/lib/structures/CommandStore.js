@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Command = require('./Command');
-const AliasStore = require('./base/AliasStore');
+const Command = require("./Command");
+const AliasStore = require("./base/AliasStore");
 
 /**
  * Stores all the commands usable in Klasa
@@ -15,7 +15,7 @@ class CommandStore extends AliasStore {
 	 * @param {KlasaClient} client The Klasa Client
 	 */
 	constructor(client) {
-		super(client, 'commands', Command);
+		super(client, "commands", Command);
 	}
 
 }

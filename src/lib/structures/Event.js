@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Piece = require('./base/Piece');
+const Piece = require("./base/Piece");
 
 /**
  * Base class for all Klasa Events. See {@tutorial CreatingEvents} for more information how to use this class
@@ -40,7 +40,7 @@ class Event extends Piece {
 		 * @since 0.5.0
 		 * @type {EventEmitter}
 		 */
-		this.emitter = (typeof options.emitter === 'string' ? this.client[options.emitter] : options.emitter) || this.client;
+		this.emitter = (typeof options.emitter === "string" ? this.client[options.emitter] : options.emitter) || this.client;
 
 		/**
 		 * The event to listen for
@@ -103,7 +103,7 @@ class Event extends Piece {
 		try {
 			await this.run(...args);
 		} catch (err) {
-			this.client.emit('eventError', this, args, err);
+			this.client.emit("eventError", this, args, err);
 		}
 	}
 
@@ -127,7 +127,7 @@ class Event extends Piece {
 	 * @private
 	 */
 	_listen() {
-		this.emitter[this.once ? 'once' : 'on'](this.event, this._listener);
+		this.emitter[this.once ? "once" : "on"](this.event, this._listener);
 	}
 
 	/**

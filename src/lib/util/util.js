@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { promisify } = require('util');
-const { exec } = require('child_process');
-const { Guild, GuildChannel, Message } = require('discord.js');
+const { promisify } = require("util");
+const { exec } = require("child_process");
+const { Guild, GuildChannel, Message } = require("discord.js");
 
 const zws = String.fromCharCode(8203);
 let sensitivePattern;
@@ -29,7 +29,7 @@ class Util {
 	 * @private
 	 */
 	constructor() {
-		throw new Error('This class may not be initiated with new');
+		throw new Error("This class may not be initiated with new");
 	}
 
 	/**
@@ -50,7 +50,7 @@ class Util {
 	 * @returns {string}
 	 */
 	static clean(text) {
-		return text.replace(sensitivePattern, '「ｒｅｄａｃｔｅｄ」').replace(/`/g, `\`${zws}`).replace(/@/g, `@${zws}`);
+		return text.replace(sensitivePattern, "「ｒｅｄａｃｔｅｄ」").replace(/`/g, `\`${zws}`).replace(/@/g, `@${zws}`);
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Util {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	static initClean(client) {
-		sensitivePattern = new RegExp(Util.regExpEsc(client.token), 'gi');
+		sensitivePattern = new RegExp(Util.regExpEsc(client.token), "gi");
 	}
 
 	/**
@@ -70,7 +70,7 @@ class Util {
 	 * @returns {string}
 	 */
 	static toTitleCase(str) {
-		return str.replace(TOTITLECASE, (txt) => Util.titleCaseVariants[txt] || txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+		return str.replace(TOTITLECASE, txt => Util.titleCaseVariants[txt] || txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 	}
 
 	/**
@@ -80,7 +80,7 @@ class Util {
 	 * @returns {string}
 	 */
 	static regExpEsc(str) {
-		return str.replace(REGEXPESC, '\\$&');
+		return str.replace(REGEXPESC, "\\$&");
 	}
 
 	/**
@@ -91,8 +91,8 @@ class Util {
 	 * @returns {any[]}
 	 */
 	static chunk(entries, chunkSize) {
-		if (!Array.isArray(entries)) throw new TypeError('entries is not an array.');
-		if (!Number.isInteger(chunkSize)) throw new TypeError('chunkSize is not an integer.');
+		if (!Array.isArray(entries)) throw new TypeError("entries is not an array.");
+		if (!Number.isInteger(chunkSize)) throw new TypeError("chunkSize is not an integer.");
 		const clone = entries.slice();
 		const chunks = [];
 		while (clone.length) chunks.push(clone.splice(0, chunkSize));
@@ -150,7 +150,7 @@ class Util {
 	 * @returns {boolean}
 	 */
 	static isFunction(input) {
-		return typeof input === 'function';
+		return typeof input === "function";
 	}
 
 	/**
@@ -160,9 +160,9 @@ class Util {
 	 * @returns {boolean}
 	 */
 	static isClass(input) {
-		return typeof input === 'function' &&
-			typeof input.prototype === 'object' &&
-			input.toString().substring(0, 5) === 'class';
+		return typeof input === "function" &&
+			typeof input.prototype === "object" &&
+			input.toString().startsWith("class");
 	}
 
 	/**
@@ -182,7 +182,7 @@ class Util {
 	 * @returns {boolean}
 	 */
 	static isNumber(input) {
-		return typeof input === 'number' && !isNaN(input) && Number.isFinite(input);
+		return typeof input === "number" && !isNaN(input) && Number.isFinite(input);
 	}
 
 	/**
@@ -230,10 +230,10 @@ class Util {
 	 * @returns {*}
 	 */
 	static makeObject(path, value, obj = {}) {
-		if (path.indexOf('.') === -1) {
+		if (!path.includes(".")) {
 			obj[path] = value;
 		} else {
-			const route = path.split('.');
+			const route = path.split(".");
 			const lastKey = route.pop();
 			let reference = obj;
 			for (const key of route) {
@@ -252,7 +252,7 @@ class Util {
 	 * @param {string} [prefix=''] The prefix for the key
 	 * @returns {Array<Array<*>>}
 	 */
-	static objectToTuples(object, prefix = '') {
+	static objectToTuples(object, prefix = "") {
 		const entries = [];
 		for (const [key, value] of Object.entries(object)) {
 			if (Util.isObject(value)) {
@@ -293,7 +293,7 @@ class Util {
 	static mergeDefault(def, given) {
 		if (!given) return Util.deepClone(def);
 		for (const key in def) {
-			if (typeof given[key] === 'undefined') given[key] = Util.deepClone(def[key]);
+			if (typeof given[key] === "undefined") given[key] = Util.deepClone(def[key]);
 			else if (Util.isObject(given[key])) given[key] = Util.mergeDefault(def[key], given[key]);
 		}
 
@@ -310,11 +310,11 @@ class Util {
 	 */
 	static resolveGuild(client, guild) {
 		const type = typeof guild;
-		if (type === 'object' && guild !== null) {
+		if (type === "object" && guild !== null) {
 			if (guild instanceof Guild) return guild;
 			if ((guild instanceof GuildChannel) ||
 				(guild instanceof Message)) return guild.guild;
-		} else if (type === 'string' && /^\d{17,19}$/.test(guild)) {
+		} else if (type === "string" && /^\d{17,19}$/.test(guild)) {
 			return client.guilds.get(guild) || null;
 		}
 		return null;
@@ -351,10 +351,10 @@ Util.sleep = promisify(setTimeout);
  * @static
  */
 Util.titleCaseVariants = {
-	textchannel: 'TextChannel',
-	voicechannel: 'VoiceChannel',
-	categorychannel: 'CategoryChannel',
-	guildmember: 'GuildMember'
+	textchannel: "TextChannel",
+	voicechannel: "VoiceChannel",
+	categorychannel: "CategoryChannel",
+	guildmember: "GuildMember"
 };
 
 /**
@@ -363,6 +363,6 @@ Util.titleCaseVariants = {
  * @type {string[]}
  * @static
  */
-Util.PRIMITIVE_TYPES = ['string', 'bigint', 'number', 'boolean'];
+Util.PRIMITIVE_TYPES = ["string", "bigint", "number", "boolean"];
 
 module.exports = Util;

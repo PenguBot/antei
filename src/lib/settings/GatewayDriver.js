@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Gateway = require('./Gateway');
-const Schema = require('./schema/Schema');
+const Gateway = require("./Gateway");
+const Schema = require("./schema/Schema");
 
 /**
  * <warning>GatewayDriver is a singleton, use {@link KlasaClient#gateways} instead.</warning>
@@ -28,7 +28,7 @@ class GatewayDriver {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, "client", { value: client });
 
 		/**
 		 * The register creation queue.
@@ -38,7 +38,7 @@ class GatewayDriver {
 		 * @readonly
 		 * @private
 		 */
-		Object.defineProperty(this, '_queue', { value: [] });
+		Object.defineProperty(this, "_queue", { value: [] });
 
 		/**
 		 * All the gateways added
@@ -75,8 +75,8 @@ class GatewayDriver {
 	 * @chainable
 	 */
 	register(name, { provider = this.client.options.providers.default, schema = new Schema() } = {}) {
-		if (typeof name !== 'string') throw new TypeError('You must pass a name for your new gateway and it must be a string.');
-		if (!(schema instanceof Schema)) throw new TypeError('Schema must be a valid Schema instance.');
+		if (typeof name !== "string") throw new TypeError("You must pass a name for your new gateway and it must be a string.");
+		if (!(schema instanceof Schema)) throw new TypeError("Schema must be a valid Schema instance.");
 		if (this.name !== undefined && this.name !== null) throw new Error(`The key '${name}' is either taken by another Gateway or reserved for GatewayDriver's functionality.`);
 
 		const gateway = new Gateway(this, name, schema, provider);
@@ -103,7 +103,7 @@ class GatewayDriver {
 	 * @returns {Promise<Array<Gateway>>}
 	 */
 	sync(input) {
-		return Promise.all([...this].map(([key, gateway]) => gateway.sync(typeof input === 'undefined' ? this.client.options.gateways[key].syncArg : input)));
+		return Promise.all([...this].map(([key, gateway]) => gateway.sync(typeof input === "undefined" ? this.client.options.gateways[key].syncArg : input)));
 	}
 
 	/**
@@ -140,7 +140,7 @@ class GatewayDriver {
 	 * @returns {string}
 	 */
 	toString() {
-		return `GatewayDriver(${[...this.keys].join(', ')})`;
+		return `GatewayDriver(${[...this.keys].join(", ")})`;
 	}
 
 }

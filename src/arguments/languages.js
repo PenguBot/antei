@@ -1,15 +1,15 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { MultiArgument } = require('klasa');
+const { MultiArgument } = require("klasa");
 
 module.exports = class extends MultiArgument {
 
 	constructor(...args) {
-		super(...args, { aliases: ['...language'] });
+		super(...args, { aliases: ["...language"] });
 	}
 
 	get base() {
-		return this.store.get('language');
+		return this.store.get("language");
 	}
 
 };

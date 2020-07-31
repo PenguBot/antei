@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { mergeDefault } = require('../util/util');
-const { Collection } = require('discord.js');
-const quotes = ['"', "'", '“”', '‘’'];
+const { mergeDefault } = require("../util/util");
+const { Collection } = require("discord.js");
+const quotes = ['"', "'", "“”", "‘’"];
 
 /**
  * A class to handle argument collection and parameter resolution
@@ -32,7 +32,7 @@ class TextPrompt {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: message.client });
+		Object.defineProperty(this, "client", { value: message.client });
 
 		/**
 		 * The message this prompt is for
@@ -160,15 +160,15 @@ class TextPrompt {
 	async reprompt(prompt) {
 		this._prompted++;
 		if (this.typing) this.message.channel.stopTyping();
-		const possibleAbortOptions = this.message.language.get('TEXT_PROMPT_ABORT_OPTIONS');
+		const possibleAbortOptions = this.message.language.get("TEXT_PROMPT_ABORT_OPTIONS");
 		const message = await this.message.prompt(
-			this.message.language.get('MONITOR_COMMAND_HANDLER_REPROMPT', `<@!${this.message.author.id}>`, prompt, this.time / 1000, possibleAbortOptions),
+			this.message.language.get("MONITOR_COMMAND_HANDLER_REPROMPT", `<@!${this.message.author.id}>`, prompt, this.time / 1000, possibleAbortOptions),
 			this.time
 		);
 
 		this.responses.set(message.id, message);
 
-		if (possibleAbortOptions.includes(message.content.toLowerCase())) throw this.message.language.get('MONITOR_COMMAND_HANDLER_ABORTED');
+		if (possibleAbortOptions.includes(message.content.toLowerCase())) throw this.message.language.get("MONITOR_COMMAND_HANDLER_ABORTED");
 
 		if (this.typing) this.message.channel.startTyping();
 		this.args[this.args.lastIndexOf(null)] = message.content;
@@ -187,10 +187,10 @@ class TextPrompt {
 	async repeatingPrompt() {
 		if (this.typing) this.message.channel.stopTyping();
 		let message;
-		const possibleCancelOptions = this.message.language.get('TEXT_PROMPT_ABORT_OPTIONS');
+		const possibleCancelOptions = this.message.language.get("TEXT_PROMPT_ABORT_OPTIONS");
 		try {
 			message = await this.message.prompt(
-				this.message.language.get('MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT', `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions),
+				this.message.language.get("MONITOR_COMMAND_HANDLER_REPEATING_REPROMPT", `<@!${this.message.author.id}>`, this._currentUsage.possibles[0].name, this.time / 1000, possibleCancelOptions),
 				this.time
 			);
 			this.responses.set(message.id, message);
@@ -240,18 +240,18 @@ class TextPrompt {
 	async multiPossibles(index) {
 		const possible = this._currentUsage.possibles[index];
 		const custom = this.usage.customResolvers[possible.type];
-		const resolver = this.client.arguments.get(custom ? 'custom' : possible.type);
+		const resolver = this.client.arguments.get(custom ? "custom" : possible.type);
 
 		if (possible.name in this.flags) this.args.splice(this.params.length, 0, this.flags[possible.name]);
 		if (!resolver) {
-			this.client.emit('warn', `Unknown Argument Type encountered: ${possible.type}`);
+			this.client.emit("warn", `Unknown Argument Type encountered: ${possible.type}`);
 			if (this._currentUsage.possibles.length === 1) return this.pushParam(undefined);
 			return this.multiPossibles(++index);
 		}
 
 		try {
 			const res = await resolver.run(this.args[this.params.length], possible, this.message, custom);
-			if (typeof res === 'undefined' && this._required === 1) this.args.splice(this.params.length, 0, undefined);
+			if (typeof res === "undefined" && this._required === 1) this.args.splice(this.params.length, 0, undefined);
 			return this.pushParam(res);
 		} catch (err) {
 			if (index < this._currentUsage.possibles.length - 1) return this.multiPossibles(++index);
@@ -261,13 +261,13 @@ class TextPrompt {
 			}
 
 			const { response } = this._currentUsage;
-			const error = typeof response === 'function' ? response(this.message, possible) : response;
+			const error = typeof response === "function" ? response(this.message, possible) : response;
 
 			if (this._required === 1) return this.handleError(error || err);
 			if (this._currentUsage.possibles.length === 1) {
-				return this.handleError(error || (this.args[this.params.length] === undefined ? this.message.language.get('COMMANDMESSAGE_MISSING_REQUIRED', possible.name) : err));
+				return this.handleError(error || (this.args[this.params.length] === undefined ? this.message.language.get("COMMANDMESSAGE_MISSING_REQUIRED", possible.name) : err));
 			}
-			return this.handleError(error || this.message.language.get('COMMANDMESSAGE_NOMATCH', this._currentUsage.possibles.map(poss => poss.name).join(', ')));
+			return this.handleError(error || this.message.language.get("COMMANDMESSAGE_NOMATCH", this._currentUsage.possibles.map(poss => poss.name).join(", ")));
 		}
 	}
 
@@ -334,10 +334,10 @@ class TextPrompt {
 	static getFlags(content, delim) {
 		const flags = {};
 		content = content.replace(this.flagRegex, (match, fl, ...quote) => {
-			flags[fl] = (quote.slice(0, -2).find(el => el) || fl).replace(/\\/g, '');
-			return '';
+			flags[fl] = (quote.slice(0, -2).find(el => el) || fl).replace(/\\/g, "");
+			return "";
 		});
-		if (delim) content = content.replace(this.delims.get(delim) || this.generateNewDelim(delim), '$1').trim();
+		if (delim) content = content.replace(this.delims.get(delim) || this.generateNewDelim(delim), "$1").trim();
 		return { content, flags };
 	}
 
@@ -350,8 +350,8 @@ class TextPrompt {
 	 * @private
 	 */
 	static getArgs(content, delim) {
-		const args = content.split(delim !== '' ? delim : undefined);
-		return args.length === 1 && args[0] === '' ? [] : args;
+		const args = content.split(delim !== "" ? delim : undefined);
+		return args.length === 1 && args[0] === "" ? [] : args;
 	}
 
 	/**
@@ -363,20 +363,20 @@ class TextPrompt {
 	 * @private
 	 */
 	static getQuotedStringArgs(content, delim) {
-		if (!delim || delim === '') return [content];
+		if (!delim || delim === "") return [content];
 
 		const args = [];
 
 		for (let i = 0; i < content.length; i++) {
-			let current = '';
+			let current = "";
 			if (content.slice(i, i + delim.length) === delim) {
 				i += delim.length - 1;
 				continue;
 			}
 			const quote = quotes.find(qt => qt.includes(content[i]));
 			if (quote) {
-				const qts = quote.split('');
-				while (i + 1 < content.length && (content[i] === '\\' || !qts.includes(content[i + 1]))) current += content[++i] === '\\' && qts.includes(content[i + 1]) ? '' : content[i];
+				const qts = quote.split("");
+				while (i + 1 < content.length && (content[i] === "\\" || !qts.includes(content[i + 1]))) current += content[++i] === "\\" && qts.includes(content[i + 1]) ? "" : content[i];
 				i++;
 				args.push(current);
 			} else {
@@ -386,7 +386,7 @@ class TextPrompt {
 			}
 		}
 
-		return args.length === 1 && args[0] === '' ? [] : args;
+		return args.length === 1 && args[0] === "" ? [] : args;
 	}
 
 	/**
@@ -397,7 +397,7 @@ class TextPrompt {
 	 * @private
 	 */
 	static generateNewDelim(delim) {
-		const regex = new RegExp(`(${delim})(?:${delim})+`, 'g');
+		const regex = new RegExp(`(${delim})(?:${delim})+`, "g");
 		this.delims.set(delim, regex);
 		return regex;
 	}
@@ -419,6 +419,6 @@ TextPrompt.delims = new Map();
  * @type {RegExp}
  * @static
  */
-TextPrompt.flagRegex = new RegExp(`(?:--|—)(\\w[\\w-]+)(?:=(?:${quotes.map(qu => `[${qu}]((?:[^${qu}\\\\]|\\\\.)*)[${qu}]`).join('|')}|([\\w<>@#&!-]+)))?`, 'g');
+TextPrompt.flagRegex = new RegExp(`(?:--|—)(\\w[\\w-]+)(?:=(?:${quotes.map(qu => `[${qu}]((?:[^${qu}\\\\]|\\\\.)*)[${qu}]`).join("|")}|([\\w<>@#&!-]+)))?`, "g");
 
 module.exports = TextPrompt;

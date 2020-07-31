@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Provider = require('./Provider');
-const Store = require('./base/Store');
+const Provider = require("./Provider");
+const Store = require("./base/Store");
 
 /**
  * Stores all providers for use in Klasa
@@ -15,7 +15,7 @@ class ProviderStore extends Store {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
-		super(client, 'providers', Provider);
+		super(client, "providers", Provider);
 	}
 
 	/**

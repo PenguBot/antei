@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Event } = require('klasa');
-const gateways = ['users', 'clientStorage'];
+const { Event } = require("klasa");
+const gateways = ["users", "clientStorage"];
 
 module.exports = class extends Event {
 

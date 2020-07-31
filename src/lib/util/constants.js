@@ -1,9 +1,9 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { mergeDefault, isObject } = require('./util');
+const { mergeDefault, isObject } = require("./util");
 
 const colorBase = {
-	shard: { background: 'cyan', text: 'black' },
+	shard: { background: "cyan", text: "black" },
 	message: {},
 	time: {}
 };
@@ -25,11 +25,11 @@ exports.DEFAULTS = {
 		},
 		createPiecesFolders: true,
 		disabledCorePieces: [],
-		language: 'en-US',
+		language: "en-US",
 		noPrefixDM: false,
-		prefix: '',
+		prefix: "",
 		preserveSettings: true,
-		readyMessage: (client) => `Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? '' : 's'}.`,
+		readyMessage: client => `Successfully initialized. Ready to serve ${client.guilds.size} guild${client.guilds.size === 1 ? "" : "s"}.`,
 		typing: false,
 		customPromptDefaults: {
 			time: 30000,
@@ -42,9 +42,9 @@ exports.DEFAULTS = {
 			clientStorage: {}
 		},
 		// eslint-disable-next-line no-process-env
-		production: process.env.NODE_ENV === 'production',
+		production: process.env.NODE_ENV === "production",
 		prefixCaseInsensitive: false,
-		providers: { default: 'json' },
+		providers: { default: "json" },
 		pieceDefaults: {
 			arguments: {
 				enabled: true,
@@ -55,9 +55,9 @@ exports.DEFAULTS = {
 				autoAliases: true,
 				bucket: 1,
 				cooldown: 0,
-				cooldownLevel: 'author',
-				description: '',
-				extendedHelp: language => language.get('COMMAND_HELP_NO_EXTENDED'),
+				cooldownLevel: "author",
+				description: "",
+				extendedHelp: language => language.get("COMMAND_HELP_NO_EXTENDED"),
 				enabled: true,
 				guarded: false,
 				hidden: false,
@@ -67,9 +67,9 @@ exports.DEFAULTS = {
 				promptTime: 30000,
 				requiredSettings: [],
 				requiredPermissions: 0,
-				runIn: ['text', 'dm'],
+				runIn: ["text", "dm"],
 				subcommands: false,
-				usage: '',
+				usage: "",
 				quotedStringSupport: false,
 				deletable: false
 			},
@@ -97,7 +97,7 @@ exports.DEFAULTS = {
 				ignoreEdits: true,
 				ignoreBlacklistedUsers: true,
 				ignoreBlacklistedGuilds: true,
-				allowedTypes: ['DEFAULT']
+				allowedTypes: ["DEFAULT"]
 			},
 			providers: { enabled: true },
 			serializers: {
@@ -117,47 +117,47 @@ exports.DEFAULTS = {
 		timestamps: true,
 		utc: false,
 		types: {
-			debug: 'log',
-			error: 'error',
-			log: 'log',
-			verbose: 'log',
-			warn: 'warn',
-			wtf: 'error'
+			debug: "log",
+			error: "error",
+			log: "log",
+			verbose: "log",
+			warn: "warn",
+			wtf: "error"
 		},
 		colors: {
-			debug: mergeDefault(colorBase, { time: { background: 'magenta' } }),
-			error: mergeDefault(colorBase, { time: { background: 'red' } }),
-			log: mergeDefault(colorBase, { time: { background: 'blue' } }),
-			verbose: mergeDefault(colorBase, { time: { text: 'gray' } }),
-			warn: mergeDefault(colorBase, { time: { background: 'lightyellow', text: 'black' } }),
-			wtf: mergeDefault(colorBase, { message: { text: 'red' }, time: { background: 'red' } })
+			debug: mergeDefault(colorBase, { time: { background: "magenta" } }),
+			error: mergeDefault(colorBase, { time: { background: "red" } }),
+			log: mergeDefault(colorBase, { time: { background: "blue" } }),
+			verbose: mergeDefault(colorBase, { time: { text: "gray" } }),
+			warn: mergeDefault(colorBase, { time: { background: "lightyellow", text: "black" } }),
+			wtf: mergeDefault(colorBase, { message: { text: "red" }, time: { background: "red" } })
 		}
 	},
 
 	QUERYBUILDER: {
 		datatypes: {
-			any: { type: 'TEXT' },
-			boolean: { type: 'BOOLEAN', resolver: value => value },
-			categorychannel: { type: 'VARCHAR(18)' },
-			channel: { type: 'VARCHAR(18)' },
-			command: { type: 'TEXT' },
-			float: { type: 'FLOAT', resolver: value => value },
-			guild: { type: 'VARCHAR(18)' },
-			integer: { type: 'INTEGER', resolver: value => value },
-			json: { type: 'JSON', resolver: (value) => `'${JSON.stringify(value).replace(/'/g, "''")}'` },
-			language: { type: 'VARCHAR(5)' },
-			role: { type: 'VARCHAR(18)' },
-			string: { type: ({ max }) => max ? `VARCHAR(${max})` : 'TEXT' },
-			textchannel: { type: 'VARCHAR(18)' },
-			url: { type: 'TEXT' },
-			user: { type: 'VARCHAR(18)' },
-			voicechannel: { type: 'VARCHAR(18)' }
+			any: { type: "TEXT" },
+			boolean: { type: "BOOLEAN", resolver: value => value },
+			categorychannel: { type: "VARCHAR(18)" },
+			channel: { type: "VARCHAR(18)" },
+			command: { type: "TEXT" },
+			float: { type: "FLOAT", resolver: value => value },
+			guild: { type: "VARCHAR(18)" },
+			integer: { type: "INTEGER", resolver: value => value },
+			json: { type: "JSON", resolver: value => `'${JSON.stringify(value).replace(/'/g, "''")}'` },
+			language: { type: "VARCHAR(5)" },
+			role: { type: "VARCHAR(18)" },
+			string: { type: ({ max }) => max ? `VARCHAR(${max})` : "TEXT" },
+			textchannel: { type: "VARCHAR(18)" },
+			url: { type: "TEXT" },
+			user: { type: "VARCHAR(18)" },
+			voicechannel: { type: "VARCHAR(18)" }
 		},
 		queryBuilderOptions: {
-			array: () => 'TEXT',
-			resolver: (value) => `'${(isObject(value) ? JSON.stringify(value) : String(value)).replace(/'/g, "''")}'`,
-			arrayResolver: (values) => `'${JSON.stringify(values)}'`,
-			formatDatatype: (name, datatype, def = null) => `${name} ${datatype}${def !== null ? ` NOT NULL DEFAULT ${def}` : ''}`
+			array: () => "TEXT",
+			resolver: value => `'${(isObject(value) ? JSON.stringify(value) : String(value)).replace(/'/g, "''")}'`,
+			arrayResolver: values => `'${JSON.stringify(values)}'`,
+			formatDatatype: (name, datatype, def = null) => `${name} ${datatype}${def !== null ? ` NOT NULL DEFAULT ${def}` : ""}`
 		}
 	}
 
@@ -169,8 +169,8 @@ exports.TIME = {
 	HOUR: 1000 * 60 * 60,
 	DAY: 1000 * 60 * 60 * 24,
 
-	DAYS: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-	MONTHS: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+	DAYS: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+	MONTHS: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 
 	TIMESTAMP: {
 		TOKENS: {
@@ -203,12 +203,12 @@ exports.TIME = {
 		wildcardRegex: /\bh\b|\B\?\B/g,
 		allowedNum: [[0, 59], [0, 23], [1, 31], [1, 12], [0, 6]],
 		predefined: {
-			'@annually': '0 0 1 1 *',
-			'@yearly': '0 0 1 1 *',
-			'@monthly': '0 0 1 * *',
-			'@weekly': '0 0 * * 0',
-			'@daily': '0 0 * * *',
-			'@hourly': '0 * * * *'
+			"@annually": "0 0 1 1 *",
+			"@yearly": "0 0 1 1 *",
+			"@monthly": "0 0 1 * *",
+			"@weekly": "0 0 * * 0",
+			"@daily": "0 0 * * *",
+			"@hourly": "0 * * * *"
 		},
 		tokens: {
 			jan: 1,
@@ -235,7 +235,7 @@ exports.TIME = {
 
 };
 
-exports.TIME.CRON.tokensRegex = new RegExp(Object.keys(exports.TIME.CRON.tokens).join('|'), 'g');
+exports.TIME.CRON.tokensRegex = new RegExp(Object.keys(exports.TIME.CRON.tokens).join("|"), "g");
 
 exports.MENTION_REGEX = {
 	userOrMember: /^(?:<@!?)?(\d{17,19})>?$/,

@@ -1,21 +1,21 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command, Store, Stopwatch } = require('klasa');
+const { Command, Store, Stopwatch } = require("klasa");
 
 module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['r'],
+			aliases: ["r"],
 			permissionLevel: 10,
 			guarded: true,
-			description: language => language.get('COMMAND_RELOAD_DESCRIPTION'),
-			usage: '<Store:store|Piece:piece|everything:default>'
+			description: language => language.get("COMMAND_RELOAD_DESCRIPTION"),
+			usage: "<Store:store|Piece:piece|everything:default>"
 		});
 	}
 
 	async run(message, [piece]) {
-		if (piece === 'everything') return this.everything(message);
+		if (piece === "everything") return this.everything(message);
 		if (piece instanceof Store) {
 			const timer = new Stopwatch();
 			await piece.loadAll();
@@ -25,7 +25,7 @@ module.exports = class extends Command {
 					if (String(this.shard.id) !== '${this.client.shard.id}') this.${piece.name}.loadAll().then(() => this.${piece.name}.loadAll());
 				`);
 			}
-			return message.sendLocale('COMMAND_RELOAD_ALL', [piece, timer.stop()]);
+			return message.sendLocale("COMMAND_RELOAD_ALL", [piece, timer.stop()]);
 		}
 
 		try {
@@ -36,16 +36,16 @@ module.exports = class extends Command {
 					if (String(this.shard.id) !== '${this.client.shard.id}') this.${piece.store}.get('${piece.name}').reload();
 				`);
 			}
-			return message.sendLocale('COMMAND_RELOAD', [itm.type, itm.name, timer.stop()]);
+			return message.sendLocale("COMMAND_RELOAD", [itm.type, itm.name, timer.stop()]);
 		} catch (err) {
 			piece.store.set(piece);
-			return message.sendLocale('COMMAND_RELOAD_FAILED', [piece.type, piece.name]);
+			return message.sendLocale("COMMAND_RELOAD_FAILED", [piece.type, piece.name]);
 		}
 	}
 
 	async everything(message) {
 		const timer = new Stopwatch();
-		await Promise.all(this.client.pieceStores.map(async (store) => {
+		await Promise.all(this.client.pieceStores.map(async store => {
 			await store.loadAll();
 			await store.init();
 		}));
@@ -57,7 +57,7 @@ module.exports = class extends Command {
 				});
 			`);
 		}
-		return message.sendLocale('COMMAND_RELOAD_EVERYTHING', [timer.stop()]);
+		return message.sendLocale("COMMAND_RELOAD_EVERYTHING", [timer.stop()]);
 	}
 
 };

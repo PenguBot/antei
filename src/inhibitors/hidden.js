@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Inhibitor } = require('klasa');
+const { Inhibitor } = require("klasa");
 
 module.exports = class extends Inhibitor {
 

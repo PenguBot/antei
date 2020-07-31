@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Inhibitor = require('./Inhibitor');
-const Store = require('./base/Store');
+const Inhibitor = require("./Inhibitor");
+const Store = require("./base/Store");
 
 /**
  * Stores all the inhibitors in Klasa
@@ -15,7 +15,7 @@ class InhibitorStore extends Store {
 	 * @param {KlasaClient} client The Klasa Client
 	 */
 	constructor(client) {
-		super(client, 'inhibitors', Inhibitor);
+		super(client, "inhibitors", Inhibitor);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { isFunction, deepClone } = require('../../util/util');
+const { isFunction, deepClone } = require("../../util/util");
 
 /**
  * The base Schema for {@link Gateway}s
@@ -12,7 +12,7 @@ class Schema extends Map {
 	/**
 	 * @param {string} [basePath=''] The base schema path
 	 */
-	constructor(basePath = '') {
+	constructor(basePath = "") {
 		super();
 
 		/**
@@ -22,7 +22,7 @@ class Schema extends Map {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'path', { value: basePath });
+		Object.defineProperty(this, "path", { value: basePath });
 
 		/**
 		 * The type of this SchemaFolder (always 'Folder')
@@ -31,7 +31,7 @@ class Schema extends Map {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'type', { value: 'Folder' });
+		Object.defineProperty(this, "type", { value: "Folder" });
 	}
 
 	/**
@@ -91,11 +91,11 @@ class Schema extends Map {
 		if (isFunction(typeOrCallback)) {
 			// .add('folder', (folder) => ());
 			callback = typeOrCallback;
-			type = 'Folder';
-			Piece = require('./SchemaFolder');
-		} else if (typeof typeOrCallback === 'string') {
+			type = "Folder";
+			Piece = require("./SchemaFolder");
+		} else if (typeof typeOrCallback === "string") {
 			// .add('piece', 'string', { optional options });
-			Piece = require('./SchemaPiece');
+			Piece = require("./SchemaPiece");
 			type = typeOrCallback;
 			callback = null;
 		}
@@ -103,15 +103,15 @@ class Schema extends Map {
 		// Get previous key and merge the new with the pre-existent if it exists
 		const previous = super.get(key);
 		if (previous) {
-			if (type === 'Folder') {
+			if (type === "Folder") {
 				// If the type of the new piece is a Folder, the previous must also be a Folder.
-				if (previous.type !== 'Folder') throw new Error(`The type for ${key} conflicts with the previous value, expected type Folder, got ${previous.type}.`);
+				if (previous.type !== "Folder") throw new Error(`The type for ${key} conflicts with the previous value, expected type Folder, got ${previous.type}.`);
 				// Call the callback with the pre-existent Folder
 				callback(previous); // eslint-disable-line callback-return
 				return this;
 			}
 			// If the type of the new piece is not a Folder, the previous must also not be a Folder.
-			if (previous.type === 'Folder') throw new Error(`The type for ${key} conflicts with the previous value, expected a non-Folder, got ${previous.type}.`);
+			if (previous.type === "Folder") throw new Error(`The type for ${key} conflicts with the previous value, expected a non-Folder, got ${previous.type}.`);
 			// Edit the previous key
 			previous.edit({ type, ...options });
 			return this;
@@ -144,11 +144,11 @@ class Schema extends Map {
 	 * @returns {?SchemaPiece|SchemaFolder}
 	 */
 	get(key) {
-		const path = typeof key === 'string' ? key.split('.') : key;
+		const path = typeof key === "string" ? key.split(".") : key;
 		const [now, ...next] = path;
 		const piece = super.get(now);
 		if (!piece) return undefined;
-		return next.length && piece.type === 'Folder' ? piece.get(next) : piece;
+		return next.length && piece.type === "Folder" ? piece.get(next) : piece;
 	}
 
 	/**
@@ -161,7 +161,7 @@ class Schema extends Map {
 	*keys(recursive = false) {
 		if (recursive) {
 			for (const [key, value] of super.entries()) {
-				if (value.type === 'Folder') yield* value.keys(recursive);
+				if (value.type === "Folder") yield* value.keys(recursive);
 				else yield key;
 			}
 		} else {
@@ -179,7 +179,7 @@ class Schema extends Map {
 	*values(recursive = false) {
 		if (recursive) {
 			for (const value of super.values()) {
-				if (value.type === 'Folder') yield* value.values(recursive);
+				if (value.type === "Folder") yield* value.values(recursive);
 				else yield value;
 			}
 		} else {
@@ -197,7 +197,7 @@ class Schema extends Map {
 	*entries(recursive = false) {
 		if (recursive) {
 			for (const [key, value] of super.entries()) {
-				if (value.type === 'Folder') yield* value.entries(recursive);
+				if (value.type === "Folder") yield* value.entries(recursive);
 				else yield [key, value];
 			}
 		} else {

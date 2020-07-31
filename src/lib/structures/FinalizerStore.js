@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Finalizer = require('./Finalizer');
-const Store = require('./base/Store');
+const Finalizer = require("./Finalizer");
+const Store = require("./base/Store");
 
 /**
  * Stores all finalizers for use in Klasa.
@@ -15,7 +15,7 @@ class FinalizerStore extends Store {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
-		super(client, 'finalizers', Finalizer);
+		super(client, "finalizers", Finalizer);
 	}
 
 	/**

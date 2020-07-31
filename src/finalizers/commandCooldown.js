@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Finalizer } = require('klasa');
+const { Finalizer } = require("klasa");
 
 module.exports = class extends Finalizer {
 
@@ -10,7 +10,7 @@ module.exports = class extends Finalizer {
 		try {
 			command.cooldowns.acquire(message.levelID).drip();
 		} catch (err) {
-			this.client.emit('error', `${message.author.username}[${message.author.id}] has exceeded the RateLimit for ${message.command}`);
+			this.client.emit("error", `${message.author.username}[${message.author.id}] has exceeded the RateLimit for ${message.command}`);
 		}
 	}
 

@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Serializer = require('./Serializer');
-const AliasStore = require('./base/AliasStore');
+const Serializer = require("./Serializer");
+const AliasStore = require("./base/AliasStore");
 
 /**
  * Stores all the serializers usable in Klasa
@@ -15,7 +15,7 @@ class SerializerStore extends AliasStore {
 	 * @param {KlasaClient} client The Klasa Client
 	 */
 	constructor(client) {
-		super(client, 'serializers', Serializer);
+		super(client, "serializers", Serializer);
 	}
 
 }

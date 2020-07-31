@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Argument = require('./Argument');
-const AliasStore = require('./base/AliasStore');
+const Argument = require("./Argument");
+const AliasStore = require("./base/AliasStore");
 
 /**
  * Stores all the arguments usable in Klasa
@@ -15,7 +15,7 @@ class ArgumentStore extends AliasStore {
 	 * @param {KlasaClient} client The Klasa Client
 	 */
 	constructor(client) {
-		super(client, 'arguments', Argument);
+		super(client, "arguments", Argument);
 	}
 
 }

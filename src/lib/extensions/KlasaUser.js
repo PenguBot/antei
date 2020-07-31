@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Structures } = require('discord.js');
+const { Structures } = require("discord.js");
 
-module.exports = Structures.extend('User', User => {
+module.exports = Structures.extend("User", User => {
 	/**
 	 * Klasa's Extended User
 	 * @extends external:User

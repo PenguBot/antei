@@ -1,39 +1,39 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const { Permissions, Permissions: { FLAGS } } = Discord;
-const path = require('path');
+const path = require("path");
 
 // lib/permissions
-const PermissionLevels = require('./permissions/PermissionLevels');
+const PermissionLevels = require("./permissions/PermissionLevels");
 
 // lib/schedule
-const Schedule = require('./schedule/Schedule');
+const Schedule = require("./schedule/Schedule");
 
 // lib/structures
-const ArgumentStore = require('./structures/ArgumentStore');
-const CommandStore = require('./structures/CommandStore');
-const EventStore = require('./structures/EventStore');
-const ExtendableStore = require('./structures/ExtendableStore');
-const FinalizerStore = require('./structures/FinalizerStore');
-const InhibitorStore = require('./structures/InhibitorStore');
-const LanguageStore = require('./structures/LanguageStore');
-const MonitorStore = require('./structures/MonitorStore');
-const ProviderStore = require('./structures/ProviderStore');
-const SerializerStore = require('./structures/SerializerStore');
-const TaskStore = require('./structures/TaskStore');
+const ArgumentStore = require("./structures/ArgumentStore");
+const CommandStore = require("./structures/CommandStore");
+const EventStore = require("./structures/EventStore");
+const ExtendableStore = require("./structures/ExtendableStore");
+const FinalizerStore = require("./structures/FinalizerStore");
+const InhibitorStore = require("./structures/InhibitorStore");
+const LanguageStore = require("./structures/LanguageStore");
+const MonitorStore = require("./structures/MonitorStore");
+const ProviderStore = require("./structures/ProviderStore");
+const SerializerStore = require("./structures/SerializerStore");
+const TaskStore = require("./structures/TaskStore");
 
 // lib/settings
-const GatewayDriver = require('./settings/GatewayDriver');
+const GatewayDriver = require("./settings/GatewayDriver");
 
 // lib/settings/schema
-const Schema = require('./settings/schema/Schema');
+const Schema = require("./settings/schema/Schema");
 
 // lib/util
-const KlasaConsole = require('./util/KlasaConsole');
-const { DEFAULTS, MENTION_REGEX } = require('./util/constants');
-const Stopwatch = require('./util/Stopwatch');
-const util = require('./util/util');
+const KlasaConsole = require("./util/KlasaConsole");
+const { DEFAULTS, MENTION_REGEX } = require("./util/constants");
+const Stopwatch = require("./util/Stopwatch");
+const util = require("./util/util");
 
 // external plugins
 const plugins = new Set();
@@ -136,7 +136,7 @@ class KlasaClient extends Discord.Client {
 	 * @param {KlasaClientOptions} [options={}] The config to pass to the new client
 	 */
 	constructor(options = {}) {
-		if (!util.isObject(options)) throw new TypeError('The Client Options for Klasa must be an object.');
+		if (!util.isObject(options)) throw new TypeError("The Client Options for Klasa must be an object.");
 		options = util.mergeDefault(DEFAULTS.CLIENT, options);
 		super(options);
 
@@ -260,28 +260,28 @@ class KlasaClient extends Discord.Client {
 		this.gateways = new GatewayDriver(this);
 
 		const { guilds, users, clientStorage } = this.options.gateways;
-		const guildSchema = 'schema' in guilds ? guilds.schema : this.constructor.defaultGuildSchema;
-		const userSchema = 'schema' in users ? users.schema : this.constructor.defaultUserSchema;
-		const clientSchema = 'schema' in clientStorage ? clientStorage.schema : this.constructor.defaultClientSchema;
+		const guildSchema = "schema" in guilds ? guilds.schema : this.constructor.defaultGuildSchema;
+		const userSchema = "schema" in users ? users.schema : this.constructor.defaultUserSchema;
+		const clientSchema = "schema" in clientStorage ? clientStorage.schema : this.constructor.defaultClientSchema;
 
 		// Update Guild Schema with Keys needed in Klasa
-		const prefixKey = guildSchema.get('prefix');
+		const prefixKey = guildSchema.get("prefix");
 		if (!prefixKey || prefixKey.default === null) {
-			guildSchema.add('prefix', 'string', { array: Array.isArray(this.options.prefix), default: this.options.prefix });
+			guildSchema.add("prefix", "string", { array: Array.isArray(this.options.prefix), default: this.options.prefix });
 		}
 
-		const languageKey = guildSchema.get('language');
+		const languageKey = guildSchema.get("language");
 		if (!languageKey || languageKey.default === null) {
-			guildSchema.add('language', 'language', { default: this.options.language });
+			guildSchema.add("language", "language", { default: this.options.language });
 		}
 
-		guildSchema.add('disableNaturalPrefix', 'boolean', { configurable: Boolean(this.options.regexPrefix) });
+		guildSchema.add("disableNaturalPrefix", "boolean", { configurable: Boolean(this.options.regexPrefix) });
 
 		// Register default gateways
 		this.gateways
-			.register('guilds', { ...guilds, schema: guildSchema })
-			.register('users', { ...users, schema: userSchema })
-			.register('clientStorage', { ...clientStorage, schema: clientSchema });
+			.register("guilds", { ...guilds, schema: guildSchema })
+			.register("users", { ...users, schema: userSchema })
+			.register("clientStorage", { ...clientStorage, schema: clientSchema });
 
 		/**
 		 * The Settings instance that handles this client's settings
@@ -309,7 +309,7 @@ class KlasaClient extends Discord.Client {
 			.registerStore(this.arguments)
 			.registerStore(this.serializers);
 
-		const coreDirectory = path.join(__dirname, '../');
+		const coreDirectory = path.join(__dirname, "../");
 		for (const store of this.pieceStores.values()) store.registerCoreDirectory(coreDirectory);
 
 		/**
@@ -370,7 +370,7 @@ class KlasaClient extends Discord.Client {
 	 */
 	validatePermissionLevels() {
 		const permissionLevels = this.options.permissionLevels || this.constructor.defaultPermissionLevels;
-		if (!(permissionLevels instanceof PermissionLevels)) throw new Error('permissionLevels must be an instance of the PermissionLevels class');
+		if (!(permissionLevels instanceof PermissionLevels)) throw new Error("permissionLevels must be an instance of the PermissionLevels class");
 		if (permissionLevels.isValid()) return permissionLevels;
 		throw new Error(permissionLevels.debug());
 	}
@@ -408,17 +408,17 @@ class KlasaClient extends Discord.Client {
 	async login(token) {
 		const timer = new Stopwatch();
 		const loaded = await Promise.all(this.pieceStores.map(async store => `Loaded ${await store.loadAll()} ${store.name}.`))
-			.catch((err) => {
+			.catch(err => {
 				console.error(err);
 				process.exit();
 			});
-		this.emit('log', loaded.join('\n'));
+		this.emit("log", loaded.join("\n"));
 
 		// Providers must be init before settings, and those before all other stores.
 		await this.providers.init();
 		await this.gateways.init();
 
-		this.emit('log', `Loaded in ${timer.stop()}.`);
+		this.emit("log", `Loaded in ${timer.stop()}.`);
 		return super.login(token);
 	}
 
@@ -434,9 +434,9 @@ class KlasaClient extends Discord.Client {
 	 * or -1 if the message cache lifetime is unlimited
 	 */
 	sweepMessages(lifetime = this.options.messageCacheLifetime, commandLifetime = this.options.commandMessageLifetime) {
-		if (typeof lifetime !== 'number' || isNaN(lifetime)) throw new TypeError('The lifetime must be a number.');
+		if (typeof lifetime !== "number" || isNaN(lifetime)) throw new TypeError("The lifetime must be a number.");
 		if (lifetime <= 0) {
-			this.emit('debug', 'Didn\'t sweep messages - lifetime is unlimited');
+			this.emit("debug", "Didn't sweep messages - lifetime is unlimited");
 			return -1;
 		}
 
@@ -458,7 +458,7 @@ class KlasaClient extends Discord.Client {
 			});
 		}
 
-		this.emit('debug', `Swept ${messages} messages older than ${lifetime} seconds and ${commandMessages} command messages older than ${commandLifetime} seconds in ${channels} text-based channels`);
+		this.emit("debug", `Swept ${messages} messages older than ${lifetime} seconds and ${commandMessages} command messages older than ${commandLifetime} seconds in ${channels} text-based channels`);
 		return messages;
 	}
 
@@ -471,7 +471,7 @@ class KlasaClient extends Discord.Client {
 	 */
 	static use(mod) {
 		const plugin = mod[this.plugin];
-		if (typeof plugin !== 'function') throw new TypeError('The provided module does not include a plugin function');
+		if (typeof plugin !== "function") throw new TypeError("The provided module does not include a plugin function");
 		plugins.add(plugin);
 		return this;
 	}
@@ -485,7 +485,7 @@ module.exports = KlasaClient;
  * @since 0.5.0
  * @type {Symbol}
  */
-KlasaClient.plugin = Symbol('KlasaPlugin');
+KlasaClient.plugin = Symbol("KlasaPlugin");
 
 /**
  * The base Permissions that the {@link Client#invite} asks for. Defaults to [VIEW_CHANNEL, SEND_MESSAGES]
@@ -513,13 +513,13 @@ KlasaClient.defaultPermissionLevels = new PermissionLevels()
  * @type {Schema}
  */
 KlasaClient.defaultGuildSchema = new Schema()
-	.add('prefix', 'string')
-	.add('language', 'language')
-	.add('disableNaturalPrefix', 'boolean')
-	.add('disabledCommands', 'command', {
+	.add("prefix", "string")
+	.add("language", "language")
+	.add("disableNaturalPrefix", "boolean")
+	.add("disabledCommands", "command", {
 		array: true,
 		filter: (client, command, piece, language) => {
-			if (command.guarded) throw language.get('COMMAND_CONF_GUARDED', command.name);
+			if (command.guarded) throw language.get("COMMAND_CONF_GUARDED", command.name);
 		}
 	});
 
@@ -536,9 +536,9 @@ KlasaClient.defaultUserSchema = new Schema();
  * @type {Schema}
  */
 KlasaClient.defaultClientSchema = new Schema()
-	.add('userBlacklist', 'user', { array: true })
-	.add('guildBlacklist', 'string', { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	.add('schedules', 'any', { array: true });
+	.add("userBlacklist", "user", { array: true })
+	.add("guildBlacklist", "string", { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+	.add("schedules", "any", { array: true });
 
 /**
  * Emitted when Klasa is fully ready and initialized.

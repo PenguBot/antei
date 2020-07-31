@@ -1,14 +1,14 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Provider, util } = require('klasa');
-const { resolve } = require('path');
-const fs = require('fs-nextra');
+const { Provider, util } = require("klasa");
+const { resolve } = require("path");
+const fs = require("fs-nextra");
 
 module.exports = class extends Provider {
 
 	constructor(...args) {
 		super(...args);
-		this.baseDirectory = resolve(this.client.userBaseDirectory, 'bwd', 'provider', 'json');
+		this.baseDirectory = resolve(this.client.userBaseDirectory, "bwd", "provider", "json");
 	}
 
 	/**
@@ -16,7 +16,7 @@ module.exports = class extends Provider {
 	 * @private
 	 */
 	async init() {
-		await fs.ensureDir(this.baseDirectory).catch(err => this.client.emit('error', err));
+		await fs.ensureDir(this.baseDirectory).catch(err => this.client.emit("error", err));
 	}
 
 	/* Table methods */
@@ -79,7 +79,7 @@ module.exports = class extends Provider {
 		const filenames = await fs.readdir(dir);
 		const files = [];
 		for (const filename of filenames) {
-			if (filename.endsWith('.json')) files.push(filename.slice(0, filename.length - 5));
+			if (filename.endsWith(".json")) files.push(filename.slice(0, filename.length - 5));
 		}
 		return files;
 	}

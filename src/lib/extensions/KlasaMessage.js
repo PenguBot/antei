@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require('discord.js');
+const { Structures, Collection, APIMessage, Permissions: { FLAGS } } = require("discord.js");
 
-module.exports = Structures.extend('Message', Message => {
+module.exports = Structures.extend("Message", Message => {
 	/**
 	 * Klasa's Extended Message
 	 * @extends external:Message
@@ -143,7 +143,7 @@ module.exports = Structures.extend('Message', Message => {
 			const message = await this.channel.send(text);
 			const responses = await this.channel.awaitMessages(msg => msg.author === this.author, { time, max: 1 });
 			message.delete();
-			if (responses.size === 0) throw this.language.get('MESSAGE_PROMPT_TIMEOUT');
+			if (responses.size === 0) throw this.language.get("MESSAGE_PROMPT_TIMEOUT");
 			return responses.first();
 		}
 
@@ -154,13 +154,12 @@ module.exports = Structures.extend('Message', Message => {
 		 */
 		async usableCommands() {
 			const col = new Collection();
-			await Promise.all(this.client.commands.map((command) =>
+			await Promise.all(this.client.commands.map(command =>
 				this.client.inhibitors.run(this, command, true)
 					.then(() => { col.set(command.name, command); })
 					.catch(() => {
 						// noop
-					})
-			));
+					})));
 			return col;
 		}
 
@@ -185,7 +184,7 @@ module.exports = Structures.extend('Message', Message => {
 		async sendMessage(content, options) {
 			const combinedOptions = APIMessage.transformOptions(content, options);
 
-			if ('files' in combinedOptions) return this.channel.send(combinedOptions);
+			if ("files" in combinedOptions) return this.channel.send(combinedOptions);
 
 			const newMessages = new APIMessage(this.channel, combinedOptions).resolveData().split()
 				.map(mes => {
@@ -308,7 +307,7 @@ module.exports = Structures.extend('Message', Message => {
 				time: this.command.promptTime,
 				limit: this.command.promptLimit
 			});
-			this.client.emit('commandRun', this, this.command, this.args);
+			this.client.emit("commandRun", this, this.command, this.args);
 			return this;
 		}
 

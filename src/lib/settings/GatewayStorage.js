@@ -38,7 +38,7 @@ class GatewayStorage {
 		 * @type {KlasaClient}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: client });
+		Object.defineProperty(this, "client", { value: client });
 
 		/**
 		 * The type of this GatewayStorage.
@@ -47,7 +47,7 @@ class GatewayStorage {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'type', { value: type });
+		Object.defineProperty(this, "type", { value: type });
 
 		/**
 		 * The name of this instance's provider.
@@ -56,7 +56,7 @@ class GatewayStorage {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'providerName', { value: provider || this.client.options.providers.default });
+		Object.defineProperty(this, "providerName", { value: provider || this.client.options.providers.default });
 
 		/**
 		 * @since 0.5.0
@@ -98,9 +98,9 @@ class GatewayStorage {
 	 * @param {GatewayGetPathOptions} [options={}] Whether the Gateway should avoid configuring the selected key
 	 * @returns {?GatewayGetPathResult}
 	 */
-	getPath(key = '', { avoidUnconfigurable = false, piece: requestPiece = true, errors = true } = {}) {
-		if (key === '' || key === '.') return { piece: this.schema, route: [] };
-		const route = key.split('.');
+	getPath(key = "", { avoidUnconfigurable = false, piece: requestPiece = true, errors = true } = {}) {
+		if (key === "" || key === ".") return { piece: this.schema, route: [] };
+		const route = key.split(".");
 		const piece = this.schema.get(route);
 
 		// The piece does not exist (invalid or non-existent path)
@@ -109,12 +109,12 @@ class GatewayStorage {
 			throw `The key ${key} does not exist in the schema.`;
 		}
 
-		if (requestPiece === null) requestPiece = piece.type !== 'Folder';
+		if (requestPiece === null) requestPiece = piece.type !== "Folder";
 
 		// GetPath expects a piece
 		if (requestPiece) {
 			// The piece is a key
-			if (piece.type !== 'Folder') {
+			if (piece.type !== "Folder") {
 				// If the Piece is unconfigurable and avoidUnconfigurable is requested, throw
 				if (avoidUnconfigurable && !piece.configurable) {
 					if (!errors) return null;
@@ -126,11 +126,11 @@ class GatewayStorage {
 			// The piece is a folder
 			if (!errors) return null;
 			const keys = avoidUnconfigurable ? piece.configurableKeys : [...piece.keys()];
-			throw keys.length ? `Please, choose one of the following keys: '${keys.join('\', \'')}'` : 'This group is not configurable.';
+			throw keys.length ? `Please, choose one of the following keys: '${keys.join("', '")}'` : "This group is not configurable.";
 		}
 
 		// GetPath does not expect a piece
-		if (piece.type !== 'Folder') {
+		if (piece.type !== "Folder") {
 			// Remove leading key from the path
 			route.pop();
 			return { piece: piece.parent, route };
@@ -167,7 +167,7 @@ class GatewayStorage {
 			}
 		}
 
-		if (errors.length) throw new Error(`[SCHEMA] There is an error with your schema.\n${errors.join('\n')}`);
+		if (errors.length) throw new Error(`[SCHEMA] There is an error with your schema.\n${errors.join("\n")}`);
 
 		// Init the table
 		const hasTable = await provider.hasTable(this.type);

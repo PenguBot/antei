@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Inhibitor, util } = require('klasa');
-const { Permissions, Permissions: { FLAGS } } = require('discord.js');
+const { Inhibitor, util } = require("klasa");
+const { Permissions, Permissions: { FLAGS } } = require("discord.js");
 
 module.exports = class extends Inhibitor {
 
@@ -12,17 +12,17 @@ module.exports = class extends Inhibitor {
 		// READ_MESSAGE_HISTORY, MENTION_EVERYONE, USE_EXTERNAL_EMOJIS, ADD_REACTIONS
 
 		this.friendlyPerms = Object.keys(FLAGS).reduce((obj, key) => {
-			obj[key] = util.toTitleCase(key.split('_').join(' '));
+			obj[key] = util.toTitleCase(key.split("_").join(" "));
 			return obj;
 		}, {});
 	}
 
 	run(message, command) {
-		const missing = message.channel.type === 'text' ?
+		const missing = message.channel.type === "text" ?
 			message.channel.permissionsFor(this.client.user).missing(command.requiredPermissions, false) :
 			this.impliedPermissions.missing(command.requiredPermissions, false);
 
-		if (missing.length) throw message.language.get('INHIBITOR_MISSING_BOT_PERMS', missing.map(key => this.friendlyPerms[key]).join(', '));
+		if (missing.length) throw message.language.get("INHIBITOR_MISSING_BOT_PERMS", missing.map(key => this.friendlyPerms[key]).join(", "));
 	}
 
 };

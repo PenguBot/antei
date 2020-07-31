@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Schema = require('./Schema');
+const Schema = require("./Schema");
 
 /**
  * A Folder for organizing {@link SchemaPiece}s
@@ -14,7 +14,7 @@ class SchemaFolder extends Schema {
 	 * @param {string} key The name of this folder instance
 	 */
 	constructor(parent, key) {
-		super(`${parent.path ? `${parent.path}.` : ''}${key}`);
+		super(`${parent.path ? `${parent.path}.` : ""}${key}`);
 
 		/**
 		 * The parent of this SchemaFolder
@@ -23,7 +23,7 @@ class SchemaFolder extends Schema {
 		 * @type {Schema|SchemaFolder}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'parent', { value: parent });
+		Object.defineProperty(this, "parent", { value: parent });
 
 		/**
 		 * The name of this SchemaFolder
@@ -32,7 +32,7 @@ class SchemaFolder extends Schema {
 		 * @type {string}
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'key', { value: key });
+		Object.defineProperty(this, "key", { value: key });
 	}
 
 }

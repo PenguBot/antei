@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { mergeDefault } = require('../../util/util');
-const { join } = require('path');
+const { mergeDefault } = require("../../util/util");
+const { join } = require("path");
 
 /**
  * The common class for all pieces
@@ -109,7 +109,7 @@ class Piece {
 	async reload() {
 		const piece = this.store.load(this.directory, this.file);
 		await piece.init();
-		if (this.client.listenerCount('pieceReloaded')) this.client.emit('pieceReloaded', piece);
+		if (this.client.listenerCount("pieceReloaded")) this.client.emit("pieceReloaded", piece);
 		return piece;
 	}
 
@@ -119,7 +119,7 @@ class Piece {
 	 * @returns {void}
 	 */
 	unload() {
-		if (this.client.listenerCount('pieceUnloaded')) this.client.emit('pieceUnloaded', this);
+		if (this.client.listenerCount("pieceUnloaded")) this.client.emit("pieceUnloaded", this);
 		return this.store.delete(this);
 	}
 
@@ -130,7 +130,7 @@ class Piece {
 	 * @chainable
 	 */
 	disable() {
-		if (this.client.listenerCount('pieceDisabled')) this.client.emit('pieceDisabled', this);
+		if (this.client.listenerCount("pieceDisabled")) this.client.emit("pieceDisabled", this);
 		this.enabled = false;
 		return this;
 	}
@@ -142,7 +142,7 @@ class Piece {
 	 * @chainable
 	 */
 	enable() {
-		if (this.client.listenerCount('pieceEnabled')) this.client.emit('pieceEnabled', this);
+		if (this.client.listenerCount("pieceEnabled")) this.client.emit("pieceEnabled", this);
 		this.enabled = true;
 		return this;
 	}

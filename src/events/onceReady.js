@@ -1,13 +1,13 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Event, util } = require('klasa');
+const { Event, util } = require("klasa");
 
 module.exports = class extends Event {
 
 	constructor(...args) {
 		super(...args, {
 			once: true,
-			event: 'ready'
+			event: "ready"
 		});
 	}
 
@@ -21,7 +21,7 @@ module.exports = class extends Event {
 		await this.client.gateways.sync();
 
 		// Init all the pieces
-		await Promise.all(this.client.pieceStores.filter(store => !['providers', 'extendables'].includes(store.name)).map(store => store.init()));
+		await Promise.all(this.client.pieceStores.filter(store => !["providers", "extendables"].includes(store.name)).map(store => store.init()));
 		util.initClean(this.client);
 		this.client.ready = true;
 
@@ -29,10 +29,10 @@ module.exports = class extends Event {
 		await this.client.schedule.init();
 
 		if (this.client.options.readyMessage !== null) {
-			this.client.emit('log', util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
+			this.client.emit("log", util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
 		}
 
-		this.client.emit('klasaReady');
+		this.client.emit("klasaReady");
 	}
 
 };

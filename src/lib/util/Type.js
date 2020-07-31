@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { getPromiseDetails } = process.binding('util');
+const { getPromiseDetails } = process.binding("util");
 
 /**
  * The class for deep checking Types
@@ -59,8 +59,8 @@ class Type {
 	 * @private
 	 */
 	get childTypes() {
-		if (!this.childValues.size) return '';
-		return `<${(this.childKeys.size ? `${this.constructor.list(this.childKeys)}, ` : '') + this.constructor.list(this.childValues)}>`;
+		if (!this.childValues.size) return "";
+		return `<${(this.childKeys.size ? `${this.constructor.list(this.childKeys)}, ` : "") + this.constructor.list(this.childValues)}>`;
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Type {
 	 * @private
 	 */
 	*parents() {
-		// eslint-disable-next-line consistent-this
+		// eslint-disable-next-line consistent-this,@typescript-eslint/no-this-alias
 		let current = this;
 		// eslint-disable-next-line no-cond-assign
 		while (current = current.parent) yield current;
@@ -117,11 +117,11 @@ class Type {
 	check() {
 		if (Object.isFrozen(this)) return;
 		const promise = getPromiseDetails(this.value);
-		if (typeof this.value === 'object' && this.isCircular()) this.is = `[Circular:${this.is}]`;
+		if (typeof this.value === "object" && this.isCircular()) this.is = `[Circular:${this.is}]`;
 		else if (promise && promise[0]) this.addValue(promise[1]);
 		else if (this.value instanceof Map) for (const entry of this.value) this.addEntry(entry);
 		else if (Array.isArray(this.value) || this.value instanceof Set) for (const value of this.value) this.addValue(value);
-		else if (this.is === 'Object') this.is = 'any';
+		else if (this.is === "Object") this.is = "any";
 		Object.freeze(this);
 	}
 
@@ -145,9 +145,9 @@ class Type {
 	static resolve(value) {
 		const type = typeof value;
 		switch (type) {
-			case 'object': return value === null ? 'null' : value.constructor ? value.constructor.name : 'any';
-			case 'function': return `${value.constructor.name}(${value.length}-arity)`;
-			case 'undefined': return 'void';
+			case "object": return value === null ? "null" : value.constructor ? value.constructor.name : "any";
+			case "function": return `${value.constructor.name}(${value.length}-arity)`;
+			case "undefined": return "void";
 			default: return type;
 		}
 	}
@@ -160,7 +160,7 @@ class Type {
 	 * @private
 	 */
 	static list(values) {
-		return values.has('any') ? 'any' : [...values.values()].sort().join(' | ');
+		return values.has("any") ? "any" : [...values.values()].sort().join(" | ");
 	}
 
 }

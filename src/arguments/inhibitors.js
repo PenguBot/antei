@@ -1,15 +1,15 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { MultiArgument } = require('klasa');
+const { MultiArgument } = require("klasa");
 
 module.exports = class extends MultiArgument {
 
 	constructor(...args) {
-		super(...args, { aliases: ['...inhibitor'] });
+		super(...args, { aliases: ["...inhibitor"] });
 	}
 
 	get base() {
-		return this.store.get('inhibitor');
+		return this.store.get("inhibitor");
 	}
 
 };

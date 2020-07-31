@@ -1,8 +1,8 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { isObject, deepClone, toTitleCase, arraysStrictEquals, objectToTuples, resolveGuild } = require('../util/util');
-const Type = require('../util/Type');
-const SchemaPiece = require('./schema/SchemaPiece');
+const { isObject, deepClone, toTitleCase, arraysStrictEquals, objectToTuples, resolveGuild } = require("../util/util");
+const Type = require("../util/Type");
+const SchemaPiece = require("./schema/SchemaPiece");
 
 /**
  * <warning>Creating your own Settings instances is often discouraged and unneeded. SettingsGateway handles them internally for you.</warning>
@@ -54,7 +54,7 @@ class Settings {
 		 * @name Settings#client
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'client', { value: manager.client });
+		Object.defineProperty(this, "client", { value: manager.client });
 
 		/**
 		 * The Gateway that manages this Settings instance.
@@ -63,7 +63,7 @@ class Settings {
 		 * @name Settings#gateway
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'gateway', { value: manager });
+		Object.defineProperty(this, "gateway", { value: manager });
 
 		/**
 		 * The ID that identifies this instance.
@@ -72,7 +72,7 @@ class Settings {
 		 * @name Settings#id
 		 * @readonly
 		 */
-		Object.defineProperty(this, 'id', { value: data.id });
+		Object.defineProperty(this, "id", { value: data.id });
 
 		/**
 		 * Whether this entry exists in the DB or not.
@@ -81,7 +81,7 @@ class Settings {
 		 * @name Settings#_existsInDB
 		 * @private
 		 */
-		Object.defineProperty(this, '_existsInDB', { value: null, writable: true });
+		Object.defineProperty(this, "_existsInDB", { value: null, writable: true });
 
 		const { defaults, schema } = this.gateway;
 		for (const key of schema.keys()) this[key] = defaults[key];
@@ -104,11 +104,12 @@ class Settings {
 	 * @returns {*}
 	 */
 	get(path) {
-		const route = typeof path === 'string' ? path.split('.') : path;
+		const route = typeof path === "string" ? path.split(".") : path;
 		const piece = this.gateway.schema.get(route);
 		if (!piece) return undefined;
 
-		let refThis = this; // eslint-disable-line consistent-this
+		// eslint-disable-next-line consistent-this,@typescript-eslint/no-this-alias
+		let refThis = this;
 		for (const key of route) refThis = refThis[key];
 
 		return refThis;
@@ -154,7 +155,7 @@ class Settings {
 	async destroy() {
 		if (this._existsInDB) {
 			await this.gateway.provider.delete(this.gateway.type, this.id);
-			this.client.emit('settingsDeleteEntry', this);
+			this.client.emit("settingsDeleteEntry", this);
 		}
 		return this;
 	}
@@ -177,7 +178,7 @@ class Settings {
 	 * Settings#reset('prefix');
 	 */
 	async reset(keys, guild, { avoidUnconfigurable = false, force = false } = {}) {
-		if (typeof guild === 'boolean') {
+		if (typeof guild === "boolean") {
 			avoidUnconfigurable = guild;
 			guild = undefined;
 		}
@@ -185,15 +186,15 @@ class Settings {
 		// If the entry does not exist in the DB, it'll never be able to reset a key
 		if (!this._existsInDB) return { errors: [], updated: [] };
 
-		if (typeof keys === 'string') keys = [keys];
-		else if (typeof keys === 'undefined') keys = [...this.gateway.schema.values(true)].map(piece => piece.path);
+		if (typeof keys === "string") keys = [keys];
+		else if (typeof keys === "undefined") keys = [...this.gateway.schema.values(true)].map(piece => piece.path);
 		if (Array.isArray(keys)) {
 			const result = { errors: [], updated: [] };
 			for (const key of keys) {
 				const path = this.gateway.getPath(key, { piece: true, avoidUnconfigurable, errors: false });
 				if (!path) {
 					result.errors.push(guild && guild.language ?
-						guild.language.get('COMMAND_CONF_GET_NOEXT', key) :
+						guild.language.get("COMMAND_CONF_GET_NOEXT", key) :
 						`The path ${key} does not exist in the current schema, or does not correspond to a piece.`);
 					continue;
 				}
@@ -240,7 +241,7 @@ class Settings {
 		if (isObject(key)) {
 			[guild, options] = [value, guild];
 			entries = objectToTuples(key);
-		} else if (typeof key === 'string') {
+		} else if (typeof key === "string") {
 			// Overload update(string, any, ...any[]);
 			entries = [[key, value]];
 		} else if (Array.isArray(key) && key.every(entry => Array.isArray(entry) && entry.length === 2)) {
@@ -254,15 +255,15 @@ class Settings {
 		// Overload update(string|string[], any|any[], SettingsUpdateOptions);
 		// Overload update(string|string[], any|any[], GuildResolvable, SettingsUpdateOptions);
 		// If the third argument is undefined and the second is an object literal, swap the variables.
-		if (typeof options === 'undefined' && isObject(guild)) [guild, options] = [null, guild];
+		if (typeof options === "undefined" && isObject(guild)) [guild, options] = [null, guild];
 		if (guild) guild = resolveGuild(this.client, guild);
 		if (!options) options = {};
 
 		return this._update(entries, guild, {
-			avoidUnconfigurable: typeof options.avoidUnconfigurable === 'boolean' ? options.avoidUnconfigurable : false,
-			action: typeof options.action === 'string' ? options.action : 'auto',
-			arrayPosition: typeof options.arrayPosition === 'number' ? options.arrayPosition : null,
-			force: typeof options.force === 'boolean' ? options.force : false
+			avoidUnconfigurable: typeof options.avoidUnconfigurable === "boolean" ? options.avoidUnconfigurable : false,
+			action: typeof options.action === "string" ? options.action : "auto",
+			arrayPosition: typeof options.arrayPosition === "number" ? options.arrayPosition : null,
+			force: typeof options.force === "boolean" ? options.force : false
 		});
 	}
 
@@ -274,13 +275,13 @@ class Settings {
 	 * @returns {string}
 	 */
 	list(message, path) {
-		const folder = typeof path === 'string' ? this.gateway.getPath(path, { piece: false }).piece : path;
+		const folder = typeof path === "string" ? this.gateway.getPath(path, { piece: false }).piece : path;
 		const array = [];
 		const folders = [];
 		const keys = {};
 		let longest = 0;
 		for (const [key, value] of folder.entries()) {
-			if (value.type === 'Folder') {
+			if (value.type === "Folder") {
 				if (value.configurableKeys.length) folders.push(`// ${key}`);
 			} else if (value.configurable) {
 				if (!(value.type in keys)) keys[value.type] = [];
@@ -289,16 +290,16 @@ class Settings {
 			}
 		}
 		const keysTypes = Object.keys(keys);
-		if (!folders.length && !keysTypes.length) return '';
-		if (folders.length) array.push('= Folders =', ...folders.sort(), '');
+		if (!folders.length && !keysTypes.length) return "";
+		if (folders.length) array.push("= Folders =", ...folders.sort(), "");
 		if (keysTypes.length) {
 			for (const keyType of keysTypes.sort()) {
 				array.push(`= ${toTitleCase(keyType)}s =`,
 					...keys[keyType].sort().map(key => `${key.padEnd(longest)} :: ${this.resolveString(message, folder.get(key))}`),
-					'');
+					"");
 			}
 		}
-		return array.join('\n');
+		return array.join("\n");
 	}
 
 	/**
@@ -312,8 +313,8 @@ class Settings {
 	resolveString(message, path) {
 		const piece = path instanceof SchemaPiece ? path : this.gateway.getPath(path, { piece: true }).piece;
 		const value = this.get(piece.path);
-		if (value === null) return 'Not set';
-		if (piece.array) return value.length ? `[ ${value.map(val => piece.serializer.stringify(val, message)).join(' | ')} ]` : 'None';
+		if (value === null) return "Not set";
+		if (piece.array) return value.length ? `[ ${value.map(val => piece.serializer.stringify(val, message)).join(" | ")} ]` : "None";
 		return piece.serializer.stringify(value, message);
 	}
 
@@ -334,13 +335,13 @@ class Settings {
 			const path = this.gateway.getPath(key, pathOptions);
 			if (!path) {
 				result.errors.push(guild ?
-					guild.language.get('COMMAND_CONF_GET_NOEXT', key) :
+					guild.language.get("COMMAND_CONF_GET_NOEXT", key) :
 					`The path ${key} does not exist in the current schema, or does not correspond to a piece.`);
 				continue;
 			}
 			if (!path.piece.array && Array.isArray(value)) {
 				result.errors.push(guild ?
-					guild.language.get('SETTING_GATEWAY_KEY_NOT_ARRAY', key) :
+					guild.language.get("SETTING_GATEWAY_KEY_NOT_ARRAY", key) :
 					`The path ${key} does not store multiple values.`);
 				continue;
 			}
@@ -370,8 +371,8 @@ class Settings {
 			deepClone(piece.default) :
 			await (Array.isArray(value) ?
 				this._parseAll(piece, value, guild, result.errors) :
-				piece.parse(value, guild).catch((error) => { result.errors.push(error); }));
-		if (typeof parsed === 'undefined') return;
+				piece.parse(value, guild).catch(error => { result.errors.push(error); }));
+		if (typeof parsed === "undefined") return;
 		const parsedID = Array.isArray(parsed) ? parsed.map(val => piece.serializer.serialize(val)) : piece.serializer.serialize(parsed);
 		if (piece.array) {
 			this._parseArray(piece, route, parsedID, options, result);
@@ -392,11 +393,11 @@ class Settings {
 		if (this._existsInDB === false) {
 			await this.gateway.provider.create(this.gateway.type, this.id);
 			this._existsInDB = true;
-			this.client.emit('settingsCreateEntry', this);
+			this.client.emit("settingsCreateEntry", this);
 		}
 
 		await this.gateway.provider.update(this.gateway.type, this.id, updated);
-		this.client.emit('settingsUpdateEntry', this, updated);
+		this.client.emit("settingsUpdateEntry", this, updated);
 	}
 
 	/**
@@ -410,7 +411,7 @@ class Settings {
 	 * @private
 	 */
 	_parseArray(piece, route, parsed, { force, action, arrayPosition }, { updated, errors }) {
-		if (action === 'overwrite') {
+		if (action === "overwrite") {
 			if (!Array.isArray(parsed)) parsed = [parsed];
 			if (this._setValueByPath(piece, parsed, force).updated) {
 				updated.push({ data: [piece.path, parsed], piece });
@@ -418,16 +419,16 @@ class Settings {
 			return;
 		}
 		const array = this.get(route);
-		if (typeof arrayPosition === 'number') {
+		if (typeof arrayPosition === "number") {
 			if (arrayPosition >= array.length) errors.push(new Error(`The option arrayPosition should be a number between 0 and ${array.length - 1}`));
 			else array[arrayPosition] = parsed;
 		} else {
 			for (const value of Array.isArray(parsed) ? parsed : [parsed]) {
 				const index = array.indexOf(value);
-				if (action === 'auto') {
+				if (action === "auto") {
 					if (index === -1) array.push(value);
 					else array.splice(index, 1);
-				} else if (action === 'add') {
+				} else if (action === "add") {
 					if (index !== -1) errors.push(new Error(`The value ${value} for the key ${piece.path} already exists.`));
 					else array.push(value);
 				} else if (index === -1) {
@@ -470,9 +471,9 @@ class Settings {
 	 * @private
 	 */
 	_setValueByPath(piece, parsedID, force) {
-		const path = piece.path.split('.');
+		const path = piece.path.split(".");
 		const lastKey = path.pop();
-		let cache = this; // eslint-disable-line consistent-this
+		let cache = this; // eslint-disable-line consistent-this,@typescript-eslint/no-this-alias
 		for (const key of path) cache = cache[key] || {};
 		const old = cache[lastKey];
 
@@ -492,12 +493,12 @@ class Settings {
 	 * @private
 	 */
 	_patch(data, instance = this, schema = this.gateway.schema) {
-		if (typeof data !== 'object' || data === null) return;
+		if (typeof data !== "object" || data === null) return;
 		for (const [key, piece] of schema.entries()) {
 			const value = data[key];
 			if (value === undefined) continue;
 			if (value === null) instance[key] = deepClone(piece.defaults);
-			else if (piece.type === 'Folder') this._patch(value, instance[key], piece);
+			else if (piece.type === "Folder") this._patch(value, instance[key], piece);
 			else instance[key] = value;
 		}
 	}

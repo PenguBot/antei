@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Piece = require('./base/Piece');
-const { isObject, mergeObjects, makeObject } = require('../util/util');
+const Piece = require("./base/Piece");
+const { isObject, mergeObjects, makeObject } = require("../util/util");
 
 /**
  * Base class for all Klasa Providers. See {@tutorial CreatingProviders} for more information how to use this class

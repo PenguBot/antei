@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Language = require('./Language');
-const Store = require('./base/Store');
+const Language = require("./Language");
+const Store = require("./base/Store");
 
 /**
  * Stores all languages for use in Klasa
@@ -15,7 +15,7 @@ class LanguageStore extends Store {
 	 * @param {KlasaClient} client The Klasa client
 	 */
 	constructor(client) {
-		super(client, 'languages', Language);
+		super(client, "languages", Language);
 	}
 
 	/**

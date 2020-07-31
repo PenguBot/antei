@@ -1,51 +1,51 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
 const tokens = new Map([
-	['nanosecond', 1 / 1e6],
-	['nanoseconds', 1 / 1e6],
-	['ns', 1 / 1e6],
+	["nanosecond", 1 / 1e6],
+	["nanoseconds", 1 / 1e6],
+	["ns", 1 / 1e6],
 
-	['millisecond', 1],
-	['milliseconds', 1],
-	['ms', 1],
+	["millisecond", 1],
+	["milliseconds", 1],
+	["ms", 1],
 
-	['second', 1000],
-	['seconds', 1000],
-	['sec', 1000],
-	['secs', 1000],
-	['s', 1000],
+	["second", 1000],
+	["seconds", 1000],
+	["sec", 1000],
+	["secs", 1000],
+	["s", 1000],
 
-	['minute', 1000 * 60],
-	['minutes', 1000 * 60],
-	['min', 1000 * 60],
-	['mins', 1000 * 60],
-	['m', 1000 * 60],
+	["minute", 1000 * 60],
+	["minutes", 1000 * 60],
+	["min", 1000 * 60],
+	["mins", 1000 * 60],
+	["m", 1000 * 60],
 
-	['hour', 1000 * 60 * 60],
-	['hours', 1000 * 60 * 60],
-	['hr', 1000 * 60 * 60],
-	['hrs', 1000 * 60 * 60],
-	['h', 1000 * 60 * 60],
+	["hour", 1000 * 60 * 60],
+	["hours", 1000 * 60 * 60],
+	["hr", 1000 * 60 * 60],
+	["hrs", 1000 * 60 * 60],
+	["h", 1000 * 60 * 60],
 
-	['day', 1000 * 60 * 60 * 24],
-	['days', 1000 * 60 * 60 * 24],
-	['d', 1000 * 60 * 60 * 24],
+	["day", 1000 * 60 * 60 * 24],
+	["days", 1000 * 60 * 60 * 24],
+	["d", 1000 * 60 * 60 * 24],
 
-	['week', 1000 * 60 * 60 * 24 * 7],
-	['weeks', 1000 * 60 * 60 * 24 * 7],
-	['wk', 1000 * 60 * 60 * 24 * 7],
-	['wks', 1000 * 60 * 60 * 24 * 7],
-	['w', 1000 * 60 * 60 * 24 * 7],
+	["week", 1000 * 60 * 60 * 24 * 7],
+	["weeks", 1000 * 60 * 60 * 24 * 7],
+	["wk", 1000 * 60 * 60 * 24 * 7],
+	["wks", 1000 * 60 * 60 * 24 * 7],
+	["w", 1000 * 60 * 60 * 24 * 7],
 
-	['month', 1000 * 60 * 60 * 24 * (365.25 / 12)],
-	['months', 1000 * 60 * 60 * 24 * (365.25 / 12)],
-	['b', 1000 * 60 * 60 * 24 * (365.25 / 12)],
+	["month", 1000 * 60 * 60 * 24 * (365.25 / 12)],
+	["months", 1000 * 60 * 60 * 24 * (365.25 / 12)],
+	["b", 1000 * 60 * 60 * 24 * (365.25 / 12)],
 
-	['year', 1000 * 60 * 60 * 24 * 365.25],
-	['years', 1000 * 60 * 60 * 24 * 365.25],
-	['yr', 1000 * 60 * 60 * 24 * 365.25],
-	['yrs', 1000 * 60 * 60 * 24 * 365.25],
-	['y', 1000 * 60 * 60 * 24 * 365.25]
+	["year", 1000 * 60 * 60 * 24 * 365.25],
+	["years", 1000 * 60 * 60 * 24 * 365.25],
+	["yr", 1000 * 60 * 60 * 24 * 365.25],
+	["yrs", 1000 * 60 * 60 * 24 * 365.25],
+	["y", 1000 * 60 * 60 * 24 * 365.25]
 ]);
 
 /**
@@ -70,7 +70,7 @@ class Duration {
 	/**
 	 * Get the date from now
 	 * @since 0.5.0
-	 * @type {Date}
+	 * @type {date}
 	 * @readonly
 	 */
 	get fromNow() {
@@ -80,8 +80,8 @@ class Duration {
 	/**
 	 * Get the date from
 	 * @since 0.5.0
-	 * @param {Date} date The Date instance to get the date from
-	 * @returns {Date}
+	 * @param {date} date The Date instance to get the date from
+	 * @returns {date}
 	 */
 	dateFrom(date) {
 		return new Date(date.getTime() + this.offset);
@@ -99,14 +99,14 @@ class Duration {
 
 		pattern
 			// ignore commas
-			.replace(this.commas, '')
+			.replace(this.commas, "")
 			// a / an = 1
-			.replace(this.aan, '1')
+			.replace(this.aan, "1")
 			// do math
 			.replace(this.regex, (match, i, units) => {
 				units = tokens.get(units) || 0;
 				result += Number(i) * units;
-				return '';
+				return "";
 			});
 
 		return result;
@@ -115,13 +115,13 @@ class Duration {
 	/**
 	 * Shows the user friendly duration of time between a period and now.
 	 * @since 0.5.0
-	 * @param {(Date|number|string)} earlier The time to compare
+	 * @param {(date|number|string)} earlier The time to compare
 	 * @param {boolean} [showIn] Whether the output should be prefixed
 	 * @returns {string}
 	 */
 	static toNow(earlier, showIn) {
 		if (!(earlier instanceof Date)) earlier = new Date(earlier);
-		const returnString = showIn ? 'in ' : '';
+		const returnString = showIn ? "in " : "";
 		let duration = Math.abs((Date.now() - earlier) / 1000);
 
 		// Compare the duration in seconds

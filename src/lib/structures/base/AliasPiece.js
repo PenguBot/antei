@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const Piece = require('./Piece');
+const Piece = require("./Piece");
 
 /**
  * The common class for all pieces with aliases

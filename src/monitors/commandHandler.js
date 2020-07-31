@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Monitor, Stopwatch, util: { regExpEsc } } = require('klasa');
+const { Monitor, Stopwatch, util: { regExpEsc } } = require("klasa");
 
 module.exports = class extends Monitor {
 
@@ -10,19 +10,19 @@ module.exports = class extends Monitor {
 		this.prefixes = new Map();
 		this.prefixMention = null;
 		this.mentionOnly = null;
-		this.prefixFlags = this.client.options.prefixCaseInsensitive ? 'i' : '';
+		this.prefixFlags = this.client.options.prefixCaseInsensitive ? "i" : "";
 	}
 
 	async run(message) {
 		if (message.guild && !message.guild.me) await message.guild.members.fetch(this.client.user);
 		if (!message.channel.postable) return undefined;
-		if (this.mentionOnly.test(message.content)) return message.sendLocale('PREFIX_REMINDER', [message.guildSettings.prefix.length ? message.guildSettings.prefix : undefined]);
+		if (this.mentionOnly.test(message.content)) return message.sendLocale("PREFIX_REMINDER", [message.guildSettings.prefix.length ? message.guildSettings.prefix : undefined]);
 
 		const { commandText, prefix, prefixLength } = this.parseCommand(message);
 		if (!commandText) return undefined;
 
 		const command = this.client.commands.get(commandText);
-		if (!command) return this.client.emit('commandUnknown', message, commandText, prefix, prefixLength);
+		if (!command) return this.client.emit("commandUnknown", message, commandText, prefix, prefixLength);
 
 		return this.runCommand(message._registerCommand({ command, prefix, prefixLength }));
 	}
@@ -30,7 +30,7 @@ module.exports = class extends Monitor {
 	parseCommand(message) {
 		const result = this.customPrefix(message) || this.mentionPrefix(message) || this.naturalPrefix(message) || this.prefixLess(message);
 		return result ? {
-			commandText: message.content.slice(result.length).trim().split(' ')[0].toLowerCase(),
+			commandText: message.content.slice(result.length).trim().split(" ")[0].toLowerCase(),
 			prefix: result.regex,
 			prefixLength: result.length
 		} : { commandText: false };
@@ -57,7 +57,7 @@ module.exports = class extends Monitor {
 	}
 
 	prefixLess({ channel: { type } }) {
-		return this.client.options.noPrefixDM && type === 'dm' ? { length: 0, regex: null } : null;
+		return this.client.options.noPrefixDM && type === "dm" ? { length: 0, regex: null } : null;
 	}
 
 	generateNewPrefix(prefix) {
@@ -78,12 +78,12 @@ module.exports = class extends Monitor {
 				timer.stop();
 				const response = await commandRun;
 				this.client.finalizers.run(message, message.command, response, timer);
-				this.client.emit('commandSuccess', message, message.command, message.params, response);
+				this.client.emit("commandSuccess", message, message.command, message.params, response);
 			} catch (error) {
-				this.client.emit('commandError', message, message.command, message.params, error);
+				this.client.emit("commandError", message, message.command, message.params, error);
 			}
 		} catch (response) {
-			this.client.emit('commandInhibited', message, message.command, response);
+			this.client.emit("commandInhibited", message, message.command, response);
 		}
 		if (this.client.options.typing) message.channel.stopTyping();
 	}
