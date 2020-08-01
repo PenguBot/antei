@@ -60,8 +60,7 @@ class LanguageHandler {
 
 				const folder = await this.walkLanguageDirectory(path.join(dir, file), namespaces, isLanguage ? "" : `${file}/`);
 
-				// eslint-disable-next-line prefer-destructuring
-				namespaces = folder.namespaces;
+				({ namespaces }) = folder;
 			} else {
 				namespaces.push(`${folderName}${file.substr(0, file.length - 5)}`);
 			}
