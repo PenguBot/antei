@@ -22,9 +22,12 @@ This project is based on [dirigeants/klasa](https://github.com/dirigeants/klasa)
 
 ## License
 [Apache-2.0](https://github.com/PenguBot/antei/blob/main/LICENSE)
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/0)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/0)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/1)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/1)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/2)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/2)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/3)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/3)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/4)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/4)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/5)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/5)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/6)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/6)[![](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/images/7)](https://sourcerer.io/fame/QuantumlyTangled/PenguBot/antei/links/7)
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
