@@ -16,6 +16,13 @@
   "homepage": "https://github.com/pengubot/antei",
   "dependencies": {
     "@klasa/cache": "^0.0.3",
+    "@klasa/console": "^0.0.3",
+    "@klasa/cron": "^0.0.1",
+    "@klasa/duration": "^0.0.3",
+    "@klasa/ratelimits": "^0.1.0",
+    "@klasa/stopwatch": "^0.0.1",
+    "@klasa/timestamp": "^0.0.1",
+    "@klasa/type": "^0.0.1",
     "discord.js": "^12.2.0",
     "fs-nextra": "^0.5.1",
     "i18next": "^19.6.3",
@@ -39,8 +46,8 @@
     "typescript": "^3.9.7"
   },
   "files": [
-    "src",
-    "typings"
+		"dist",
+		"!dist/tsconfig.tsbuildinfo"
   ],
   "husky": {
     "hooks": {
