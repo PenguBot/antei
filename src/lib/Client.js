@@ -30,7 +30,7 @@ const GatewayDriver = require("./settings/GatewayDriver");
 const Schema = require("./settings/schema/Schema");
 
 // lib/util
-const KlasaConsole = require("./util/KlasaConsole");
+const AnteiConsole = require("./util/AnteiConsole");
 const { DEFAULTS, MENTION_REGEX } = require("./util/constants");
 const Stopwatch = require("./util/Stopwatch");
 const util = require("./util/util");
@@ -43,7 +43,7 @@ const plugins = new Set();
  * @extends external:Client
  * @tutorial GettingStarted
  */
-class KlasaClient extends Discord.Client {
+class AnteiClient extends Discord.Client {
 
 	/**
 	 * Defaulted as `Successfully initialized. Ready to serve ${this.guilds.size} guilds.`
@@ -51,22 +51,22 @@ class KlasaClient extends Discord.Client {
 	 */
 
 	/**
-	 * Defaulted to KlasaClient.defaultPermissionLevels
+	 * Defaulted to AnteiClient.defaultPermissionLevels
 	 * @typedef {PermissionLevels} PermissionLevelsOverload
 	 */
 
 	/**
-	 * @typedef {external:DiscordClientOptions} KlasaClientOptions
+	 * @typedef {external:DiscordClientOptions} AnteiClientOptions
 	 * @property {boolean} [commandEditing=false] Whether the bot should update responses if the command is edited
 	 * @property {boolean} [commandLogging=false] Whether the bot should log command usage
 	 * @property {number} [commandMessageLifetime=1800] The threshold for how old command messages can be before sweeping since the last edit in seconds
 	 * @property {ConsoleOptions} [console={}] Config options to pass to the client console
 	 * @property {ConsoleEvents} [consoleEvents={}] Config options to pass to the client console
-	 * @property {boolean} [createPiecesFolders=true] Whether Klasa should create pieces' folder at start up or not
+	 * @property {boolean} [createPiecesFolders=true] Whether Antei should create pieces' folder at start up or not
 	 * @property {CustomPromptDefaults} [customPromptDefaults={}] The defaults for custom prompts
 	 * @property {string[]} [disabledCorePieces=[]] An array of disabled core piece types, e.g., ['commands', 'arguments']
 	 * @property {GatewaysOptions} [gateways={}] The options for each built-in gateway
-	 * @property {string} [language='en-US'] The default language Klasa should opt-in for the commands
+	 * @property {string} [language='en-US'] The default language Antei should opt-in for the commands
 	 * @property {boolean} [noPrefixDM=false] Whether the bot should allow prefixless messages in DMs
 	 * @property {string} [ownerID] The discord user id for the user the bot should respect as the owner (gotten from Discord api if not provided)
 	 * @property {PermissionLevelsOverload} [permissionLevels] The permission levels to use with this bot
@@ -75,7 +75,7 @@ class KlasaClient extends Discord.Client {
 	 * @property {boolean} [preserveSettings=true] Whether the bot should preserve (non-default) settings when removed from a guild
 	 * @property {boolean} [production=false] Whether the bot should handle unhandled promise rejections automatically (handles when false) (also can be configured with process.env.NODE_ENV)
 	 * @property {ProvidersOptions} [providers] The provider options
-	 * @property {ReadyMessage} [readyMessage] readyMessage to be passed throughout Klasa's ready event
+	 * @property {ReadyMessage} [readyMessage] readyMessage to be passed throughout Antei's ready event
 	 * @property {RegExp} [regexPrefix] The regular expression prefix if one is provided
 	 * @property {ScheduleOptions} [schedule={}] The options for the internal clock module that runs Schedule
 	 * @property {number} [slowmode=0] Amount of time in ms before the bot will respond to a users command since the last command that user has run
@@ -131,20 +131,20 @@ class KlasaClient extends Discord.Client {
 	 */
 
 	/**
-	 * Constructs the Klasa client
+	 * Constructs the Antei client
 	 * @since 0.0.1
-	 * @param {KlasaClientOptions} [options={}] The config to pass to the new client
+	 * @param {AnteiClientOptions} [options={}] The config to pass to the new client
 	 */
 	constructor(options = {}) {
-		if (!util.isObject(options)) throw new TypeError("The Client Options for Klasa must be an object.");
+		if (!util.isObject(options)) throw new TypeError("The Client Options for Antei must be an object.");
 		options = util.mergeDefault(DEFAULTS.CLIENT, options);
 		super(options);
 
 		/**
 		 * The options the client was instantiated with.
 		 * @since 0.0.1
-		 * @name KlasaClient#options
-		 * @type {KlasaClientOptions}
+		 * @name AnteiClient#options
+		 * @type {AnteiClientOptions}
 		 */
 
 		/**
@@ -157,9 +157,9 @@ class KlasaClient extends Discord.Client {
 		/**
 		 * The console for this instance of klasa. You can disable timestamps, colors, and add writable streams as configuration options to configure this.
 		 * @since 0.0.1
-		 * @type {KlasaConsole}
+		 * @type {AnteiConsole}
 		 */
-		this.console = new KlasaConsole(this.options.console);
+		this.console = new AnteiConsole(this.options.console);
 
 		/**
 		 * The cache where argument resolvers are stored
@@ -264,7 +264,7 @@ class KlasaClient extends Discord.Client {
 		const userSchema = "schema" in users ? users.schema : this.constructor.defaultUserSchema;
 		const clientSchema = "schema" in clientStorage ? clientStorage.schema : this.constructor.defaultClientSchema;
 
-		// Update Guild Schema with Keys needed in Klasa
+		// Update Guild Schema with Keys needed in Antei
 		const prefixKey = guildSchema.get("prefix");
 		if (!prefixKey || prefixKey.default === null) {
 			guildSchema.add("prefix", "string", { array: Array.isArray(this.options.prefix), default: this.options.prefix });
@@ -351,7 +351,7 @@ class KlasaClient extends Discord.Client {
 	/**
 	 * The owners for this bot
 	 * @since 0.0.1
-	 * @type {Set<KlasaUser>}
+	 * @type {Set<AnteiUser>}
 	 * @readonly
 	 */
 	get owners() {
@@ -365,7 +365,7 @@ class KlasaClient extends Discord.Client {
 
 	/**
 	 * Obtains the OAuth Application of the bot from Discord.
-	 * When ran, this function will update {@link KlasaClient#application}.
+	 * When ran, this function will update {@link AnteiClient#application}.
 	 * @since 0.0.1
 	 * @returns {external:ClientApplication}
 	 */
@@ -441,7 +441,7 @@ class KlasaClient extends Discord.Client {
 	 * @param {number} [lifetime=this.options.messageCacheLifetime] Messages that are older than this (in seconds)
 	 * will be removed from the caches. The default is based on [ClientOptions#messageCacheLifetime]{@link https://discord.js.org/#/docs/main/master/typedef/ClientOptions?scrollTo=messageCacheLifetime}
 	 * @param {number} [commandLifetime=this.options.commandMessageLifetime] Messages that are older than this (in seconds)
-	 * will be removed from the caches. The default is based on {@link KlasaClientOptions#commandMessageLifetime}
+	 * will be removed from the caches. The default is based on {@link AnteiClientOptions#commandMessageLifetime}
 	 * @returns {number} Amount of messages that were removed from the caches,
 	 * or -1 if the message cache lifetime is unlimited
 	 */
@@ -475,7 +475,7 @@ class KlasaClient extends Discord.Client {
 	}
 
 	/**
-	 * Caches a plugin module to be used when creating a KlasaClient instance
+	 * Caches a plugin module to be used when creating a AnteiClient instance
 	 * @since 0.0.1
 	 * @param {Object} mod The module of the plugin to use
 	 * @returns {this}
@@ -490,28 +490,28 @@ class KlasaClient extends Discord.Client {
 
 }
 
-module.exports = KlasaClient;
+module.exports = AnteiClient;
 
 /**
  * The plugin symbol to be used in external packages
  * @since 0.0.1
  * @type {Symbol}
  */
-KlasaClient.plugin = Symbol("KlasaPlugin");
+AnteiClient.plugin = Symbol("AnteiPlugin");
 
 /**
  * The base Permissions that the {@link Client#invite} asks for. Defaults to [VIEW_CHANNEL, SEND_MESSAGES]
  * @since 0.0.1
  * @type {Permissions}
  */
-KlasaClient.basePermissions = new Permissions(3072);
+AnteiClient.basePermissions = new Permissions(3072);
 
 /**
  * The default PermissionLevels
  * @since 0.0.1
  * @type {PermissionLevels}
  */
-KlasaClient.defaultPermissionLevels = new PermissionLevels()
+AnteiClient.defaultPermissionLevels = new PermissionLevels()
 	.add(0, () => true)
 	.add(6, ({ guild, member }) => guild && member.permissions.has(FLAGS.MANAGE_GUILD), { fetch: true })
 	.add(7, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
@@ -523,7 +523,7 @@ KlasaClient.defaultPermissionLevels = new PermissionLevels()
  * @since 0.0.1
  * @type {Schema}
  */
-KlasaClient.defaultGuildSchema = new Schema()
+AnteiClient.defaultGuildSchema = new Schema()
 	.add("prefix", "string")
 	.add("language", "language")
 	.add("disableNaturalPrefix", "boolean")
@@ -539,50 +539,50 @@ KlasaClient.defaultGuildSchema = new Schema()
  * @since 0.0.1
  * @type {Schema}
  */
-KlasaClient.defaultUserSchema = new Schema();
+AnteiClient.defaultUserSchema = new Schema();
 
 /**
  * The default Client Schema
  * @since 0.0.1
  * @type {Schema}
  */
-KlasaClient.defaultClientSchema = new Schema()
+AnteiClient.defaultClientSchema = new Schema()
 	.add("userBlacklist", "user", { array: true })
 	.add("guildBlacklist", "string", { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	.add("schedules", "any", { array: true });
 
 /**
- * Emitted when Klasa is fully ready and initialized.
- * @event KlasaClient#klasaReady
+ * Emitted when Antei is fully ready and initialized.
+ * @event AnteiClient#anteiReady
  * @since 0.0.1
  */
 
 /**
- * A central logging event for Klasa.
- * @event KlasaClient#log
+ * A central logging event for Antei.
+ * @event AnteiClient#log
  * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling verbose logs
- * @event KlasaClient#verbose
+ * @event AnteiClient#verbose
  * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * An event for handling wtf logs (what a terrible failure)
- * @event KlasaClient#wtf
+ * @event AnteiClient#wtf
  * @since 0.0.1
  * @param {(string|Object)} data The data to log
  */
 
 /**
  * Emitted when an unknown command is called.
- * @event KlasaClient#commandUnknown
+ * @event AnteiClient#commandUnknown
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {string} command The command attempted to run
  * @param {RegExp} prefix The prefix used
  * @param {number} prefixLength The length of the prefix used
@@ -590,27 +590,27 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has been inhibited.
- * @event KlasaClient#commandInhibited
+ * @event AnteiClient#commandInhibited
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {Command} command The command triggered
  * @param {?string[]} response The reason why it was inhibited if not silent
  */
 
 /**
  * Emitted when a command has been run.
- * @event KlasaClient#commandRun
+ * @event AnteiClient#commandRun
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {string[]} args The raw arguments of the command
  */
 
 /**
  * Emitted when a command has been run.
- * @event KlasaClient#commandSuccess
+ * @event AnteiClient#commandSuccess
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {any[]} params The resolved parameters of the command
  * @param {?any} response Usually a response message, but whatever the command returned
@@ -618,9 +618,9 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a command has encountered an error.
- * @event KlasaClient#commandError
+ * @event AnteiClient#commandError
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {any[]} params The resolved parameters of the command
  * @param {Object} error The command error
@@ -628,16 +628,16 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when an invalid argument is passed to a command.
- * @event KlasaClient#argumentError
+ * @event AnteiClient#argumentError
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the command
+ * @param {AnteiMessage} message The message that triggered the command
  * @param {Command} command The command run
  * @param {any[]} params The resolved parameters of the command
  * @param {string} error The argument error
  */
 /**
  * Emitted when an event has encountered an error.
- * @event KlasaClient#eventError
+ * @event AnteiClient#eventError
  * @since 0.0.1
  * @param {Event} event The event that errored
  * @param {any[]} args The event arguments
@@ -646,20 +646,20 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a monitor has encountered an error.
- * @event KlasaClient#monitorError
+ * @event AnteiClient#monitorError
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the monitor
+ * @param {AnteiMessage} message The message that triggered the monitor
  * @param {Monitor} monitor The monitor run
  * @param {(Error|string)} error The monitor error
  */
 
 /**
  * Emitted when a finalizer has encountered an error.
- * @event KlasaClient#finalizerError
+ * @event AnteiClient#finalizerError
  * @since 0.0.1
- * @param {KlasaMessage} message The message that triggered the finalizer
+ * @param {AnteiMessage} message The message that triggered the finalizer
  * @param {Command} command The command this finalizer is for (may be different than message.command)
- * @param {KlasaMessage|any} response The response from the command
+ * @param {AnteiMessage|any} response The response from the command
  * @param {Stopwatch} timer The timer run from start to queue of the command
  * @param {Finalizer} finalizer The finalizer run
  * @param {(Error|string)} error The finalizer error
@@ -667,7 +667,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when a task has encountered an error.
- * @event KlasaClient#taskError
+ * @event AnteiClient#taskError
  * @since 0.0.1
  * @param {ScheduledTask} scheduledTask The scheduled task
  * @param {Task} task The task run
@@ -676,7 +676,7 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when {@link Settings#update} or {@link Settings#reset} is run.
- * @event KlasaClient#settingsUpdateEntry
+ * @event AnteiClient#settingsUpdateEntry
  * @since 0.0.1
  * @param {Settings} entry The patched Settings instance
  * @param {SettingsUpdateResultEntry[]} updated The keys that were updated
@@ -684,49 +684,49 @@ KlasaClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when {@link Settings#destroy} is run.
- * @event KlasaClient#settingsDeleteEntry
+ * @event AnteiClient#settingsDeleteEntry
  * @since 0.0.1
  * @param {Settings} entry The entry which got deleted
  */
 
 /**
  * Emitted when a new entry in the database has been created upon update.
- * @event KlasaClient#settingsCreateEntry
+ * @event AnteiClient#settingsCreateEntry
  * @since 0.0.1
  * @param {Settings} entry The entry which got created
  */
 
 /**
  * Emitted when a piece is loaded. (This can be spammy on bot startup or anytime you reload all of a piece type.)
- * @event KlasaClient#pieceLoaded
+ * @event AnteiClient#pieceLoaded
  * @since 0.0.1
  * @param {Piece} piece The piece that was loaded
  */
 
 /**
  * Emitted when a piece is unloaded.
- * @event KlasaClient#pieceUnloaded
+ * @event AnteiClient#pieceUnloaded
  * @since 0.0.1
  * @param {Piece} piece The piece that was unloaded
  */
 
 /**
  * Emitted when a piece is reloaded.
- * @event KlasaClient#pieceReloaded
+ * @event AnteiClient#pieceReloaded
  * @since 0.0.1
  * @param {Piece} piece The piece that was reloaded
  */
 
 /**
  * Emitted when a piece is enabled.
- * @event KlasaClient#pieceEnabled
+ * @event AnteiClient#pieceEnabled
  * @since 0.0.1
  * @param {Piece} piece The piece that was enabled
  */
 
 /**
  * Emitted when a piece is disabled.
- * @event KlasaClient#pieceDisabled
+ * @event AnteiClient#pieceDisabled
  * @since 0.0.1
  * @param {Piece} piece The piece that was disabled
  */

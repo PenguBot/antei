@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Provider, util } = require("klasa");
+const { Provider, util } = require("@pengubot/antei");
 const { resolve } = require("path");
 const fs = require("fs-nextra");
 

@@ -3,7 +3,7 @@
 const Piece = require("./base/Piece");
 
 /**
- * Base class for all Klasa Inhibitors. See {@tutorial CreatingInhibitors} for more information how to use this class
+ * Base class for all Antei Inhibitors. See {@tutorial CreatingInhibitors} for more information how to use this class
  * to build custom inhibitors.
  * @tutorial CreatingInhibitors
  * @extends Piece
@@ -36,7 +36,7 @@ class Inhibitor extends Piece {
 	/**
 	 * The async wrapper for running inhibitors
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The message that triggered this inhibitor
+	 * @param {AnteiMessage} message The message that triggered this inhibitor
 	 * @param {Command} command The command to run
 	 * @returns {(void|string)}
 	 * @private
@@ -52,7 +52,7 @@ class Inhibitor extends Piece {
 	/**
 	 * The run method to be overwritten in actual inhibitors
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The message that triggered this inhibitor
+	 * @param {AnteiMessage} message The message that triggered this inhibitor
 	 * @param {Command} command The command to run
 	 * @returns {(void|string)}
 	 * @abstract

@@ -4,13 +4,13 @@ const { Structures } = require("discord.js");
 
 module.exports = Structures.extend("User", User => {
 	/**
-	 * Klasa's Extended User
+	 * Antei's Extended User
 	 * @extends external:User
 	 */
-	class KlasaUser extends User {
+	class AnteiUser extends User {
 
 		/**
-		 * @typedef {external:UserJSON} KlasaUserJSON
+		 * @typedef {external:UserJSON} AnteiUserJSON
 		 * @property {SettingsJSON} settings The per user settings
 		 */
 
@@ -31,7 +31,7 @@ module.exports = Structures.extend("User", User => {
 		/**
 		 * Returns the JSON-compatible object of this instance.
 		 * @since 0.0.1
-		 * @returns {KlasaUserJSON}
+		 * @returns {AnteiUserJSON}
 		 */
 		toJSON() {
 			return { ...super.toJSON(), settings: this.settings };
@@ -39,5 +39,5 @@ module.exports = Structures.extend("User", User => {
 
 	}
 
-	return KlasaUser;
+	return AnteiUser;
 });

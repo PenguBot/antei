@@ -4,22 +4,22 @@ const Provider = require("./Provider");
 const Store = require("./base/Store");
 
 /**
- * Stores all providers for use in Klasa
+ * Stores all providers for use in Antei
  * @extends Store
  */
 class ProviderStore extends Store {
 
 	/**
-	 * Constructs our ProviderStore for use in Klasa
+	 * Constructs our ProviderStore for use in Antei
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Antei client
 	 */
 	constructor(client) {
 		super(client, "providers", Provider);
 	}
 
 	/**
-	 * The default provider set in {@link KlasaClientOptions.providers}
+	 * The default provider set in {@link AnteiClientOptions.providers}
 	 * @since 0.0.1
 	 * @type {?Provider}
 	 * @readonly

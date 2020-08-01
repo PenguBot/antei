@@ -76,7 +76,7 @@ const tokens = new Map([
 /* eslint-enable max-len */
 
 /**
- * Klasa's Timestamp class, parses the pattern once, displays the desired Date or UNIX timestamp with the selected pattern.
+ * Antei's Timestamp class, parses the pattern once, displays the desired Date or UNIX timestamp with the selected pattern.
  */
 class Timestamp {
 

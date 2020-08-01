@@ -5,7 +5,7 @@ const CommandUsage = require("../usage/CommandUsage");
 const { isFunction } = require("../util/util");
 
 /**
- * Base class for all Klasa Commands. See {@tutorial CreatingCommands} for more information how to use this class
+ * Base class for all Antei Commands. See {@tutorial CreatingCommands} for more information how to use this class
  * to build custom commands.
  * @tutorial CreatingCommands
  * @extends AliasPiece
@@ -297,9 +297,9 @@ class Command extends AliasPiece {
 	/**
 	 * The run method to be overwritten in actual commands
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The command message mapped on top of the message used to trigger this command
+	 * @param {AnteiMessage} message The command message mapped on top of the message used to trigger this command
 	 * @param {any[]} params The fully resolved parameters based on your usage / usageDelim
-	 * @returns {KlasaMessage|KlasaMessage[]} You should return the response message whenever possible
+	 * @returns {AnteiMessage|AnteiMessage[]} You should return the response message whenever possible
 	 * @abstract
 	 */
 	async run() {

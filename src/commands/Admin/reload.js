@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command, Store, Stopwatch } = require("klasa");
+const { Command, Store, Stopwatch } = require("@pengubot/antei");
 
 module.exports = class extends Command {
 

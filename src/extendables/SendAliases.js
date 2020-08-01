@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Extendable } = require("klasa");
+const { Extendable } = require("@pengubot/antei");
 const { TextChannel, DMChannel, User, APIMessage } = require("discord.js");
 
 module.exports = class extends Extendable {

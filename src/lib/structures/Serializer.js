@@ -4,7 +4,7 @@ const AliasPiece = require("./base/AliasPiece");
 const { MENTION_REGEX } = require("../util/constants");
 
 /**
- * Base class for all Klasa Serializers. See {@tutorial CreatingSerializers} for more information how to use this class
+ * Base class for all Antei Serializers. See {@tutorial CreatingSerializers} for more information how to use this class
  * to build custom serializers.
  * @tutorial CreatingSerializers
  * @extends AliasPiece

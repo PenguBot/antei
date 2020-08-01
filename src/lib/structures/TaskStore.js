@@ -4,15 +4,15 @@ const Task = require("./Task");
 const Store = require("./base/Store");
 
 /**
- * Stores all task pieces for use in Klasa
+ * Stores all task pieces for use in Antei
  * @extends Store
  */
 class TaskStore extends Store {
 
 	/**
-	 * Constructs our TaskStore for use in Klasa
+	 * Constructs our TaskStore for use in Antei
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Antei client
 	 */
 	constructor(client) {
 		super(client, "tasks", Task);

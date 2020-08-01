@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Event } = require("klasa");
+const { Event } = require("@pengubot/antei");
 const gateways = ["users", "clientStorage"];
 
 module.exports = class extends Event {

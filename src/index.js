@@ -1,14 +1,14 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
 module.exports = {
-	// KlasaClient
+	// AnteiClient
 	Client: require("./lib/Client"),
-	KlasaClient: require("./lib/Client"),
+	AnteiClient: require("./lib/Client"),
 
 	// lib/extensions
-	KlasaGuild: require("./lib/extensions/KlasaGuild"),
-	KlasaMessage: require("./lib/extensions/KlasaMessage"),
-	KlasaUser: require("./lib/extensions/KlasaUser"),
+	AnteiGuild: require("./lib/extensions/AnteiGuild"),
+	AnteiMessage: require("./lib/extensions/AnteiMessage"),
+	AnteiUser: require("./lib/extensions/AnteiUser"),
 
 	// lib/permissions
 	PermissionLevels: require("./lib/permissions/PermissionLevels"),
@@ -68,7 +68,7 @@ module.exports = {
 
 	// lib/util
 	Colors: require("./lib/util/Colors"),
-	KlasaConsole: require("./lib/util/KlasaConsole"),
+	AnteiConsole: require("./lib/util/AnteiConsole"),
 	constants: require("./lib/util/constants"),
 	Cron: require("./lib/util/Cron"),
 	Duration: require("./lib/util/Duration"),

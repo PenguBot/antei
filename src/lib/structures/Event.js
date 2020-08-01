@@ -3,7 +3,7 @@
 const Piece = require("./base/Piece");
 
 /**
- * Base class for all Klasa Events. See {@tutorial CreatingEvents} for more information how to use this class
+ * Base class for all Antei Events. See {@tutorial CreatingEvents} for more information how to use this class
  * to build custom events.
  * @tutorial CreatingEvents
  * @extends Piece

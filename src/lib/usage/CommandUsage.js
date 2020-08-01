@@ -11,7 +11,7 @@ class CommandUsage extends Usage {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client
+	 * @param {AnteiClient} client The klasa client
 	 * @param {usageString} usageString The usage string for this command
 	 * @param {usageDelim} usageDelim The usage deliminator for this command
 	 * @param {Command} command The command this parsed usage is for
@@ -44,7 +44,7 @@ class CommandUsage extends Usage {
 	/**
 	 * Creates a CommandPrompt instance to collect and resolve arguments with
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The message context from the prompt
+	 * @param {AnteiMessage} message The message context from the prompt
 	 * @param {TextPromptOptions} [options={}] The options for the prompt
 	 * @returns {CommandPrompt}
 	 */
@@ -55,7 +55,7 @@ class CommandUsage extends Usage {
 	/**
 	 * Creates a full usage string including prefix and commands/aliases for documentation/help purposes
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The message context for which to generate usage for
+	 * @param {AnteiMessage} message The message context for which to generate usage for
 	 * @returns {string}
 	 */
 	fullUsage(message) {

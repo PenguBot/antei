@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command, Stopwatch, Type, util } = require("klasa");
+const { Command, Stopwatch, Type, util } = require("@pengubot/antei");
 const { inspect } = require("util");
 
 module.exports = class extends Command {

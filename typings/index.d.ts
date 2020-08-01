@@ -2,56 +2,45 @@
 
 declare module '@pengubot/antei' {
 
-	import { ExecOptions } from 'child_process';
+	import {
+		ExecOptions
+	} from 'child_process';
 
 	import {
 		APIMessage,
-		BufferResolvable,
-		CategoryChannel,
 		Channel,
 		Client,
-		ClientApplication,
 		ClientOptions,
-		ClientUser,
 		Collection,
 		DMChannel,
-		Emoji,
 		EmojiResolvable,
 		Guild,
 		GuildChannel,
-		GuildEmoji,
 		GuildMember,
 		Message,
 		MessageAdditions,
-		MessageAttachment,
-		MessageCollector,
 		MessageEmbed,
 		MessageOptions,
 		MessageReaction,
 		MessageType,
 		PermissionResolvable,
 		Permissions,
-		Presence,
-		RateLimitData,
 		ReactionCollector,
 		Role,
 		Snowflake,
-		Speaking,
 		StringResolvable,
 		TextChannel,
 		User,
-		UserResolvable,
-		VoiceChannel,
-		VoiceState,
-		WebhookClient
+		VoiceChannel
 	} from 'discord.js';
+
 
 	export const version: string;
 
 //#region Classes
 
-	export class KlasaClient extends Client {
-		public constructor(options?: KlasaClientOptions);
+	export class AnteiClient extends Client {
+		public constructor(options?: AnteiClientOptions);
 		public login(token?: string): Promise<string>;
 		private validatePermissionLevels(): PermissionLevels;
 
@@ -62,14 +51,15 @@ declare module '@pengubot/antei' {
 		public static defaultClientSchema: Schema;
 		public static defaultPermissionLevels: PermissionLevels;
 		public static plugin: symbol;
-		public static use(mod: any): typeof KlasaClient;
+		public static use(mod: any): typeof AnteiClient;
 	}
 
-	export { KlasaClient as Client };
+	export { AnteiClient as Client };
+	export { Util as util };
 
 //#region Extensions
 
-	export class KlasaGuild extends Guild {
+	export class AnteiGuild extends Guild {
 		public settings: Settings;
 		public readonly language: Language;
 	}
@@ -79,9 +69,9 @@ declare module '@pengubot/antei' {
 		length: number;
 	}
 
-	export class KlasaMessage extends Message {
+	export class AnteiMessage extends Message {
 		private prompter: CommandPrompt | null;
-		private _responses: KlasaMessage[];
+		private _responses: AnteiMessage[];
 		private _patch(data: any): void;
 		private _parseCommand(): void;
 		private _customPrefix(): CachedPrefix | null;
@@ -93,27 +83,27 @@ declare module '@pengubot/antei' {
 		private static prefixes: Map<string, CachedPrefix>;
 	}
 
-	export class KlasaUser extends User {}
+	export class AnteiUser extends User {}
 
 //#endregion Extensions
 
 //#region Parsers
 
 	export class Resolver {
-		public constructor(client: KlasaClient);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient);
+		public readonly client: AnteiClient;
 
 		public boolean(input: boolean | string): Promise<boolean>;
 		public channel(input: Channel | Snowflake): Promise<Channel>;
 		public float(input: string | number): Promise<number>;
-		public guild(input: KlasaGuild | Snowflake): Promise<KlasaGuild>;
+		public guild(input: AnteiGuild | Snowflake): Promise<AnteiGuild>;
 		public integer(input: string | number): Promise<number>;
-		public member(input: KlasaUser | GuildMember | Snowflake, guild: KlasaGuild): Promise<GuildMember>;
-		public message(input: KlasaMessage | Snowflake, channel: Channel): Promise<KlasaMessage>;
-		public role(input: Role | Snowflake, guild: KlasaGuild): Promise<Role>;
+		public member(input: AnteiUser | GuildMember | Snowflake, guild: AnteiGuild): Promise<GuildMember>;
+		public message(input: AnteiMessage | Snowflake, channel: Channel): Promise<AnteiMessage>;
+		public role(input: Role | Snowflake, guild: AnteiGuild): Promise<Role>;
 		public string(input: string): Promise<string>;
 		public url(input: string): Promise<string>;
-		public user(input: KlasaUser | GuildMember | KlasaMessage | Snowflake): Promise<KlasaUser>;
+		public user(input: AnteiUser | GuildMember | AnteiMessage | Snowflake): Promise<AnteiUser>;
 
 		public static readonly regex: {
 			userOrMember: RegExp,
@@ -125,31 +115,31 @@ declare module '@pengubot/antei' {
 
 	export class SettingResolver extends Resolver {
 		public any(data: any): Promise<any>;
-		public boolean(data: any, guild: KlasaGuild, name: string): Promise<boolean>;
+		public boolean(data: any, guild: AnteiGuild, name: string): Promise<boolean>;
 		public boolean(input: boolean | string): Promise<boolean>;
-		public channel(data: any, guild: KlasaGuild, name: string): Promise<Channel>;
+		public channel(data: any, guild: AnteiGuild, name: string): Promise<Channel>;
 		public channel(input: Channel | Snowflake): Promise<Channel>;
-		public command(data: any, guild: KlasaGuild, name: string): Promise<Command>;
-		public float(data: any, guild: KlasaGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
+		public command(data: any, guild: AnteiGuild, name: string): Promise<Command>;
+		public float(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
 		public float(input: string | number): Promise<number>;
-		public guild(data: any, guild: KlasaGuild, name: string): Promise<KlasaGuild>;
-		public guild(input: KlasaGuild | Snowflake): Promise<KlasaGuild>;
-		public integer(data: any, guild: KlasaGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
+		public guild(data: any, guild: AnteiGuild, name: string): Promise<AnteiGuild>;
+		public guild(input: AnteiGuild | Snowflake): Promise<AnteiGuild>;
+		public integer(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
 		public integer(input: string | number): Promise<number>;
-		public language(data: any, guild: KlasaGuild, name: string): Promise<Language>;
-		public role(data: any, guild: KlasaGuild, name: string): Promise<Role>;
-		public role(input: Role | Snowflake, guild: KlasaGuild): Promise<Role>;
-		public string(data: any, guild: KlasaGuild, name: string, minMax: { min: number, max: number }): Promise<string>;
+		public language(data: any, guild: AnteiGuild, name: string): Promise<Language>;
+		public role(data: any, guild: AnteiGuild, name: string): Promise<Role>;
+		public role(input: Role | Snowflake, guild: AnteiGuild): Promise<Role>;
+		public string(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<string>;
 		public string(input: string): Promise<string>;
-		public textchannel(data: any, guild: KlasaGuild, name: string): Promise<TextChannel>;
-		public url(data: any, guild: KlasaGuild, name: string): Promise<string>;
+		public textchannel(data: any, guild: AnteiGuild, name: string): Promise<TextChannel>;
+		public url(data: any, guild: AnteiGuild, name: string): Promise<string>;
 		public url(input: string): Promise<string>;
-		public user(data: any, guild: KlasaGuild, name: string): Promise<KlasaUser>;
-		public user(input: KlasaUser | GuildMember | KlasaMessage | Snowflake): Promise<KlasaUser>;
-		public voicechannel(data: any, guild: KlasaGuild, name: string): Promise<VoiceChannel>;
-		public categorychannel(data: any, guild: KlasaGuild, name: string): Promise<VoiceChannel>;
+		public user(data: any, guild: AnteiGuild, name: string): Promise<AnteiUser>;
+		public user(input: AnteiUser | GuildMember | AnteiMessage | Snowflake): Promise<AnteiUser>;
+		public voicechannel(data: any, guild: AnteiGuild, name: string): Promise<VoiceChannel>;
+		public categorychannel(data: any, guild: AnteiGuild, name: string): Promise<VoiceChannel>;
 
-		public static maxOrMin(guild: KlasaGuild, value: number, min: number, max: number, name: string, suffix: string): boolean;
+		public static maxOrMin(guild: AnteiGuild, value: number, min: number, max: number, name: string, suffix: string): boolean;
 	}
 
 //#endregion Parsers
@@ -159,13 +149,13 @@ declare module '@pengubot/antei' {
 	export class PermissionLevels extends Collection<number, PermissionLevel> {
 		public constructor(levels?: number);
 
-		public add(level: number, check: (message: KlasaMessage) => boolean, options?: PermissionLevelOptions): this;
+		public add(level: number, check: (message: AnteiMessage) => boolean, options?: PermissionLevelOptions): this;
 		public debug(): string;
 		public isValid(): boolean;
 		public remove(level: number): this;
 		public set(level: number, obj: PermissionLevelOptions | symbol): this;
 
-		public run(message: KlasaMessage, min: number): PermissionLevelsData;
+		public run(message: AnteiMessage, min: number): PermissionLevelsData;
 	}
 
 //#endregion Permissions
@@ -173,8 +163,8 @@ declare module '@pengubot/antei' {
 //#region Schedule
 
 	export class Schedule {
-		public constructor(client: KlasaClient);
-		public client: KlasaClient;
+		public constructor(client: AnteiClient);
+		public client: AnteiClient;
 		public tasks: ScheduledTask[];
 		public timeInterval: number;
 		private _interval: NodeJS.Timer;
@@ -197,8 +187,8 @@ declare module '@pengubot/antei' {
 	}
 
 	export class ScheduledTask {
-		public constructor(client: KlasaClient, taskName: string, time: Date | number | string, options?: ScheduledTaskOptions);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, taskName: string, time: Date | number | string, options?: ScheduledTaskOptions);
+		public readonly client: AnteiClient;
 		public readonly store: Schedule;
 		public taskName: string;
 		public recurring: Cron | null;
@@ -215,7 +205,7 @@ declare module '@pengubot/antei' {
 		public toJSON(): ScheduledTaskJSON;
 
 		private static _resolveTime(time: Date | number | Cron | string): [Date, Cron];
-		private static _generateID(client: KlasaClient, time: Date | number): string;
+		private static _generateID(client: AnteiClient, time: Date | number): string;
 		private static _validate(st: ScheduledTask): void;
 	}
 
@@ -225,7 +215,7 @@ declare module '@pengubot/antei' {
 
 	export class Settings {
 		public constructor(manager: Gateway, data: any);
-		public readonly client: KlasaClient;
+		public readonly client: AnteiClient;
 		public readonly gateway: Gateway;
 		public readonly id: string;
 		public readonly synchronizing: boolean;
@@ -237,15 +227,15 @@ declare module '@pengubot/antei' {
 		public destroy(): Promise<this>;
 
 		public reset(key?: string | string[], options?: SettingsResetOptions): Promise<SettingsUpdateResult>;
-		public reset(key?: string | string[], guild?: KlasaGuild, options?: SettingsResetOptions): Promise<SettingsUpdateResult>;
+		public reset(key?: string | string[], guild?: AnteiGuild, options?: SettingsResetOptions): Promise<SettingsUpdateResult>;
 		public update(key: Record<string, any>, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
 		public update(key: Record<string, any>, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
 		public update(key: string, value: any, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
 		public update(key: string, value: any, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
 		public update(entries: Array<[string, any]>, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
 		public update(entries: Array<[string, any]>, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public list(message: KlasaMessage, path: SchemaFolder | string): string;
-		public resolveString(message: KlasaMessage, path: SchemaPiece | string): string;
+		public list(message: AnteiMessage, path: SchemaFolder | string): string;
+		public resolveString(message: AnteiMessage, path: SchemaPiece | string): string;
 
 		private _save(data: SettingsUpdateResult): Promise<void>;
 		private _setValueByPath(piece: SchemaPiece, parsedID: any): { updated: boolean, old: any };
@@ -278,8 +268,8 @@ declare module '@pengubot/antei' {
 	}
 
 	export class GatewayDriver {
-		private constructor(client: KlasaClient);
-		public readonly client: KlasaClient;
+		private constructor(client: AnteiClient);
+		public readonly client: AnteiClient;
 		public keys: Set<string>;
 		public ready: boolean;
 		public guilds: Gateway;
@@ -297,8 +287,8 @@ declare module '@pengubot/antei' {
 	}
 
 	export abstract class GatewayStorage {
-		public constructor(client: KlasaClient, type: string, schema: Schema, provider: string);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, type: string, schema: Schema, provider: string);
+		public readonly client: AnteiClient;
 		public readonly defaults: any;
 		public readonly provider: Provider | null;
 		public readonly providerName: string;
@@ -334,7 +324,7 @@ declare module '@pengubot/antei' {
 
 	export class SchemaPiece {
 		public constructor(parent: Schema | SchemaFolder, key: string, type: string, options: SchemaPieceOptions);
-		public readonly client: KlasaClient | null;
+		public readonly client: AnteiClient | null;
 		public readonly parent: Schema | SchemaFolder;
 		public readonly key: string;
 		public readonly serializer: Serializer;
@@ -345,8 +335,8 @@ declare module '@pengubot/antei' {
 		public default: any;
 		public min: number | null;
 		public max: number | null;
-		public filter: ((client: KlasaClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
-		public parse<T>(value: any, guild?: KlasaGuild): T;
+		public filter: ((client: AnteiClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
+		public parse<T>(value: any, guild?: AnteiGuild): T;
 		public edit(options?: SchemaPieceEditOptions): this;
 		public toJSON(): SchemaPieceOptions;
 
@@ -360,7 +350,7 @@ declare module '@pengubot/antei' {
 
 	export abstract class Piece {
 		public constructor(store: Store<string, Piece, typeof Piece>, file: string[], directory: string, options?: PieceOptions);
-		public readonly client: KlasaClient;
+		public readonly client: AnteiClient;
 		public readonly type: string;
 		public readonly path: string;
 		public file: string[];
@@ -387,9 +377,9 @@ declare module '@pengubot/antei' {
 	export abstract class Argument extends AliasPiece {
 		public constructor(store: ArgumentStore, file: string[], directory: string, options?: ArgumentOptions);
 		public aliases: string[];
-		public abstract run(arg: string | undefined, possible: Possible, message: KlasaMessage): any;
+		public abstract run(arg: string | undefined, possible: Possible, message: AnteiMessage): any;
 		public static regex: MentionRegex;
-		private static minOrMax(client: KlasaClient, value: number, min: number, max: number, possible: Possible, message: KlasaMessage, suffix: string): boolean;
+		private static minOrMax(client: AnteiClient, value: number, min: number, max: number, possible: Possible, message: AnteiMessage, suffix: string): boolean;
 	}
 
 	export abstract class Command extends AliasPiece {
@@ -421,9 +411,9 @@ declare module '@pengubot/antei' {
 		public usage: CommandUsage;
 
 		public createCustomResolver(type: string, resolver: ArgResolverCustomMethod): this;
-		public customizeResponse(name: string, response: string | ((message: KlasaMessage, possible: Possible) => string)): this;
+		public customizeResponse(name: string, response: string | ((message: AnteiMessage, possible: Possible) => string)): this;
 		public definePrompt(usageString: string, usageDelim?: string): Usage;
-		public run(message: KlasaMessage, params: any[]): Promise<KlasaMessage | KlasaMessage[] | null>;
+		public run(message: AnteiMessage, params: any[]): Promise<AnteiMessage | AnteiMessage[] | null>;
 		public toJSON(): PieceCommandJSON;
 	}
 
@@ -454,17 +444,17 @@ declare module '@pengubot/antei' {
 
 	export abstract class Finalizer extends Piece {
 		public constructor(store: FinalizerStore, file: string[], directory: string, options?: FinalizerOptions);
-		public abstract run(message: KlasaMessage, command: Command, response: KlasaMessage | KlasaMessage[] | null, runTime: Stopwatch): void;
+		public abstract run(message: AnteiMessage, command: Command, response: AnteiMessage | AnteiMessage[] | null, runTime: Stopwatch): void;
 		public toJSON(): PieceFinalizerJSON;
-		protected _run(message: KlasaMessage, command: Command, response: KlasaMessage | KlasaMessage[] | null, runTime: Stopwatch): Promise<void>;
+		protected _run(message: AnteiMessage, command: Command, response: AnteiMessage | AnteiMessage[] | null, runTime: Stopwatch): Promise<void>;
 	}
 
 	export abstract class Inhibitor extends Piece {
 		public constructor(store: InhibitorStore, file: string[], directory: string, options?: InhibitorOptions);
 		public spamProtection: boolean;
-		public abstract run(message: KlasaMessage, command: Command): void | boolean | string | Promise<void | boolean | string>;
+		public abstract run(message: AnteiMessage, command: Command): void | boolean | string | Promise<void | boolean | string>;
 		public toJSON(): PieceInhibitorJSON;
-		protected _run(message: KlasaMessage, command: Command): Promise<boolean | string>;
+		protected _run(message: AnteiMessage, command: Command): Promise<boolean | string>;
 	}
 
 	export abstract class Language extends Piece {
@@ -486,15 +476,15 @@ declare module '@pengubot/antei' {
 		public ignoreBlacklistedUsers: boolean;
 		public ignoreBlacklistedGuilds: boolean;
 
-		public abstract run(message: KlasaMessage): void;
-		public shouldRun(message: KlasaMessage): boolean;
+		public abstract run(message: AnteiMessage): void;
+		public shouldRun(message: AnteiMessage): boolean;
 		public toJSON(): PieceMonitorJSON;
-		protected _run(message: KlasaMessage): Promise<void>;
+		protected _run(message: AnteiMessage): Promise<void>;
 	}
 
 	export abstract class MultiArgument extends Argument {
 		public abstract readonly base: Argument;
-		public run<T = any>(argument: string, possible: Possible, message: KlasaMessage): Promise<Array<T>>;
+		public run<T = any>(argument: string, possible: Possible, message: AnteiMessage): Promise<Array<T>>;
 	}
 
 	export abstract class Provider extends Piece {
@@ -540,7 +530,7 @@ declare module '@pengubot/antei' {
 		public serialize(data: any): PrimitiveType;
 		public stringify(data: any): string;
 		public toJSON(): PieceSerializerJSON;
-		public abstract deserialize(data: any, piece: SchemaPiece, language: Language, guild?: KlasaGuild): Promise<any>;
+		public abstract deserialize(data: any, piece: SchemaPiece, language: Language, guild?: AnteiGuild): Promise<any>;
 		public static regex: MentionRegex;
 	}
 
@@ -549,8 +539,8 @@ declare module '@pengubot/antei' {
 //#region Stores
 
 	export abstract class Store<K, V extends Piece, VConstructor = Constructor<V>> extends Collection<K, V> {
-		public constructor(client: KlasaClient, name: string, holds: VConstructor);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, name: string, holds: VConstructor);
+		public readonly client: AnteiClient;
 		public readonly holds: VConstructor;
 		public readonly name: string;
 		public readonly userDirectory: string;
@@ -586,11 +576,11 @@ declare module '@pengubot/antei' {
 	export class ExtendableStore extends Store<string, Extendable, typeof Extendable> { }
 
 	export class FinalizerStore extends Store<string, Finalizer, typeof Finalizer> {
-		public run(message: KlasaMessage, command: Command, response: KlasaMessage | KlasaMessage[], runTime: Stopwatch): Promise<void>;
+		public run(message: AnteiMessage, command: Command, response: AnteiMessage | AnteiMessage[], runTime: Stopwatch): Promise<void>;
 	}
 
 	export class InhibitorStore extends Store<string, Inhibitor, typeof Inhibitor> {
-		public run(message: KlasaMessage, command: Command, selective?: boolean): Promise<void>;
+		public run(message: AnteiMessage, command: Command, selective?: boolean): Promise<void>;
 	}
 
 	export class LanguageStore extends Store<string, Language, typeof Language> {
@@ -598,7 +588,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export class MonitorStore extends Store<string, Monitor, typeof Monitor> {
-		public run(message: KlasaMessage): Promise<void>;
+		public run(message: AnteiMessage): Promise<void>;
 	}
 
 	export class ProviderStore extends Store<string, Provider, typeof Provider> {
@@ -614,7 +604,7 @@ declare module '@pengubot/antei' {
 //#region Usage
 
 	export class CommandPrompt extends TextPrompt {
-		public constructor(message: KlasaMessage, usage: CommandUsage, options: TextPromptOptions);
+		public constructor(message: AnteiMessage, usage: CommandUsage, options: TextPromptOptions);
 		private typing: boolean;
 
 		public run<T = any[]>(): Promise<T>;
@@ -623,13 +613,13 @@ declare module '@pengubot/antei' {
 	}
 
 	export class CommandUsage extends Usage {
-		public constructor(client: KlasaClient, usageString: string, usageDelim: string | null, command: Command);
+		public constructor(client: AnteiClient, usageString: string, usageDelim: string | null, command: Command);
 		public names: string[];
 		public commands: string;
 		public nearlyFullUsage: string;
 
-		public createPrompt(message: KlasaMessage, options?: TextPromptOptions): CommandPrompt;
-		public fullUsage(message: KlasaMessage): string;
+		public createPrompt(message: AnteiMessage, options?: TextPromptOptions): CommandPrompt;
+		public fullUsage(message: AnteiMessage): string;
 		public toString(): string;
 	}
 
@@ -648,7 +638,7 @@ declare module '@pengubot/antei' {
 		public constructor(members: string, count: number, required: number);
 		public required: number;
 		public possibles: Possible[];
-		public response: string | ((message: KlasaMessage) => string);
+		public response: string | ((message: AnteiMessage) => string);
 
 		private register(name: string, response: ArgResolverCustomMethod): boolean;
 		private static pattern: RegExp;
@@ -657,10 +647,10 @@ declare module '@pengubot/antei' {
 	}
 
 	export class TextPrompt {
-		public constructor(message: KlasaMessage, usage: Usage, options?: TextPromptOptions);
-		public readonly client: KlasaClient;
-		public message: KlasaMessage;
-		public target: KlasaUser;
+		public constructor(message: AnteiMessage, usage: Usage, options?: TextPromptOptions);
+		public readonly client: AnteiClient;
+		public message: AnteiMessage;
+		public target: AnteiUser;
 		public channel: TextChannel | DMChannel;
 		public usage: Usage | CommandUsage;
 		public reprompted: boolean;
@@ -670,14 +660,14 @@ declare module '@pengubot/antei' {
 		public time: number;
 		public limit: number;
 		public quotedStringSupport: boolean;
-		public responses: Collection<string, KlasaMessage>;
+		public responses: Collection<string, AnteiMessage>;
 		private _repeat: boolean;
 		private _required: number;
 		private _prompted: number;
 		private _currentUsage: Tag;
 
 		public run<T = any[]>(prompt: StringResolvable | MessageOptions | MessageAdditions | APIMessage): Promise<T>;
-		private prompt(text: string): Promise<KlasaMessage>;
+		private prompt(text: string): Promise<AnteiMessage>;
 		private reprompt(prompt: string): Promise<any[]>;
 		private repeatingPrompt(): Promise<any[]>;
 		private validateArgs(): Promise<any[]>;
@@ -695,8 +685,8 @@ declare module '@pengubot/antei' {
 	}
 
 	export class Usage {
-		public constructor(client: KlasaClient, usageString: string, usageDelim: string | null);
-		public readonly client: KlasaClient;
+		public constructor(client: AnteiClient, usageString: string, usageDelim: string | null);
+		public readonly client: AnteiClient;
 		public deliminatedUsage: string;
 		public usageString: string;
 		public usageDelim: string | null;
@@ -704,8 +694,8 @@ declare module '@pengubot/antei' {
 		public customResolvers: Record<string, ArgResolverCustomMethod>;
 
 		public createCustomResolver(type: string, resolver: ArgResolverCustomMethod): this;
-		public customizeResponse(name: string, response: ((message: KlasaMessage) => string)): this;
-		public createPrompt(message: KlasaMessage, options?: TextPromptOptions): TextPrompt;
+		public customizeResponse(name: string, response: ((message: AnteiMessage) => string)): this;
+		public createPrompt(message: AnteiMessage, options?: TextPromptOptions): TextPrompt;
 		public toJSON(): Tag[];
 		public toString(): string;
 
@@ -769,7 +759,7 @@ declare module '@pengubot/antei' {
 		private static _parse(pattern: string): number;
 	}
 
-	export class KlasaConsole {
+	export class AnteiConsole {
 		private constructor(options?: ConsoleOptions);
 		public readonly stdout: NodeJS.WritableStream;
 		public readonly stderr: NodeJS.WritableStream;
@@ -818,7 +808,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export class ReactionHandler extends ReactionCollector {
-		public constructor(message: KlasaMessage, filter: Function, options: ReactionHandlerOptions, display: RichDisplay | RichMenu, emojis: EmojiResolvable[]);
+		public constructor(message: AnteiMessage, filter: Function, options: ReactionHandlerOptions, display: RichDisplay | RichMenu, emojis: EmojiResolvable[]);
 		public display: RichDisplay | RichMenu;
 		public methodMap: Map<string, EmojiResolvable>;
 		public currentPage: number;
@@ -867,7 +857,7 @@ declare module '@pengubot/antei' {
 		public useCustomFooters(): this;
 		public addPage(embed: Function | MessageEmbed): this;
 		public setInfoPage(embed: MessageEmbed): RichDisplay;
-		public run(message: KlasaMessage, options?: RichDisplayRunOptions): Promise<ReactionHandler>;
+		public run(message: AnteiMessage, options?: RichDisplayRunOptions): Promise<ReactionHandler>;
 
 		protected _determineEmojis(emojis: EmojiResolvable[], stop: boolean, jump: boolean, firstLast: boolean): EmojiResolvable[];
 		private _footer(): void;
@@ -881,7 +871,7 @@ declare module '@pengubot/antei' {
 		public options: MenuOptions[];
 
 		public addOption(name: string, body: string, inline?: boolean): RichMenu;
-		public run(message: KlasaMessage, options?: RichMenuRunOptions): Promise<ReactionHandler>;
+		public run(message: AnteiMessage, options?: RichMenuRunOptions): Promise<ReactionHandler>;
 
 		protected _determineEmojis(emojis: EmojiResolvable[], stop: boolean): EmojiResolvable[];
 		private _paginate(): void;
@@ -967,14 +957,13 @@ declare module '@pengubot/antei' {
 		public static sleep<T = any>(delay: number, args?: T): Promise<T>;
 		public static toTitleCase(str: string): string;
 		public static tryParse<T = Record<string, any>>(value: string): T | string;
-		public static resolveGuild(client: KlasaClient, guild: GuildResolvable): KlasaGuild;
-		private static initClean(client: KlasaClient): void;
+		public static resolveGuild(client: AnteiClient, guild: GuildResolvable): AnteiGuild;
+		private static initClean(client: AnteiClient): void;
 
 		public static titleCaseVariants: TitleCaseVariants;
 		public static PRIMITIVE_TYPES: string[];
 	}
 
-	export { Util as util };
 
 //#endregion Util
 
@@ -982,7 +971,7 @@ declare module '@pengubot/antei' {
 
 //#region Typedefs
 
-	export interface KlasaClientOptions extends ClientOptions {
+	export interface AnteiClientOptions extends ClientOptions {
 		commandEditing?: boolean;
 		commandLogging?: boolean;
 		commandMessageLifetime?: number;
@@ -1038,7 +1027,7 @@ declare module '@pengubot/antei' {
 		default?: string;
 	}
 
-	export type ReadyMessage = string | ((client: KlasaClient) => string);
+	export type ReadyMessage = string | ((client: AnteiClient) => string);
 
 	export interface GatewaysOptions extends Partial<Record<string, GatewayDriverRegisterOptions>> {
 		clientStorage?: GatewayDriverRegisterOptions;
@@ -1048,7 +1037,7 @@ declare module '@pengubot/antei' {
 
 	// Parsers
 	export interface ArgResolverCustomMethod {
-		(arg: string, possible: Possible, message: KlasaMessage, params: any[]): any;
+		(arg: string, possible: Possible, message: AnteiMessage, params: any[]): any;
 	}
 
 	export interface Constants {
@@ -1058,7 +1047,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export interface ConstantsDefaults {
-		CLIENT: Required<KlasaClientOptions>;
+		CLIENT: Required<AnteiClientOptions>;
 		CONSOLE: Required<ConsoleOptions>;
 		DATATYPES: Record<string, QueryBuilderDatatype>;
 	}
@@ -1112,7 +1101,7 @@ declare module '@pengubot/antei' {
 	// Permissions
 	export interface PermissionLevel {
 		break: boolean;
-		check: (message: KlasaMessage) => Promise<boolean> | boolean;
+		check: (message: AnteiMessage) => Promise<boolean> | boolean;
 		fetch: boolean;
 	}
 
@@ -1175,8 +1164,8 @@ declare module '@pengubot/antei' {
 		formatDatatype?: (name: string, datatype: string, def?: string) => string;
 	} & Filter<Record<string, QueryBuilderDatatype | ((piece: SchemaPiece) => string)>, 'arrayResolver' | 'formatDatatype'>;
 
-	export type GuildResolvable = KlasaGuild
-		| KlasaMessage
+	export type GuildResolvable = AnteiGuild
+		| AnteiMessage
 		| GuildChannel
 		| Snowflake;
 
@@ -1216,7 +1205,7 @@ declare module '@pengubot/antei' {
 		default?: any;
 		min?: number;
 		max?: number;
-		filter?: ((client: KlasaClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
+		filter?: ((client: AnteiClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
 	}
 
 	export interface SchemaPieceEditOptions extends SchemaPieceOptions {
@@ -1291,7 +1280,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export interface EventOptions extends PieceOptions {
-		emitter?: NodeJS.EventEmitter | FilterKeyInstances<KlasaClient, NodeJS.EventEmitter>;
+		emitter?: NodeJS.EventEmitter | FilterKeyInstances<AnteiClient, NodeJS.EventEmitter>;
 		event?: string;
 		once?: boolean;
 	}
@@ -1353,7 +1342,7 @@ declare module '@pengubot/antei' {
 		channel?: TextChannel | DMChannel;
 		limit?: number;
 		quotedStringSupport?: boolean;
-		target?: KlasaUser;
+		target?: AnteiUser;
 		time?: number;
 		flagSupport?: boolean;
 	}
@@ -1500,7 +1489,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export interface RichDisplayRunOptions {
-		filter?: ((reaction: MessageReaction, user: KlasaUser) => boolean);
+		filter?: ((reaction: MessageReaction, user: AnteiUser) => boolean);
 		firstLast?: boolean;
 		jump?: boolean;
 		max?: number;
@@ -1603,12 +1592,10 @@ declare module 'discord.js' {
 		FinalizerStore,
 		GatewayDriver,
 		InhibitorStore,
-		KlasaClient,
-		KlasaClientOptions,
-		KlasaConsole,
-		KlasaGuild,
-		KlasaMessage,
-		KlasaUser,
+		AnteiClient,
+		AnteiClientOptions,
+		AnteiConsole,
+		AnteiMessage,
 		Language,
 		LanguageStore,
 		Monitor,
@@ -1619,21 +1606,19 @@ declare module 'discord.js' {
 		Schedule,
 		ScheduledTask,
 		SerializerStore,
-		Stopwatch,
-		Settings,
+		Settings, Stopwatch,
 		Store,
 		Task,
-		TaskStore,
-		Timestamp
+		TaskStore
 	} from '@pengubot/antei';
 
 	export interface Client {
-		constructor: typeof KlasaClient;
+		constructor: typeof AnteiClient;
 		readonly invite: string;
 		readonly owners: Set<User>;
-		options: Required<KlasaClientOptions>;
+		options: Required<AnteiClientOptions>;
 		userBaseDirectory: string;
-		console: KlasaConsole;
+		console: AnteiConsole;
 		arguments: ArgumentStore;
 		commands: CommandStore;
 		inhibitors: InhibitorStore;
@@ -1653,19 +1638,19 @@ declare module 'discord.js' {
 		schedule: Schedule;
 		ready: boolean;
 		mentionPrefix: RegExp | null;
-		registerStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): KlasaClient;
-		unregisterStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): KlasaClient;
+		registerStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): AnteiClient;
+		unregisterStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): AnteiClient;
 		sweepMessages(lifetime?: number, commandLifeTime?: number): number;
-		on(event: 'argumentError', listener: (message: KlasaMessage, command: Command, params: any[], error: string) => void): this;
-		on(event: 'commandError', listener: (message: KlasaMessage, command: Command, params: any[], error: Error | string) => void): this;
-		on(event: 'commandInhibited', listener: (message: KlasaMessage, command: Command, response: string | Error) => void): this;
-		on(event: 'commandRun', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		on(event: 'commandSuccess', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		on(event: 'commandUnknown', listener: (message: KlasaMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
-		on(event: 'finalizerError', listener: (message: KlasaMessage, command: Command, response: KlasaMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
-		on(event: 'klasaReady', listener: () => void): this;
+		on(event: 'argumentError', listener: (message: AnteiMessage, command: Command, params: any[], error: string) => void): this;
+		on(event: 'commandError', listener: (message: AnteiMessage, command: Command, params: any[], error: Error | string) => void): this;
+		on(event: 'commandInhibited', listener: (message: AnteiMessage, command: Command, response: string | Error) => void): this;
+		on(event: 'commandRun', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		on(event: 'commandSuccess', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		on(event: 'commandUnknown', listener: (message: AnteiMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
+		on(event: 'finalizerError', listener: (message: AnteiMessage, command: Command, response: AnteiMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
+		on(event: 'anteiReady', listener: () => void): this;
 		on(event: 'log', listener: (data: any) => void): this;
-		on(event: 'monitorError', listener: (message: KlasaMessage, monitor: Monitor, error: Error | string) => void): this;
+		on(event: 'monitorError', listener: (message: AnteiMessage, monitor: Monitor, error: Error | string) => void): this;
 		on(event: 'pieceDisabled', listener: (piece: Piece) => void): this;
 		on(event: 'pieceEnabled', listener: (piece: Piece) => void): this;
 		on(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
@@ -1677,16 +1662,16 @@ declare module 'discord.js' {
 		on(event: 'taskError', listener: (scheduledTask: ScheduledTask, task: Task, error: Error) => void): this;
 		on(event: 'verbose', listener: (data: any) => void): this;
 		on(event: 'wtf', listener: (failure: Error) => void): this;
-		once(event: 'argumentError', listener: (message: KlasaMessage, command: Command, params: any[], error: string) => void): this;
-		once(event: 'commandError', listener: (message: KlasaMessage, command: Command, params: any[], error: Error | string) => void): this;
-		once(event: 'commandInhibited', listener: (message: KlasaMessage, command: Command, response: string | Error) => void): this;
-		once(event: 'commandRun', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		once(event: 'commandSuccess', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		once(event: 'commandUnknown', listener: (message: KlasaMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
-		once(event: 'finalizerError', listener: (message: KlasaMessage, command: Command, response: KlasaMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
-		once(event: 'klasaReady', listener: () => void): this;
+		once(event: 'argumentError', listener: (message: AnteiMessage, command: Command, params: any[], error: string) => void): this;
+		once(event: 'commandError', listener: (message: AnteiMessage, command: Command, params: any[], error: Error | string) => void): this;
+		once(event: 'commandInhibited', listener: (message: AnteiMessage, command: Command, response: string | Error) => void): this;
+		once(event: 'commandRun', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		once(event: 'commandSuccess', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		once(event: 'commandUnknown', listener: (message: AnteiMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
+		once(event: 'finalizerError', listener: (message: AnteiMessage, command: Command, response: AnteiMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
+		once(event: 'anteiReady', listener: () => void): this;
 		once(event: 'log', listener: (data: any) => void): this;
-		once(event: 'monitorError', listener: (message: KlasaMessage, monitor: Monitor, error: Error | string) => void): this;
+		once(event: 'monitorError', listener: (message: AnteiMessage, monitor: Monitor, error: Error | string) => void): this;
 		once(event: 'pieceDisabled', listener: (piece: Piece) => void): this;
 		once(event: 'pieceEnabled', listener: (piece: Piece) => void): this;
 		once(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
@@ -1698,16 +1683,16 @@ declare module 'discord.js' {
 		once(event: 'taskError', listener: (scheduledTask: ScheduledTask, task: Task, error: Error) => void): this;
 		once(event: 'verbose', listener: (data: any) => void): this;
 		once(event: 'wtf', listener: (failure: Error) => void): this;
-		off(event: 'argumentError', listener: (message: KlasaMessage, command: Command, params: any[], error: string) => void): this;
-		off(event: 'commandError', listener: (message: KlasaMessage, command: Command, params: any[], error: Error | string) => void): this;
-		off(event: 'commandInhibited', listener: (message: KlasaMessage, command: Command, response: string | Error) => void): this;
-		off(event: 'commandRun', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		off(event: 'commandSuccess', listener: (message: KlasaMessage, command: Command, params: any[], response: any) => void): this;
-		off(event: 'commandUnknown', listener: (message: KlasaMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
-		off(event: 'finalizerError', listener: (message: KlasaMessage, command: Command, response: KlasaMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
-		off(event: 'klasaReady', listener: () => void): this;
+		off(event: 'argumentError', listener: (message: AnteiMessage, command: Command, params: any[], error: string) => void): this;
+		off(event: 'commandError', listener: (message: AnteiMessage, command: Command, params: any[], error: Error | string) => void): this;
+		off(event: 'commandInhibited', listener: (message: AnteiMessage, command: Command, response: string | Error) => void): this;
+		off(event: 'commandRun', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		off(event: 'commandSuccess', listener: (message: AnteiMessage, command: Command, params: any[], response: any) => void): this;
+		off(event: 'commandUnknown', listener: (message: AnteiMessage, command: string, prefix: RegExp, prefixLength: number) => void): this;
+		off(event: 'finalizerError', listener: (message: AnteiMessage, command: Command, response: AnteiMessage, runTime: Stopwatch, finalizer: Finalizer, error: Error | string) => void): this;
+		off(event: 'anteiReady', listener: () => void): this;
 		off(event: 'log', listener: (data: any) => void): this;
-		off(event: 'monitorError', listener: (message: KlasaMessage, monitor: Monitor, error: Error | string) => void): this;
+		off(event: 'monitorError', listener: (message: AnteiMessage, monitor: Monitor, error: Error | string) => void): this;
 		off(event: 'pieceDisabled', listener: (piece: Piece) => void): this;
 		off(event: 'pieceEnabled', listener: (piece: Piece) => void): this;
 		off(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
@@ -1733,20 +1718,20 @@ declare module 'discord.js' {
 		commandText: string | null;
 		prefix: RegExp | null;
 		prefixLength: number | null;
-		readonly responses: KlasaMessage[];
+		readonly responses: AnteiMessage[];
 		readonly args: string[];
 		readonly params: any[];
 		readonly flagArgs: Record<string, string>;
 		readonly reprompted: boolean;
 		readonly reactable: boolean;
-		send(content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		send(content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		send(content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		send(options?: MessageOptions | MessageAdditions | APIMessage): Promise<KlasaMessage>;
-		send(options?: MessageOptions & { split?: false } | MessageAdditions | APIMessage): Promise<KlasaMessage>;
-		send(options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions | APIMessage): Promise<KlasaMessage[]>;
-		edit(content: StringResolvable, options?: MessageEditOptions | MessageEmbed): Promise<KlasaMessage>;
-		edit(options: MessageEditOptions | MessageEmbed | APIMessage): Promise<KlasaMessage>;
+		send(content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		send(content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		send(content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		send(options?: MessageOptions | MessageAdditions | APIMessage): Promise<AnteiMessage>;
+		send(options?: MessageOptions & { split?: false } | MessageAdditions | APIMessage): Promise<AnteiMessage>;
+		send(options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions | APIMessage): Promise<AnteiMessage[]>;
+		edit(content: StringResolvable, options?: MessageEditOptions | MessageEmbed): Promise<AnteiMessage>;
+		edit(options: MessageEditOptions | MessageEmbed | APIMessage): Promise<AnteiMessage>;
 		usableCommands(): Promise<Collection<string, Command>>;
 		hasAtLeastPermissionLevel(min: number): Promise<boolean>;
 	}
@@ -1760,33 +1745,33 @@ declare module 'discord.js' {
 	export interface DMChannel extends SendAliases, ChannelExtendables { }
 
 	interface PartialSendAliases {
-		sendLocale(key: string, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendLocale(key: string, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendLocale(key: string, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		sendMessage(content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendMessage(content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendMessage(content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		sendMessage(options?: MessageOptions | MessageAdditions | APIMessage): Promise<KlasaMessage>;
-		sendMessage(options?: MessageOptions & { split?: false } | MessageAdditions | APIMessage): Promise<KlasaMessage>;
-		sendMessage(options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions | APIMessage): Promise<KlasaMessage[]>;
-		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		sendCode(language: string, content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendCode(language: string, content: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendCode(language: string, content: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
+		sendLocale(key: string, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendLocale(key: string, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendLocale(key: string, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendLocale(key: string, localeArgs?: Array<any>, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		sendMessage(content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendMessage(content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendMessage(content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		sendMessage(options?: MessageOptions | MessageAdditions | APIMessage): Promise<AnteiMessage>;
+		sendMessage(options?: MessageOptions & { split?: false } | MessageAdditions | APIMessage): Promise<AnteiMessage>;
+		sendMessage(options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions | APIMessage): Promise<AnteiMessage[]>;
+		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendEmbed(embed: MessageEmbed, content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		sendCode(language: string, content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendCode(language: string, content: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendCode(language: string, content: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
 	}
 
 	interface SendAliases extends PartialSendAliases {
-		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
-		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<KlasaMessage>;
-		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<KlasaMessage>;
-		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<KlasaMessage[]>;
+		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendFile(attachment: BufferResolvable, name?: string, content?: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
+		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions | MessageAdditions): Promise<AnteiMessage>;
+		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions & { split?: false } | MessageAdditions): Promise<AnteiMessage>;
+		sendFiles(attachments: MessageAttachment[], content: StringResolvable, options?: MessageOptions & { split: true | SplitOptions } | MessageAdditions): Promise<AnteiMessage[]>;
 	}
 
 	interface ChannelExtendables {

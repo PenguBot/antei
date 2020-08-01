@@ -3,7 +3,7 @@
 const RichDisplay = require("./RichDisplay");
 
 /**
- * Klasa's RichMenu, for helping paginated embeds with reaction buttons
+ * Antei's RichMenu, for helping paginated embeds with reaction buttons
  * @extends RichDisplay
  */
 class RichMenu extends RichDisplay {
@@ -109,7 +109,7 @@ class RichMenu extends RichDisplay {
 	/**
 	 * Runs this RichMenu
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message A message to edit or use to send a new message with
+	 * @param {AnteiMessage} message A message to edit or use to send a new message with
 	 * @param {RichMenuRunOptions} [options={}] The options to use with this RichMenu
 	 * @returns {ReactionHandler}
 	 */

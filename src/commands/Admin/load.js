@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command, Stopwatch } = require("klasa");
+const { Command, Stopwatch } = require("@pengubot/antei");
 const { pathExists } = require("fs-nextra");
 const { join } = require("path");
 

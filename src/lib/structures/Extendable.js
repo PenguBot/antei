@@ -3,7 +3,7 @@
 const Piece = require("./base/Piece");
 
 /**
- * Base class for all Klasa Extendables. See {@tutorial CreatingExtendables} for more information how to use this class
+ * Base class for all Antei Extendables. See {@tutorial CreatingExtendables} for more information how to use this class
  * to build custom extendables.
  * @tutorial CreatingExtendables
  * @extends {Piece}

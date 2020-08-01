@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Monitor, Stopwatch } = require("klasa");
+const { Monitor, Stopwatch } = require("@pengubot/antei");
 
 module.exports = class extends Monitor {
 

@@ -4,22 +4,22 @@ const Language = require("./Language");
 const Store = require("./base/Store");
 
 /**
- * Stores all languages for use in Klasa
+ * Stores all languages for use in Antei
  * @extends Store
  */
 class LanguageStore extends Store {
 
 	/**
-	 * Constructs our LanguageStore for use in Klasa
+	 * Constructs our LanguageStore for use in Antei
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Antei client
 	 */
 	constructor(client) {
 		super(client, "languages", Language);
 	}
 
 	/**
-	 * The default language set in {@link KlasaClientOptions.language}
+	 * The default language set in {@link AnteiClientOptions.language}
 	 * @since 0.0.1
 	 * @type {?Language}
 	 * @readonly

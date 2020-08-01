@@ -39,7 +39,7 @@ class ScheduledTask {
 	/**
 	 * Initializes a new ScheduledTask
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The client that initialized this instance
+	 * @param {AnteiClient} client The client that initialized this instance
 	 * @param {string} taskName The name of the task this ScheduledTask is for
 	 * @param {TimeResolvable} time The time or {@link Cron} pattern
 	 * @param {ScheduledTaskOptions} [options={}] The options for this ScheduledTask instance
@@ -51,7 +51,7 @@ class ScheduledTask {
 		 * The Client instance that initialized this instance
 		 * @since 0.0.1
 		 * @name ScheduledTask#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: client });
@@ -233,7 +233,7 @@ class ScheduledTask {
 	/**
 	 * Generate a new ID based on timestamp and shard
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Discord client
+	 * @param {AnteiClient} client The Discord client
 	 * @returns {string}
 	 * @private
 	 */

@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command, util: { toTitleCase, codeBlock } } = require("klasa");
+const { Command, util: { toTitleCase, codeBlock } } = require("@pengubot/antei");
 
 module.exports = class extends Command {
 
