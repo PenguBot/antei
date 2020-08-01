@@ -1,6 +1,6 @@
 <div align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # @pengubot/antei
@@ -32,6 +32,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://quantumlytangled.com"><img src="https://avatars1.githubusercontent.com/u/7919610?v=4" width="100px;" alt=""/><br /><sub><b>Nejc Drobnic</b></sub></a><br /><a href="#design-quantumlytangled" title="Design">🎨</a> <a href="#infra-quantumlytangled" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/PenguBot/antei/commits?author=quantumlytangled" title="Code">💻</a> <a href="#projectManagement-quantumlytangled" title="Project Management">📆</a> <a href="https://github.com/PenguBot/antei/commits?author=quantumlytangled" title="Tests">⚠️</a> <a href="#maintenance-quantumlytangled" title="Maintenance">🚧</a> <a href="https://github.com/PenguBot/antei/commits?author=quantumlytangled" title="Documentation">📖</a> <a href="#ideas-quantumlytangled" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://www.adityatd.me"><img src="https://avatars0.githubusercontent.com/u/9266227?v=4" width="100px;" alt=""/><br /><sub><b>Aditya N. Tripathi</b></sub></a><br /><a href="#design-AdityaTD" title="Design">🎨</a> <a href="#infra-AdityaTD" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/PenguBot/antei/commits?author=AdityaTD" title="Code">💻</a> <a href="#projectManagement-AdityaTD" title="Project Management">📆</a> <a href="https://github.com/PenguBot/antei/commits?author=AdityaTD" title="Tests">⚠️</a> <a href="#maintenance-AdityaTD" title="Maintenance">🚧</a> <a href="https://github.com/PenguBot/antei/commits?author=AdityaTD" title="Documentation">📖</a></td>
   </tr>
 </table>
 
