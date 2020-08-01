@@ -20,6 +20,21 @@
         "doc",
         "ideas"
       ]
+    },
+    {
+      "login": "AdityaTD",
+      "name": "Aditya N. Tripathi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9266227?v=4",
+      "profile": "http://www.adityatd.me",
+      "contributions": [
+        "design",
+        "infra",
+        "code",
+        "projectManagement",
+        "test",
+        "maintenance",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
