@@ -3,7 +3,7 @@
 const { ReactionCollector } = require("discord.js");
 
 /**
- * Klasa's ReactionHandler, for handling RichDisplay and RichMenu reaction input
+ * Antei's ReactionHandler, for handling RichDisplay and RichMenu reaction input
  * @extends ReactionCollector
  */
 class ReactionHandler extends ReactionCollector {
@@ -28,7 +28,7 @@ class ReactionHandler extends ReactionCollector {
 	/**
 	 * Constructs our ReactionHandler instance
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message A message this ReactionHandler should handle reactions
+	 * @param {AnteiMessage} message A message this ReactionHandler should handle reactions
 	 * @param {Function} filter A filter function to determine which emoji reactions should be handled
 	 * @param {ReactionHandlerOptions} options The options for this ReactionHandler
 	 * @param {(RichDisplay|RichMenu)} display The RichDisplay or RichMenu that this handler is for
@@ -166,7 +166,7 @@ class ReactionHandler extends ReactionCollector {
 	/**
 	 * The action to take when the "jump" emoji is reacted
 	 * @since 0.0.1
-	 * @param {KlasaUser} user The user to lock the awaitMessages to
+	 * @param {AnteiUser} user The user to lock the awaitMessages to
 	 * @returns {void}
 	 */
 	async jump(user) {

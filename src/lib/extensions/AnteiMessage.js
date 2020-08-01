@@ -5,10 +5,10 @@ const { regExpEsc } = require("../util/util");
 
 module.exports = Structures.extend("Message", Message => {
 	/**
-	 * Klasa's Extended Message
+	 * Antei's Extended Message
 	 * @extends external:Message
 	 */
-	class KlasaMessage extends Message {
+	class AnteiMessage extends Message {
 
 		/**
 		 * @typedef {object} CachedPrefix
@@ -61,7 +61,7 @@ module.exports = Structures.extend("Message", Message => {
 			/**
 			 * The responses to this message
 			 * @since 0.0.1
-			 * @type {external:KlasaMessage[]}
+			 * @type {external:AnteiMessage[]}
 			 * @private
 			 */
 			this._responses = [];
@@ -70,7 +70,7 @@ module.exports = Structures.extend("Message", Message => {
 		/**
 		 * The previous responses to this message
 		 * @since 0.0.1
-		 * @type {KlasaMessage[]}
+		 * @type {AnteiMessage[]}
 		 * @readonly
 		 */
 		get responses() {
@@ -160,7 +160,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @since 0.0.1
 		 * @param {external:StringResolvable|external:MessageEmbed|external:MessageAttachment} [content] The content to send
 		 * @param {external:MessageOptions} [options] The D.JS message options
-		 * @returns {KlasaMessage|KlasaMessage[]}
+		 * @returns {AnteiMessage|AnteiMessage[]}
 		 */
 		async sendMessage(content, options) {
 			const combinedOptions = APIMessage.transformOptions(content, options);
@@ -199,7 +199,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @param {external:MessageEmbed} embed The embed to post
 		 * @param {external:StringResolvable} [content] The content to send
 		 * @param {external:MessageOptions} [options] The D.JS message options
-		 * @returns {Promise<KlasaMessage|KlasaMessage[]>}
+		 * @returns {Promise<AnteiMessage|AnteiMessage[]>}
 		 */
 		sendEmbed(embed, content, options) {
 			return this.sendMessage(APIMessage.transformOptions(content, options, { embed }));
@@ -211,7 +211,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @param {string} code The language of the codeblock
 		 * @param {external:StringResolvable} content The content to send
 		 * @param {external:MessageOptions} [options] The D.JS message options
-		 * @returns {Promise<KlasaMessage|KlasaMessage[]>}
+		 * @returns {Promise<AnteiMessage|AnteiMessage[]>}
 		 */
 		sendCode(code, content, options) {
 			return this.sendMessage(APIMessage.transformOptions(content, options, { code }));
@@ -222,7 +222,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @since 0.0.1
 		 * @param {external:StringResolvable|external:MessageEmbed|external:MessageAttachment} [content] The content to send
 		 * @param {external:MessageOptions} [options] The D.JS message options
-		 * @returns {Promise<KlasaMessage|KlasaMessage[]>}
+		 * @returns {Promise<AnteiMessage|AnteiMessage[]>}
 		 */
 		send(content, options) {
 			return this.sendMessage(content, options);
@@ -234,7 +234,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @param {string} key The Language key to send
 		 * @param {Array<*>} [localeArgs] The language arguments to pass
 		 * @param {external:MessageOptions} [options] The D.JS message options plus Language arguments
-		 * @returns {Promise<KlasaMessage|KlasaMessage[]>}
+		 * @returns {Promise<AnteiMessage|AnteiMessage[]>}
 		 */
 		sendLocale(key, localeArgs = [], options = {}) {
 			if (!Array.isArray(localeArgs)) [options, localeArgs] = [localeArgs, []];
@@ -385,7 +385,7 @@ module.exports = Structures.extend("Message", Message => {
 	 * @type {Map<string, CachedPrefix>}
 	 * @private
 	 */
-	KlasaMessage.prefixes = new Map();
+	AnteiMessage.prefixes = new Map();
 
-	return KlasaMessage;
+	return AnteiMessage;
 });

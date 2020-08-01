@@ -4,7 +4,7 @@ const AliasPiece = require("./base/AliasPiece");
 const { MENTION_REGEX } = require("../util/constants");
 
 /**
- * Base class for all Klasa Arguments. See {@tutorial CreatingArguments} for more information how to use this class
+ * Base class for all Antei Arguments. See {@tutorial CreatingArguments} for more information how to use this class
  * to build custom arguments.
  * @tutorial CreatingArguments
  * @extends AliasPiece
@@ -16,7 +16,7 @@ class Argument extends AliasPiece {
 	 * @since 0.0.1
 	 * @param {string} argument The string argument string to resolve
 	 * @param {Possible} possible This current usage possible
-	 * @param {KlasaMessage} message The message that triggered the command
+	 * @param {AnteiMessage} message The message that triggered the command
 	 * @abstract
 	 */
 	async run() {
@@ -27,12 +27,12 @@ class Argument extends AliasPiece {
 	/**
 	 * Checks min and max values
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The client of this bot
+	 * @param {AnteiClient} client The client of this bot
 	 * @param {number} value The value to check against
 	 * @param {?number} min The minimum value
 	 * @param {?number} max The maximum value
 	 * @param {Possible} possible The id of the current possible usage
-	 * @param {KlasaMessage} message The message that triggered the command
+	 * @param {AnteiMessage} message The message that triggered the command
 	 * @param {string} suffix An error suffix
 	 * @returns {boolean}
 	 * @private

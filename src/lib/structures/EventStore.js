@@ -4,15 +4,15 @@ const Event = require("./Event");
 const Store = require("./base/Store");
 
 /**
- * Stores all the events that a part of Klasa
+ * Stores all the events that a part of Antei
  * @extends Store
  */
 class EventStore extends Store {
 
 	/**
-	 * Constructs our EventStore for use in Klasa
+	 * Constructs our EventStore for use in Antei
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The klasa client initializing this store.
+	 * @param {AnteiClient} client The klasa client initializing this store.
 	 */
 	constructor(client) {
 		super(client, "events", Event);
@@ -27,7 +27,7 @@ class EventStore extends Store {
 	}
 
 	/**
-	 * Loads a piece into Klasa so it can be saved in this store.
+	 * Loads a piece into Antei so it can be saved in this store.
 	 * @since 0.0.1
 	 * @param {string|string[]} file A string or array of strings showing where the file is located.
 	 * @param {boolean} [core=false] If the file is located in the core directory or not

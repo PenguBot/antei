@@ -29,11 +29,11 @@ class SchemaPiece {
 	 */
 	constructor(parent, key, type, options = {}) {
 		/**
-		 * The KlasaClient for this SchemaPiece
+		 * The AnteiClient for this SchemaPiece
 		 * @name SchemaPiece#Client
 		 * @since 0.0.1
 		 * @readonly
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 */
 		Object.defineProperty(this, "client", { value: null, writable: true });
 

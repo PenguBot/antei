@@ -3,7 +3,7 @@
 const Argument = require("./Argument");
 
 /**
- * Base Abstracted class for Multi-Resolving D.JS and Klasa Structures.
+ * Base Abstracted class for Multi-Resolving D.JS and Antei Structures.
  * @extends Argument
  */
 class MultiArgument extends Argument {
@@ -24,7 +24,7 @@ class MultiArgument extends Argument {
 	 * @since 0.0.1
 	 * @param {string} argument The string argument string to resolve
 	 * @param {Possible} possible This current usage possible
-	 * @param {KlasaMessage} message The message that triggered the command
+	 * @param {AnteiMessage} message The message that triggered the command
 	 */
 	async run(argument, possible, message) {
 		const structures = [];

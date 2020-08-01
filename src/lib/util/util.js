@@ -15,7 +15,7 @@ const REGEXPESC = /[-/\\^$*+?.()|[\]{}]/g;
 class Util {
 
 	/**
-	 * @typedef {(KlasaGuild|KlasaMessage|external:GuildChannel)} GuildResolvable
+	 * @typedef {(AnteiGuild|AnteiMessage|external:GuildChannel)} GuildResolvable
 	 */
 
 	/**
@@ -57,7 +57,7 @@ class Util {
 	 * Initializes the sensitive patterns for clean()
 	 * @since 0.0.1
 	 * @private
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Antei client
 	 */
 	static initClean(client) {
 		sensitivePattern = new RegExp(Util.regExpEsc(client.token), "gi");
@@ -303,9 +303,9 @@ class Util {
 	/**
 	 * Resolves a guild
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The KlasaClient
+	 * @param {AnteiClient} client The AnteiClient
 	 * @param {GuildResolvable} guild A guild resolvable
-	 * @returns {?KlasaGuild}
+	 * @returns {?AnteiGuild}
 	 * @private
 	 */
 	static resolveGuild(client, guild) {

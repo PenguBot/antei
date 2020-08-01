@@ -4,7 +4,7 @@ const { MessageEmbed: Embed } = require("discord.js");
 const ReactionHandler = require("./ReactionHandler");
 
 /**
- * Klasa's RichDisplay, for helping paginated embeds with reaction buttons
+ * Antei's RichDisplay, for helping paginated embeds with reaction buttons
  */
 class RichDisplay {
 
@@ -183,7 +183,7 @@ class RichDisplay {
 	/**
 	 * Runs the RichDisplay
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message A message to either edit, or use to send a new message for this RichDisplay
+	 * @param {AnteiMessage} message A message to either edit, or use to send a new message for this RichDisplay
 	 * @param {RichDisplayRunOptions} [options={}] The options to use while running this RichDisplay
 	 * @returns {ReactionHandler}
 	 */

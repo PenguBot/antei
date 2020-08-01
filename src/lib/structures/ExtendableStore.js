@@ -4,15 +4,15 @@ const Extendable = require("./Extendable");
 const Store = require("./base/Store");
 
 /**
- * Stores all of our extendables that extend Discord.js and Klasa structures
+ * Stores all of our extendables that extend Discord.js and Antei structures
  * @extends Store
  */
 class ExtendableStore extends Store {
 
 	/**
-	 * Constructs our ExtendableStore for use in Klasa
+	 * Constructs our ExtendableStore for use in Antei
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Klasa client
+	 * @param {AnteiClient} client The Antei client
 	 */
 	constructor(client) {
 		super(client, "extendables", Extendable);

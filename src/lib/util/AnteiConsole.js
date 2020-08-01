@@ -8,9 +8,9 @@ const constants = require("./constants");
 const { mergeDefault } = require("./util");
 
 /**
- * Klasa's console class, extends NodeJS Console class.
+ * Antei's console class, extends NodeJS Console class.
  */
-class KlasaConsole extends Console {
+class AnteiConsole extends Console {
 
 	/**
 	 * @typedef {Object} ConsoleOptions
@@ -88,7 +88,7 @@ class KlasaConsole extends Console {
 	 */
 
 	/**
-	 * Constructs our KlasaConsole instance
+	 * Constructs our AnteiConsole instance
 	 * @since 0.0.1
 	 * @param {ConsoleOptions} [options] The options for the klasa console
 	 */
@@ -100,7 +100,7 @@ class KlasaConsole extends Console {
 		/**
 		 * The standard output stream for this console, defaulted to process.stderr.
 		 * @since 0.0.1
-		 * @name KlasaConsole#stdout
+		 * @name AnteiConsole#stdout
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
 		 */
@@ -109,7 +109,7 @@ class KlasaConsole extends Console {
 		/**
 		 * The standard error output stream for this console, defaulted to process.stderr.
 		 * @since 0.0.1
-		 * @name KlasaConsole#stderr
+		 * @name AnteiConsole#stderr
 		 * @type {NodeJS.WritableStream}
 		 * @readonly
 		 */
@@ -248,4 +248,4 @@ class KlasaConsole extends Console {
 
 }
 
-module.exports = KlasaConsole;
+module.exports = AnteiConsole;

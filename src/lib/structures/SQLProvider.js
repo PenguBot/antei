@@ -6,7 +6,7 @@ const Gateway = require("../settings/Gateway");
 const Type = require("../util/Type");
 
 /**
- * Base class for all Klasa SQL Providers. See {@tutorial CreatingSQLProviders} for more information how to use this class
+ * Base class for all Antei SQL Providers. See {@tutorial CreatingSQLProviders} for more information how to use this class
  * to build custom providers.
  * @tutorial CreatingSQLProviders
  * @extends {Provider}

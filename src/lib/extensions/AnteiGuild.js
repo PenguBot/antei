@@ -4,13 +4,13 @@ const { Structures } = require("discord.js");
 
 module.exports = Structures.extend("Guild", Guild => {
 	/**
-	 * Klasa's Extended Guild
+	 * Antei's Extended Guild
 	 * @extends external:Guild
 	 */
-	class KlasaGuild extends Guild {
+	class AnteiGuild extends Guild {
 
 		/**
-		 * @typedef {external:GuildJSON} KlasaGuildJSON
+		 * @typedef {external:GuildJSON} AnteiGuildJSON
 		 * @property {SettingsJSON} settings The per guild settings
 		 */
 
@@ -39,7 +39,7 @@ module.exports = Structures.extend("Guild", Guild => {
 		/**
 		 * Returns the JSON-compatible object of this instance.
 		 * @since 0.0.1
-		 * @returns {KlasaGuildJSON}
+		 * @returns {AnteiGuildJSON}
 		 */
 		toJSON() {
 			return { ...super.toJSON(), settings: this.settings.toJSON() };
@@ -47,5 +47,5 @@ module.exports = Structures.extend("Guild", Guild => {
 
 	}
 
-	return KlasaGuild;
+	return AnteiGuild;
 });

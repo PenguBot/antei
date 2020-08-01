@@ -6,7 +6,7 @@ const Piece = require("./base/Piece");
 const { mergeDefault, isClass } = require("../util/util");
 
 /**
- * Base class for all Klasa Languages. See {@tutorial CreatingLanguages} for more information how to use this class
+ * Base class for all Antei Languages. See {@tutorial CreatingLanguages} for more information how to use this class
  * to build custom languages.
  * @tutorial CreatingLanguages
  * @extends Piece

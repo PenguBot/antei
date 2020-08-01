@@ -11,7 +11,7 @@ class TextPrompt {
 
 	/**
 	 * @typedef {Object} TextPromptOptions
-	 * @property {KlasaUser} [target=message.author] The intended target of this TextPrompt, if someone other than the author
+	 * @property {AnteiUser} [target=message.author] The intended target of this TextPrompt, if someone other than the author
 	 * @property {external:TextBasedChannel} [channel=message.channel] The channel to prompt in, if other than this channel
 	 * @property {number} [limit=Infinity] The number of re-prompts before this TextPrompt gives up
 	 * @property {number} [time=30000] The time-limit for re-prompting
@@ -21,7 +21,7 @@ class TextPrompt {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The message this prompt is for
+	 * @param {AnteiMessage} message The message this prompt is for
 	 * @param {Usage} usage The usage for this prompt
 	 * @param {TextPromptOptions} [options={}] The options of this prompt
 	 */
@@ -32,7 +32,7 @@ class TextPrompt {
 		 * The client this TextPrompt was created with
 		 * @since 0.0.1
 		 * @name TextPrompt#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: message.client });
@@ -40,14 +40,14 @@ class TextPrompt {
 		/**
 		 * The message this prompt is for
 		 * @since 0.0.1
-		 * @type {KlasaMessage}
+		 * @type {AnteiMessage}
 		 */
 		this.message = message;
 
 		/**
 		 * The target this prompt is for
 		 * @since 0.0.1
-		 * @type {KlasaUser}
+		 * @type {AnteiUser}
 		 */
 		this.target = options.target || message.author;
 
@@ -177,7 +177,7 @@ class TextPrompt {
 	/**
 	 * Prompts the target for a response
 	 * @param {StringResolvable | MessageOptions | MessageAdditions | APIMessage} text The text to prompt
-	 * @returns {KlasaMessage}
+	 * @returns {AnteiMessage}
 	 * @private
 	 */
 	async prompt(text) {

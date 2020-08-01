@@ -4,7 +4,7 @@ const Piece = require("./base/Piece");
 const { isObject, mergeObjects, makeObject } = require("../util/util");
 
 /**
- * Base class for all Klasa Providers. See {@tutorial CreatingProviders} for more information how to use this class
+ * Base class for all Antei Providers. See {@tutorial CreatingProviders} for more information how to use this class
  * to build custom providers.
  * @tutorial CreatingProviders
  * @extends {Piece}

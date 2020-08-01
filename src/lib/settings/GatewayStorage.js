@@ -24,7 +24,7 @@ class GatewayStorage {
 	/**
 	 * <warning>You should never create an instance of this class as it's abstract.</warning>
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The client this GatewayStorage was created with
+	 * @param {AnteiClient} client The client this GatewayStorage was created with
 	 * @param {string} type The name of this GatewayStorage
 	 * @param {Schema} schema The schema for this gateway
 	 * @param {string} [provider] The provider's name
@@ -35,7 +35,7 @@ class GatewayStorage {
 		 * The client this GatewayStorage was created with.
 		 * @since 0.0.1
 		 * @name GatewayStorage#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: client });

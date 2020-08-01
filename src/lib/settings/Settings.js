@@ -50,7 +50,7 @@ class Settings {
 		/**
 		 * The client this Settings was created with.
 		 * @since 0.0.1
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @name Settings#client
 		 * @readonly
 		 */
@@ -164,7 +164,7 @@ class Settings {
 	 * Reset a value from an entry.
 	 * @since 0.0.1
 	 * @param {(string|string[])} [keys] The key to reset
-	 * @param {KlasaGuild} [guild] A KlasaGuild instance for multilingual support
+	 * @param {AnteiGuild} [guild] A AnteiGuild instance for multilingual support
 	 * @param {SettingsResetOptions} [options={}] The options for the reset
 	 * @returns {SettingsUpdateResult}
 	 * @example
@@ -270,7 +270,7 @@ class Settings {
 	/**
 	 * Get a list.
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The Message instance
+	 * @param {AnteiMessage} message The Message instance
 	 * @param {(Schema|string)} path The path to resolve
 	 * @returns {string}
 	 */
@@ -305,7 +305,7 @@ class Settings {
 	/**
 	 * Resolve a string.
 	 * @since 0.0.1
-	 * @param {KlasaMessage} message The Message to use
+	 * @param {AnteiMessage} message The Message to use
 	 * @param {(SchemaPiece|string)} path The path to resolve
 	 * @returns {string}
 	 * @private
@@ -322,7 +322,7 @@ class Settings {
 	 * Update this Settings instance
 	 * @since 0.0.1
 	 * @param {Array<Array<*>>} entries The entries to update
-	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
+	 * @param {?AnteiGuild} guild The AnteiGuild for context in SchemaPiece#parse
 	 * @param {SettingsUpdateOptions} options The parse options
 	 * @returns {SettingsUpdateResult}
 	 * @private
@@ -360,7 +360,7 @@ class Settings {
 	 * Parse a value
 	 * @since 0.0.1
 	 * @param {*} value The value to parse
-	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
+	 * @param {?AnteiGuild} guild The AnteiGuild for context in SchemaPiece#parse
 	 * @param {SettingsUpdateOptions} options The parse options
 	 * @param {SettingsUpdateResult} result The updated result
 	 * @param {GatewayGetPathResult} path The path result
@@ -447,7 +447,7 @@ class Settings {
 	 * @since 0.0.1
 	 * @param {SchemaPiece} piece The SchemaPiece pointer that parses this entry
 	 * @param {Array<*>} values The values to parse
-	 * @param {?KlasaGuild} guild The KlasaGuild for context in SchemaPiece#parse
+	 * @param {?AnteiGuild} guild The AnteiGuild for context in SchemaPiece#parse
 	 * @param {Error[]} errors The Errors array
 	 * @returns {Array<number|string>}
 	 * @private

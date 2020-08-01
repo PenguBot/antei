@@ -3,7 +3,7 @@
 const ScheduledTask = require("./ScheduledTask");
 
 /**
- * <warning>Schedule is a singleton, use {@link KlasaClient#schedule} instead.</warning>
+ * <warning>Schedule is a singleton, use {@link AnteiClient#schedule} instead.</warning>
  * The Schedule class that manages all scheduled tasks
  */
 class Schedule {
@@ -17,13 +17,13 @@ class Schedule {
 
 	/**
 	 * @since 0.0.1
-	 * @param {KlasaClient} client The Client that initialized this instance
+	 * @param {AnteiClient} client The Client that initialized this instance
 	 */
 	constructor(client) {
 		/**
 		 * The Client instance that initialized this instance
 		 * @since 0.0.1
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 */
 		this.client = client;
 

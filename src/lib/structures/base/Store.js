@@ -29,7 +29,7 @@ class Store extends Collection {
 		 * The client this Store was created with
 		 * @since 0.0.1
 		 * @name Store#client
-		 * @type {KlasaClient}
+		 * @type {AnteiClient}
 		 * @readonly
 		 */
 		Object.defineProperty(this, "client", { value: client });
@@ -64,7 +64,7 @@ class Store extends Collection {
 	}
 
 	/**
-	 * The directory of local pieces relative to where you run Klasa from.
+	 * The directory of local pieces relative to where you run Antei from.
 	 * @since 0.0.1
 	 * @type {string}
 	 * @readonly
@@ -95,7 +95,7 @@ class Store extends Collection {
 	}
 
 	/**
-	 * Loads a piece into Klasa so it can be saved in this store.
+	 * Loads a piece into Antei so it can be saved in this store.
 	 * @since 0.0.1
 	 * @param {string} directory The directory the file is located in
 	 * @param {string[]} file A string or array of strings showing where the file is located.
