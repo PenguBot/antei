@@ -37,7 +37,7 @@ module.exports = class extends Event {
 			this.client.emit("log", util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
 		}
 
-		return this.client.emit("klasaReady");
+		return this.client.emit("anteiReady");
 	}
 
 };

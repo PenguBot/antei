@@ -553,7 +553,7 @@ AnteiClient.defaultClientSchema = new Schema()
 
 /**
  * Emitted when Antei is fully ready and initialized.
- * @event AnteiClient#klasaReady
+ * @event AnteiClient#anteiReady
  * @since 0.0.1
  */
 
