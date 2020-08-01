@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "author": "pengubot",
   "main": "src/index.js",
-  "types": "typings/index.d.ts",
+  "typings": "typings/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/pengubot/antei.git"
@@ -39,8 +39,8 @@
     "typescript": "^3.9.7"
   },
   "files": [
-    "dist",
-    "!dist/tsconfig.tsbuildinfo"
+    "src",
+    "typings"
   ],
   "husky": {
     "hooks": {
