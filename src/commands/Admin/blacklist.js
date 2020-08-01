@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Command } = require("klasa");
+const { Command } = require("@pengubot/antei");
 const { User } = require("discord.js");
 
 module.exports = class extends Command {

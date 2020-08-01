@@ -1,7 +1,7 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
 
-const { Language, util } = require("klasa");
+const { Language, util } = require("@pengubot/antei");
 
 module.exports = class extends Language {
 

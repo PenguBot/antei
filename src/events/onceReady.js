@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Event, util } = require("klasa");
+const { Event, util } = require("@pengubot/antei");
 const { Team } = require("discord.js");
 let retries = 0;
 

@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Inhibitor, util } = require("klasa");
+const { Inhibitor, util } = require("@pengubot/antei");
 const { Permissions, Permissions: { FLAGS } } = require("discord.js");
 
 module.exports = class extends Inhibitor {

@@ -1,6 +1,6 @@
 // Copyright 2017-2019 dirigeants - MIT License
 
-const { Inhibitor, RateLimitManager } = require("klasa");
+const { Inhibitor, RateLimitManager } = require("@pengubot/antei");
 
 module.exports = class extends Inhibitor {
 
