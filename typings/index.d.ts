@@ -2,49 +2,38 @@
 
 declare module '@pengubot/antei' {
 
-	import { ExecOptions } from 'child_process';
+	import {
+		ExecOptions
+	} from 'child_process';
 
 	import {
 		APIMessage,
-		BufferResolvable,
-		CategoryChannel,
 		Channel,
 		Client,
-		ClientApplication,
 		ClientOptions,
-		ClientUser,
 		Collection,
 		DMChannel,
-		Emoji,
 		EmojiResolvable,
 		Guild,
 		GuildChannel,
-		GuildEmoji,
 		GuildMember,
 		Message,
 		MessageAdditions,
-		MessageAttachment,
-		MessageCollector,
 		MessageEmbed,
 		MessageOptions,
 		MessageReaction,
 		MessageType,
 		PermissionResolvable,
 		Permissions,
-		Presence,
-		RateLimitData,
 		ReactionCollector,
 		Role,
 		Snowflake,
-		Speaking,
 		StringResolvable,
 		TextChannel,
 		User,
-		UserResolvable,
-		VoiceChannel,
-		VoiceState,
-		WebhookClient
+		VoiceChannel
 	} from 'discord.js';
+
 
 	export const version: string;
 
@@ -66,6 +55,7 @@ declare module '@pengubot/antei' {
 	}
 
 	export { KlasaClient as Client };
+	export { Util as util };
 
 //#region Extensions
 
@@ -974,7 +964,6 @@ declare module '@pengubot/antei' {
 		public static PRIMITIVE_TYPES: string[];
 	}
 
-	export { Util as util };
 
 //#endregion Util
 
@@ -1606,9 +1595,7 @@ declare module 'discord.js' {
 		KlasaClient,
 		KlasaClientOptions,
 		KlasaConsole,
-		KlasaGuild,
 		KlasaMessage,
-		KlasaUser,
 		Language,
 		LanguageStore,
 		Monitor,
@@ -1619,12 +1606,10 @@ declare module 'discord.js' {
 		Schedule,
 		ScheduledTask,
 		SerializerStore,
-		Stopwatch,
-		Settings,
+		Settings, Stopwatch,
 		Store,
 		Task,
-		TaskStore,
-		Timestamp
+		TaskStore
 	} from '@pengubot/antei';
 
 	export interface Client {
