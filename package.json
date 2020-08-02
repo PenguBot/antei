@@ -64,8 +64,8 @@
     ]
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix --ext js"
+    "*.ts": [
+      "eslint --fix --ext ts"
     ]
   },
   "config": {
