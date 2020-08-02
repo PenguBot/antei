@@ -13,19 +13,6 @@ module.exports = {
 	// lib/permissions
 	PermissionLevels: require("./lib/permissions/PermissionLevels"),
 
-	// lib/schedule
-	Schedule: require("./lib/schedule/Schedule"),
-	ScheduledTask: require("./lib/schedule/ScheduledTask"),
-
-	// lib/settings
-	Settings: require("./lib/settings/Settings"),
-	Gateway: require("./lib/settings/Gateway"),
-	GatewayDriver: require("./lib/settings/GatewayDriver"),
-	GatewayStorage: require("./lib/settings/GatewayStorage"),
-	Schema: require("./lib/settings/schema/Schema"),
-	SchemaFolder: require("./lib/settings/schema/SchemaFolder"),
-	SchemaPiece: require("./lib/settings/schema/SchemaPiece"),
-
 	// lib/structures/base
 	AliasPiece: require("./lib/structures/base/AliasPiece"),
 	AliasStore: require("./lib/structures/base/AliasStore"),

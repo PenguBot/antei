@@ -129,9 +129,7 @@ class Monitor extends Piece {
 			!(this.ignoreSelf && this.client.user === message.author) &&
 			!(this.ignoreOthers && this.client.user !== message.author) &&
 			!(this.ignoreWebhooks && message.webhookID) &&
-			!(this.ignoreEdits && message._edits.length) &&
-			!(this.ignoreBlacklistedUsers && this.client.settings.userBlacklist.includes(message.author.id)) &&
-			!(this.ignoreBlacklistedGuilds && message.guild && this.client.settings.guildBlacklist.includes(message.guild.id));
+			!(this.ignoreEdits && message._edits.length);
 	}
 
 	/**

@@ -269,13 +269,6 @@ module.exports = Structures.extend("Message", Message => {
 			 */
 			this.language = this.guild ? this.guild.language : this.client.languages.default;
 
-			/**
-			 * The guild level settings for this context (guild || default)
-			 * @since 0.0.1
-			 * @type {Settings}
-			 */
-			this.guildSettings = this.guild ? this.guild.settings : this.client.gateways.guilds.defaults;
-
 			this._parseCommand();
 		}
 
@@ -293,7 +286,7 @@ module.exports = Structures.extend("Message", Message => {
 			this.prompter = null;
 
 			try {
-				const prefix = this._mentionPrefix() || this._customPrefix() || this._naturalPrefix() || this._prefixLess();
+				const prefix = this._mentionPrefix() || this._naturalPrefix() || this._prefixLess();
 
 				if (!prefix) return;
 
@@ -316,21 +309,6 @@ module.exports = Structures.extend("Message", Message => {
 		}
 
 		/**
-		 * Checks if the per-guild or default prefix is used
-		 * @since 0.0.1
-		 * @returns {CachedPrefix | null}
-		 * @private
-		 */
-		_customPrefix() {
-			if (!this.guildSettings.prefix) return null;
-			for (const prf of Array.isArray(this.guildSettings.prefix) ? this.guildSettings.prefix : [this.guildSettings.prefix]) {
-				const testingPrefix = this.constructor.prefixes.get(prf) || this.constructor.generateNewPrefix(prf, this.client.options.prefixCaseInsensitive ? "i" : "");
-				if (testingPrefix.regex.test(this.content)) return testingPrefix;
-			}
-			return null;
-		}
-
-		/**
 		 * Checks if the mention was used as a prefix
 		 * @since 0.0.1
 		 * @returns {CachedPrefix | null}
@@ -348,7 +326,7 @@ module.exports = Structures.extend("Message", Message => {
 		 * @private
 		 */
 		_naturalPrefix() {
-			if (this.guildSettings.disableNaturalPrefix || !this.client.options.regexPrefix) return null;
+			if (!this.client.options.regexPrefix) return null;
 			const results = this.client.options.regexPrefix.exec(this.content);
 			return results ? { length: results[0].length, regex: this.client.options.regexPrefix } : null;
 		}

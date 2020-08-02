@@ -59,11 +59,6 @@ declare module '@pengubot/antei' {
 
 //#region Extensions
 
-	export class AnteiGuild extends Guild {
-		public settings: Settings;
-		public readonly language: Language;
-	}
-
 	export interface CachedPrefix {
 		regex: RegExp;
 		length: number;
@@ -74,7 +69,6 @@ declare module '@pengubot/antei' {
 		private _responses: AnteiMessage[];
 		private _patch(data: any): void;
 		private _parseCommand(): void;
-		private _customPrefix(): CachedPrefix | null;
 		private _mentionPrefix(): CachedPrefix | null;
 		private _naturalPrefix(): CachedPrefix | null;
 		private _prefixLess(): CachedPrefix | null;
@@ -96,11 +90,10 @@ declare module '@pengubot/antei' {
 		public boolean(input: boolean | string): Promise<boolean>;
 		public channel(input: Channel | Snowflake): Promise<Channel>;
 		public float(input: string | number): Promise<number>;
-		public guild(input: AnteiGuild | Snowflake): Promise<AnteiGuild>;
 		public integer(input: string | number): Promise<number>;
 		public member(input: AnteiUser | GuildMember | Snowflake, guild: AnteiGuild): Promise<GuildMember>;
 		public message(input: AnteiMessage | Snowflake, channel: Channel): Promise<AnteiMessage>;
-		public role(input: Role | Snowflake, guild: AnteiGuild): Promise<Role>;
+		public role(input: Role | Snowflake, guild: Guild): Promise<Role>;
 		public string(input: string): Promise<string>;
 		public url(input: string): Promise<string>;
 		public user(input: AnteiUser | GuildMember | AnteiMessage | Snowflake): Promise<AnteiUser>;
@@ -115,31 +108,31 @@ declare module '@pengubot/antei' {
 
 	export class SettingResolver extends Resolver {
 		public any(data: any): Promise<any>;
-		public boolean(data: any, guild: AnteiGuild, name: string): Promise<boolean>;
+		public boolean(data: any, guild: Guild, name: string): Promise<boolean>;
 		public boolean(input: boolean | string): Promise<boolean>;
-		public channel(data: any, guild: AnteiGuild, name: string): Promise<Channel>;
+		public channel(data: any, guild: Guild, name: string): Promise<Channel>;
 		public channel(input: Channel | Snowflake): Promise<Channel>;
-		public command(data: any, guild: AnteiGuild, name: string): Promise<Command>;
-		public float(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
+		public command(data: any, guild: Guild, name: string): Promise<Command>;
+		public float(data: any, guild: Guild, name: string, minMax: { min: number, max: number }): Promise<number>;
 		public float(input: string | number): Promise<number>;
-		public guild(data: any, guild: AnteiGuild, name: string): Promise<AnteiGuild>;
-		public guild(input: AnteiGuild | Snowflake): Promise<AnteiGuild>;
-		public integer(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<number>;
+		public guild(data: any, guild: Guild, name: string): Promise<Guild>;
+		public guild(input: Guild | Snowflake): Promise<Guild>;
+		public integer(data: any, guild: Guild, name: string, minMax: { min: number, max: number }): Promise<number>;
 		public integer(input: string | number): Promise<number>;
-		public language(data: any, guild: AnteiGuild, name: string): Promise<Language>;
-		public role(data: any, guild: AnteiGuild, name: string): Promise<Role>;
-		public role(input: Role | Snowflake, guild: AnteiGuild): Promise<Role>;
-		public string(data: any, guild: AnteiGuild, name: string, minMax: { min: number, max: number }): Promise<string>;
+		public language(data: any, guild: Guild, name: string): Promise<Language>;
+		public role(data: any, guild: Guild, name: string): Promise<Role>;
+		public role(input: Role | Snowflake, guild: Guild): Promise<Role>;
+		public string(data: any, guild: Guild, name: string, minMax: { min: number, max: number }): Promise<string>;
 		public string(input: string): Promise<string>;
-		public textchannel(data: any, guild: AnteiGuild, name: string): Promise<TextChannel>;
-		public url(data: any, guild: AnteiGuild, name: string): Promise<string>;
+		public textchannel(data: any, guild: Guild, name: string): Promise<TextChannel>;
+		public url(data: any, guild: Guild, name: string): Promise<string>;
 		public url(input: string): Promise<string>;
-		public user(data: any, guild: AnteiGuild, name: string): Promise<AnteiUser>;
+		public user(data: any, guild: Guild, name: string): Promise<AnteiUser>;
 		public user(input: AnteiUser | GuildMember | AnteiMessage | Snowflake): Promise<AnteiUser>;
-		public voicechannel(data: any, guild: AnteiGuild, name: string): Promise<VoiceChannel>;
-		public categorychannel(data: any, guild: AnteiGuild, name: string): Promise<VoiceChannel>;
+		public voicechannel(data: any, guild: Guild, name: string): Promise<VoiceChannel>;
+		public categorychannel(data: any, guild: Guild, name: string): Promise<VoiceChannel>;
 
-		public static maxOrMin(guild: AnteiGuild, value: number, min: number, max: number, name: string, suffix: string): boolean;
+		public static maxOrMin(guild: Guild, value: number, min: number, max: number, name: string, suffix: string): boolean;
 	}
 
 //#endregion Parsers
@@ -159,192 +152,6 @@ declare module '@pengubot/antei' {
 	}
 
 //#endregion Permissions
-
-//#region Schedule
-
-	export class Schedule {
-		public constructor(client: AnteiClient);
-		public client: AnteiClient;
-		public tasks: ScheduledTask[];
-		public timeInterval: number;
-		private _interval: NodeJS.Timer;
-
-		private readonly _tasks: ScheduledTaskOptions[];
-		public init(): Promise<void>;
-		public execute(): Promise<void>;
-		public next(): ScheduledTask;
-		public create(taskName: string, time: Date | number | string, options?: ScheduledTaskOptions): Promise<ScheduledTask>;
-		public get(id: string): ScheduledTask | void;
-		public delete(id: string): Promise<this>;
-		public clear(): Promise<void>;
-
-		private _add(taskName: string, time: Date | number | string, options: ScheduledTaskOptions): ScheduledTask;
-		private _insert(task: ScheduledTask): ScheduledTask;
-		private _clearInterval(): void;
-		private _checkInterval(): void;
-
-		public [Symbol.iterator](): Iterator<ScheduledTask>;
-	}
-
-	export class ScheduledTask {
-		public constructor(client: AnteiClient, taskName: string, time: Date | number | string, options?: ScheduledTaskOptions);
-		public readonly client: AnteiClient;
-		public readonly store: Schedule;
-		public taskName: string;
-		public recurring: Cron | null;
-		public time: Date;
-		public id: string;
-		public data: any;
-
-		private running: boolean;
-
-		public readonly task?: Task;
-		public run(): Promise<this>;
-		public update(options?: ScheduledTaskUpdateOptions): Promise<this>;
-		public delete(): Promise<Schedule>;
-		public toJSON(): ScheduledTaskJSON;
-
-		private static _resolveTime(time: Date | number | Cron | string): [Date, Cron];
-		private static _generateID(client: AnteiClient, time: Date | number): string;
-		private static _validate(st: ScheduledTask): void;
-	}
-
-//#endregion Schedule
-
-//#region Settings
-
-	export class Settings {
-		public constructor(manager: Gateway, data: any);
-		public readonly client: AnteiClient;
-		public readonly gateway: Gateway;
-		public readonly id: string;
-		public readonly synchronizing: boolean;
-		private _existsInDB: boolean;
-
-		public get<T = any>(path: string | string[]): T;
-		public clone(): Settings;
-		public sync(force?: boolean): Promise<this>;
-		public destroy(): Promise<this>;
-
-		public reset(key?: string | string[], options?: SettingsResetOptions): Promise<SettingsUpdateResult>;
-		public reset(key?: string | string[], guild?: AnteiGuild, options?: SettingsResetOptions): Promise<SettingsUpdateResult>;
-		public update(key: Record<string, any>, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public update(key: Record<string, any>, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public update(key: string, value: any, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public update(key: string, value: any, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public update(entries: Array<[string, any]>, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public update(entries: Array<[string, any]>, guild?: GuildResolvable, options?: SettingsUpdateOptions): Promise<SettingsUpdateResult>;
-		public list(message: AnteiMessage, path: SchemaFolder | string): string;
-		public resolveString(message: AnteiMessage, path: SchemaPiece | string): string;
-
-		private _save(data: SettingsUpdateResult): Promise<void>;
-		private _setValueByPath(piece: SchemaPiece, parsedID: any): { updated: boolean, old: any };
-		private _patch(data: Record<string, any>, instance?: object, schema?: SchemaFolder): void;
-
-		public toJSON(): Record<string, any>;
-		public toString(): string;
-	}
-
-	export class Gateway extends GatewayStorage {
-		public constructor(store: GatewayDriver, type: string, schema: Schema, provider: string);
-		public store: GatewayDriver;
-		public syncQueue: Collection<string, Promise<Settings>>;
-		public readonly Settings: Settings;
-		private cache: Collection<string, { settings: Settings, [k: string]: any }>;
-
-		public get(input: string | number, create?: boolean): Settings;
-		public sync(input: string): Promise<Settings>;
-		public sync(input?: string[]): Promise<Gateway>;
-	}
-
-	export class QueryBuilder {
-		public constructor(datatypes: Record<string, QueryBuilderDatatype>, options?: QueryBuilderOptions);
-		public get(type: string): QueryBuilderDatatype | null;
-		public parse(schemaPiece: SchemaPiece): string;
-		public parseValue(value: any, schemaPiece: SchemaPiece, datatype?: QueryBuilderDatatype): string;
-		private arrayResolver: (values: Array<any>, piece: SchemaPiece, resolver: Function) => string;
-		private formatDatatype: (name: string, datatype: string, def?: string) => string;
-		private readonly _datatypes: Record<string, QueryBuilderDatatype>;
-	}
-
-	export class GatewayDriver {
-		private constructor(client: AnteiClient);
-		public readonly client: AnteiClient;
-		public keys: Set<string>;
-		public ready: boolean;
-		public guilds: Gateway;
-		public users: Gateway;
-		public clientStorage: Gateway;
-		private _queue: Array<(() => Gateway)>;
-
-		public [Symbol.iterator](): Iterator<[string, Gateway]>;
-		public register(name: string, options?: GatewayDriverRegisterOptions): this;
-		public init(): Promise<void>;
-		public sync(input?: string[]): Promise<Array<Gateway>>;
-
-		public toJSON(): GatewayDriverJSON;
-		public toString(): string;
-	}
-
-	export abstract class GatewayStorage {
-		public constructor(client: AnteiClient, type: string, schema: Schema, provider: string);
-		public readonly client: AnteiClient;
-		public readonly defaults: any;
-		public readonly provider: Provider | null;
-		public readonly providerName: string;
-		public readonly type: string;
-		public ready: boolean;
-		public schema: SchemaFolder | null;
-
-		public getPath(key?: string, options?: GatewayGetPathOptions): GatewayGetPathResult | null;
-		public init(): Promise<void>;
-		public toJSON(): GatewayJSON;
-		public toString(): string;
-	}
-
-	export class Schema extends Map<string, SchemaPiece | SchemaFolder> {
-		public constructor(path?: string);
-		public readonly configurableKeys: Array<string>;
-		public readonly defaults: Record<string, any>;
-		public readonly path: string;
-		public readonly paths: Map<string, SchemaPiece | SchemaFolder>;
-		public readonly type: 'Folder';
-		public add(key: string, type: string, options?: SchemaPieceOptions): this;
-		public add(key: string, callback: (folder: SchemaFolder) => any): this;
-		public remove(key: string): this;
-		public get<T = Schema | SchemaPiece | SchemaFolder>(key: string | Array<string>): T;
-		public toJSON(): Record<string, any>;
-	}
-
-	export class SchemaFolder extends Schema {
-		public constructor(parent: Schema | SchemaFolder, key: string);
-		public readonly key: string;
-		public readonly parent: Schema | SchemaFolder;
-	}
-
-	export class SchemaPiece {
-		public constructor(parent: Schema | SchemaFolder, key: string, type: string, options: SchemaPieceOptions);
-		public readonly client: AnteiClient | null;
-		public readonly parent: Schema | SchemaFolder;
-		public readonly key: string;
-		public readonly serializer: Serializer;
-		public readonly type: string;
-		public readonly path: string;
-		public array: boolean;
-		public configurable: boolean;
-		public default: any;
-		public min: number | null;
-		public max: number | null;
-		public filter: ((client: AnteiClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
-		public parse<T>(value: any, guild?: AnteiGuild): T;
-		public edit(options?: SchemaPieceEditOptions): this;
-		public toJSON(): SchemaPieceOptions;
-
-		private isValid(): boolean;
-		private _generateDefault(): Array<any> | false | null;
-	}
-
-//#endregion Settings
 
 //#region Pieces
 
@@ -405,7 +212,6 @@ declare module '@pengubot/antei' {
 		public promptLimit: number;
 		public promptTime: number;
 		public quotedStringSupport: boolean;
-		public requiredSettings: string[];
 		public runIn: string[];
 		public subcommands: boolean;
 		public usage: CommandUsage;
@@ -485,38 +291,6 @@ declare module '@pengubot/antei' {
 	export abstract class MultiArgument extends Argument {
 		public abstract readonly base: Argument;
 		public run<T = any>(argument: string, possible: Possible, message: AnteiMessage): Promise<Array<T>>;
-	}
-
-	export abstract class Provider extends Piece {
-		public constructor(store: ProviderStore, file: string[], directory: string, options?: ProviderOptions);
-		public abstract create(table: string, entry: string, data: any): Promise<any>;
-		public abstract createTable(table: string, rows?: any[]): Promise<any>;
-		public abstract delete(table: string, entry: string): Promise<any>;
-		public abstract deleteTable(table: string): Promise<any>;
-		public abstract get(table: string, entry: string): Promise<any>;
-		public abstract getAll(table: string): Promise<any[]>;
-		public abstract has(table: string, entry: string): Promise<boolean>;
-		public abstract hasTable(table: string): Promise<boolean>;
-		public abstract update(table: string, entry: string, data: SettingsUpdateResultEntry[] | [string, any][] | Record<string, any>): Promise<any>;
-		public abstract replace(table: string, entry: string, data: SettingsUpdateResultEntry[] | [string, any][] | Record<string, any>): Promise<any>;
-		// The following is not required by SettingGateway but might be available in some providers
-		public getKeys(table: string): Promise<string[]>;
-		protected parseUpdateInput<T = Record<string, any>>(updated: T | SettingsUpdateResult): T;
-
-		public shutdown(): Promise<void>;
-		public toJSON(): PieceProviderJSON;
-	}
-
-	export abstract class SQLProvider extends Provider {
-		public abstract qb: QueryBuilder;
-		public abstract addColumn<T = any>(table: string, columns: SchemaFolder | SchemaPiece): Promise<T>;
-		public abstract removeColumn<T = any>(table: string, columns: string | string[]): Promise<T>;
-		public abstract updateColumn<T = any>(table: string, piece: SchemaPiece): Promise<T>;
-		public abstract getColumns(table: string): Promise<Array<string>>;
-		protected parseUpdateInput<T = [string, any]>(updated?: SettingsUpdateResultEntry[] | [string, any][] | Record<string, any>, resolve?: boolean): T;
-		protected parseEntry<T = Record<string, any>>(gateway: string | Gateway, entry: Record<string, any>): T;
-		protected parseValue<T = any>(value: any, schemaPiece: SchemaPiece): T;
-		private _parseGatewayInput(updated: SettingsUpdateResultEntry[], keys: string[], values: string[], resolve?: boolean): void;
 	}
 
 	export abstract class Task extends Piece {
@@ -988,19 +762,13 @@ declare module '@pengubot/antei' {
 		pieceDefaults?: PieceDefaults;
 		prefix?: string | string[];
 		prefixCaseInsensitive?: boolean;
-		preserveSettings?: boolean;
 		production?: boolean;
 		providers?: ProvidersOptions;
 		readyMessage?: ReadyMessage;
 		regexPrefix?: RegExp;
-		schedule?: ScheduleOptions;
 		slowmode?: number;
 		slowmodeAggressive?: boolean;
 		typing?: boolean;
-	}
-
-	export interface ScheduleOptions {
-		interval?: number;
 	}
 
 	export interface CustomPromptDefaults {
@@ -1029,12 +797,6 @@ declare module '@pengubot/antei' {
 
 	export type ReadyMessage = string | ((client: AnteiClient) => string);
 
-	export interface GatewaysOptions extends Partial<Record<string, GatewayDriverRegisterOptions>> {
-		clientStorage?: GatewayDriverRegisterOptions;
-		guilds?: GatewayDriverRegisterOptions;
-		users?: GatewayDriverRegisterOptions;
-	}
-
 	// Parsers
 	export interface ArgResolverCustomMethod {
 		(arg: string, possible: Possible, message: AnteiMessage, params: any[]): any;
@@ -1049,7 +811,6 @@ declare module '@pengubot/antei' {
 	export interface ConstantsDefaults {
 		CLIENT: Required<AnteiClientOptions>;
 		CONSOLE: Required<ConsoleOptions>;
-		DATATYPES: Record<string, QueryBuilderDatatype>;
 	}
 
 	export interface ConstantsTime {
@@ -1115,114 +876,12 @@ declare module '@pengubot/antei' {
 		permission: boolean;
 	}
 
-	// Schedule
-	export interface ScheduledTaskOptions {
-		catchUp?: boolean;
-		data?: any;
-		id?: string;
-	}
-
 	export type TimeResolvable = Cron | Date | number | string;
 
-	export interface ScheduledTaskJSON extends Required<ScheduledTaskOptions> {
-		taskName: string;
-		time: number;
-	}
-
-	export interface ScheduledTaskUpdateOptions extends Filter<ScheduledTaskOptions, 'id'> {
-		id?: never;
-		repeat?: string;
-		time?: TimeResolvable;
-	}
-
-	// Settings
-	export interface GatewayJSON {
-		options: { provider: string };
-		schema: SchemaFolderAddOptions;
-		type: string;
-	}
-
-	export interface GatewayGetPathOptions {
-		avoidUnconfigurable?: boolean;
-		errors?: boolean;
-		piece?: boolean;
-	}
-
-	export interface GatewayGetPathResult {
-		piece: SchemaPiece;
-		route: string[];
-	}
-
-	export type QueryBuilderDatatype = string | {
-		array?: (datatype: string) => string;
-		resolver?: <T = any>(input: any, schemaPiece: SchemaPiece) => T;
-		type: string | ((piece: SchemaPiece) => string);
-	};
-
-	export type QueryBuilderOptions = {
-		arrayResolver?: (values: Array<any>, piece: SchemaPiece, resolver: Function) => string;
-		formatDatatype?: (name: string, datatype: string, def?: string) => string;
-	} & Filter<Record<string, QueryBuilderDatatype | ((piece: SchemaPiece) => string)>, 'arrayResolver' | 'formatDatatype'>;
-
-	export type GuildResolvable = AnteiGuild
+	export type GuildResolvable = Guild
 		| AnteiMessage
 		| GuildChannel
 		| Snowflake;
-
-	export interface SettingsResetOptions {
-		avoidUnconfigurable?: boolean;
-		force?: boolean;
-	}
-
-	export interface SettingsUpdateOptions {
-		action?: 'add' | 'remove' | 'auto' | 'overwrite';
-		arrayPosition?: number;
-		avoidUnconfigurable?: boolean;
-		force?: boolean;
-	}
-
-	export interface SettingsUpdateResult {
-		errors: Error[];
-		updated: SettingsUpdateResultEntry[];
-	}
-
-	export interface SettingsUpdateResultEntry {
-		data: [string, any];
-		piece: SchemaPiece;
-	}
-
-	export interface GatewayDriverRegisterOptions {
-		provider?: string;
-		schema?: Schema;
-		syncArg?: string[] | string | true;
-	}
-
-	export type SchemaFolderAddOptions = SchemaFolderOptions | SchemaPieceOptions;
-
-	export interface SchemaPieceOptions {
-		array?: boolean;
-		configurable?: boolean;
-		default?: any;
-		min?: number;
-		max?: number;
-		filter?: ((client: AnteiClient, value: any, schema: SchemaPiece, language: Language) => boolean) | null;
-	}
-
-	export interface SchemaPieceEditOptions extends SchemaPieceOptions {
-		type?: string;
-	}
-
-	export type SchemaFolderOptions = {
-		type?: 'Folder';
-	} & Filter<Record<string, SchemaPieceOptions>, 'type'>;
-
-	export type GatewayDriverJSON = {
-		clientStorage: GatewayJSON;
-		guilds: GatewayJSON;
-		users: GatewayJSON;
-		keys: string[];
-		ready: boolean;
-	} & Filter<Record<string, GatewayJSON>, 'keys' | 'ready'>;
 
 	// Structures
 	export interface PieceOptions {
@@ -1253,7 +912,6 @@ declare module '@pengubot/antei' {
 		promptLimit?: number;
 		promptTime?: number;
 		quotedStringSupport?: boolean;
-		requiredSettings?: string[];
 		runIn?: Array<'text' | 'dm' | 'news'>;
 		subcommands?: boolean;
 		usage?: string;
@@ -1590,7 +1248,6 @@ declare module 'discord.js' {
 		ExtendableStore,
 		Finalizer,
 		FinalizerStore,
-		GatewayDriver,
 		InhibitorStore,
 		AnteiClient,
 		AnteiClientOptions,
@@ -1602,14 +1259,9 @@ declare module 'discord.js' {
 		MonitorStore,
 		PermissionLevels,
 		Piece,
-		ProviderStore,
-		Schedule,
-		ScheduledTask,
 		SerializerStore,
-		Settings, Stopwatch,
-		Store,
-		Task,
-		TaskStore
+		Stopwatch,
+		Store
 	} from '@pengubot/antei';
 
 	export interface Client {
@@ -1625,17 +1277,12 @@ declare module 'discord.js' {
 		finalizers: FinalizerStore;
 		monitors: MonitorStore;
 		languages: LanguageStore;
-		providers: ProviderStore;
-		tasks: TaskStore;
 		serializers: SerializerStore;
 		events: EventStore;
 		extendables: ExtendableStore;
 		pieceStores: Collection<string, any>;
 		permissionLevels: PermissionLevels;
-		gateways: GatewayDriver;
-		settings: Settings | null;
 		application: ClientApplication;
-		schedule: Schedule;
 		ready: boolean;
 		mentionPrefix: RegExp | null;
 		registerStore<K, V extends Piece, VConstructor = Constructor<V>>(store: Store<K, V, VConstructor>): AnteiClient;
@@ -1656,10 +1303,6 @@ declare module 'discord.js' {
 		on(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
 		on(event: 'pieceReloaded', listener: (piece: Piece) => void): this;
 		on(event: 'pieceUnloaded', listener: (piece: Piece) => void): this;
-		on(event: 'settingsCreateEntry', listener: (entry: Settings) => void): this;
-		on(event: 'settingsDeleteEntry', listener: (entry: Settings) => void): this;
-		on(event: 'settingsUpdateEntry', listener: (oldEntry: Settings, newEntry: Settings, path?: string) => void): this;
-		on(event: 'taskError', listener: (scheduledTask: ScheduledTask, task: Task, error: Error) => void): this;
 		on(event: 'verbose', listener: (data: any) => void): this;
 		on(event: 'wtf', listener: (failure: Error) => void): this;
 		once(event: 'argumentError', listener: (message: AnteiMessage, command: Command, params: any[], error: string) => void): this;
@@ -1677,10 +1320,6 @@ declare module 'discord.js' {
 		once(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
 		once(event: 'pieceReloaded', listener: (piece: Piece) => void): this;
 		once(event: 'pieceUnloaded', listener: (piece: Piece) => void): this;
-		once(event: 'settingsCreateEntry', listener: (entry: Settings) => void): this;
-		once(event: 'settingsDeleteEntry', listener: (entry: Settings) => void): this;
-		once(event: 'settingsUpdateEntry', listener: (oldEntry: Settings, newEntry: Settings, path?: string) => void): this;
-		once(event: 'taskError', listener: (scheduledTask: ScheduledTask, task: Task, error: Error) => void): this;
 		once(event: 'verbose', listener: (data: any) => void): this;
 		once(event: 'wtf', listener: (failure: Error) => void): this;
 		off(event: 'argumentError', listener: (message: AnteiMessage, command: Command, params: any[], error: string) => void): this;
@@ -1698,26 +1337,14 @@ declare module 'discord.js' {
 		off(event: 'pieceLoaded', listener: (piece: Piece) => void): this;
 		off(event: 'pieceReloaded', listener: (piece: Piece) => void): this;
 		off(event: 'pieceUnloaded', listener: (piece: Piece) => void): this;
-		off(event: 'settingsCreateEntry', listener: (entry: Settings) => void): this;
-		off(event: 'settingsDeleteEntry', listener: (entry: Settings) => void): this;
-		off(event: 'settingsUpdateEntry', listener: (oldEntry: Settings, newEntry: Settings, path?: string) => void): this;
-		off(event: 'taskError', listener: (scheduledTask: ScheduledTask, task: Task, error: Error) => void): this;
 		off(event: 'verbose', listener: (data: any) => void): this;
 		off(event: 'wtf', listener: (failure: Error) => void): this;
 	}
 
-	export interface Guild {
-		settings: Settings;
-		readonly language: Language;
-	}
-
 	export interface Message extends PartialSendAliases {
-		guildSettings: Settings;
 		language: Language;
 		command: Command | null;
 		commandText: string | null;
-		prefix: RegExp | null;
-		prefixLength: number | null;
 		readonly responses: AnteiMessage[];
 		readonly args: string[];
 		readonly params: any[];
@@ -1734,10 +1361,6 @@ declare module 'discord.js' {
 		edit(options: MessageEditOptions | MessageEmbed | APIMessage): Promise<AnteiMessage>;
 		usableCommands(): Promise<Collection<string, Command>>;
 		hasAtLeastPermissionLevel(min: number): Promise<boolean>;
-	}
-
-	export interface User extends SendAliases {
-		settings: Settings;
 	}
 
 	export interface TextChannel extends SendAliases, ChannelExtendables { }

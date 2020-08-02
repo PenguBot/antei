@@ -30,9 +30,6 @@ module.exports = class extends Event {
 
 		this.client.mentionPrefix = new RegExp(`^<@!?${this.client.user.id}>`);
 
-		// Init the schedule
-		await this.client.schedule.init();
-
 		if (this.client.options.readyMessage !== null) {
 			this.client.emit("log", util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
 		}

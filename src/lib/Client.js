@@ -7,8 +7,6 @@ const path = require("path");
 // lib/permissions
 const PermissionLevels = require("./permissions/PermissionLevels");
 
-// lib/schedule
-const Schedule = require("./schedule/Schedule");
 
 // lib/structures
 const ArgumentStore = require("./structures/ArgumentStore");
@@ -23,15 +21,9 @@ const ProviderStore = require("./structures/ProviderStore");
 const SerializerStore = require("./structures/SerializerStore");
 const TaskStore = require("./structures/TaskStore");
 
-// lib/settings
-const GatewayDriver = require("./settings/GatewayDriver");
-
-// lib/settings/schema
-const Schema = require("./settings/schema/Schema");
-
 // lib/util
 const AnteiConsole = require("./util/AnteiConsole");
-const { DEFAULTS, MENTION_REGEX } = require("./util/constants");
+const { DEFAULTS } = require("./util/constants");
 const Stopwatch = require("./util/Stopwatch");
 const util = require("./util/util");
 
@@ -72,12 +64,10 @@ class AnteiClient extends Discord.Client {
 	 * @property {PermissionLevelsOverload} [permissionLevels] The permission levels to use with this bot
 	 * @property {PieceDefaults} [pieceDefaults={}] Overrides the defaults for all pieces
 	 * @property {string|string[]} [prefix] The default prefix the bot should respond to
-	 * @property {boolean} [preserveSettings=true] Whether the bot should preserve (non-default) settings when removed from a guild
 	 * @property {boolean} [production=false] Whether the bot should handle unhandled promise rejections automatically (handles when false) (also can be configured with process.env.NODE_ENV)
 	 * @property {ProvidersOptions} [providers] The provider options
 	 * @property {ReadyMessage} [readyMessage] readyMessage to be passed throughout Antei's ready event
 	 * @property {RegExp} [regexPrefix] The regular expression prefix if one is provided
-	 * @property {ScheduleOptions} [schedule={}] The options for the internal clock module that runs Schedule
 	 * @property {number} [slowmode=0] Amount of time in ms before the bot will respond to a users command since the last command that user has run
 	 * @property {boolean} [slowmodeAggressive=false] If the slowmode time should reset if a user spams commands faster than the slowmode allows for
 	 * @property {boolean} [typing=false] Whether the bot should type while processing commands
@@ -87,11 +77,6 @@ class AnteiClient extends Discord.Client {
 	/**
 	 * @typedef {Object} ProvidersOptions
 	 * @property {string} [default] The default provider to use
-	 */
-
-	/**
-	 * @typedef {Object} ScheduleOptions
-	 * @property {number} [interval=60000] The interval in milliseconds for the clock to check the tasks
 	 */
 
 	/**
@@ -253,44 +238,6 @@ class AnteiClient extends Discord.Client {
 		this.permissionLevels = this.validatePermissionLevels();
 
 		/**
-		 * The GatewayDriver instance where the gateways are stored
-		 * @since 0.0.1
-		 * @type {GatewayDriver}
-		 */
-		this.gateways = new GatewayDriver(this);
-
-		const { guilds, users, clientStorage } = this.options.gateways;
-		const guildSchema = "schema" in guilds ? guilds.schema : this.constructor.defaultGuildSchema;
-		const userSchema = "schema" in users ? users.schema : this.constructor.defaultUserSchema;
-		const clientSchema = "schema" in clientStorage ? clientStorage.schema : this.constructor.defaultClientSchema;
-
-		// Update Guild Schema with Keys needed in Antei
-		const prefixKey = guildSchema.get("prefix");
-		if (!prefixKey || prefixKey.default === null) {
-			guildSchema.add("prefix", "string", { array: Array.isArray(this.options.prefix), default: this.options.prefix });
-		}
-
-		const languageKey = guildSchema.get("language");
-		if (!languageKey || languageKey.default === null) {
-			guildSchema.add("language", "language", { default: this.options.language });
-		}
-
-		guildSchema.add("disableNaturalPrefix", "boolean", { configurable: Boolean(this.options.regexPrefix) });
-
-		// Register default gateways
-		this.gateways
-			.register("guilds", { ...guilds, schema: guildSchema })
-			.register("users", { ...users, schema: userSchema })
-			.register("clientStorage", { ...clientStorage, schema: clientSchema });
-
-		/**
-		 * The Settings instance that handles this client's settings
-		 * @since 0.0.1
-		 * @type {Settings}
-		 */
-		this.settings = null;
-
-		/**
 		 * The application info cached from the discord api
 		 * @since 0.0.1
 		 * @type {external:ClientApplication}
@@ -302,7 +249,6 @@ class AnteiClient extends Discord.Client {
 			.registerStore(this.finalizers)
 			.registerStore(this.monitors)
 			.registerStore(this.languages)
-			.registerStore(this.providers)
 			.registerStore(this.events)
 			.registerStore(this.extendables)
 			.registerStore(this.tasks)
@@ -311,13 +257,6 @@ class AnteiClient extends Discord.Client {
 
 		const coreDirectory = path.join(__dirname, "../");
 		for (const store of this.pieceStores.values()) store.registerCoreDirectory(coreDirectory);
-
-		/**
-		 * The Schedule that runs the tasks
-		 * @since 0.0.1
-		 * @type {Schedule}
-		 */
-		this.schedule = new Schedule(this);
 
 		/**
 		 * Whether the client is truly ready or not
@@ -426,10 +365,6 @@ class AnteiClient extends Discord.Client {
 			});
 		this.emit("log", loaded.join("\n"));
 
-		// Providers must be init before settings, and those before all other stores.
-		await this.providers.init();
-		await this.gateways.init();
-
 		this.emit("log", `Loaded in ${timer.stop()}.`);
 		return super.login(token);
 	}
@@ -517,39 +452,6 @@ AnteiClient.defaultPermissionLevels = new PermissionLevels()
 	.add(7, ({ guild, member }) => guild && member === guild.owner, { fetch: true })
 	.add(9, ({ author, client }) => client.owners.has(author), { break: true })
 	.add(10, ({ author, client }) => client.owners.has(author));
-
-/**
- * The default Guild Schema
- * @since 0.0.1
- * @type {Schema}
- */
-AnteiClient.defaultGuildSchema = new Schema()
-	.add("prefix", "string")
-	.add("language", "language")
-	.add("disableNaturalPrefix", "boolean")
-	.add("disabledCommands", "command", {
-		array: true,
-		filter: (client, command, piece, language) => {
-			if (command.guarded) throw language.get("COMMAND_CONF_GUARDED", command.name);
-		}
-	});
-
-/**
- * The default User Schema
- * @since 0.0.1
- * @type {Schema}
- */
-AnteiClient.defaultUserSchema = new Schema();
-
-/**
- * The default Client Schema
- * @since 0.0.1
- * @type {Schema}
- */
-AnteiClient.defaultClientSchema = new Schema()
-	.add("userBlacklist", "user", { array: true })
-	.add("guildBlacklist", "string", { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	.add("schedules", "any", { array: true });
 
 /**
  * Emitted when Antei is fully ready and initialized.
@@ -663,37 +565,6 @@ AnteiClient.defaultClientSchema = new Schema()
  * @param {Stopwatch} timer The timer run from start to queue of the command
  * @param {Finalizer} finalizer The finalizer run
  * @param {(Error|string)} error The finalizer error
- */
-
-/**
- * Emitted when a task has encountered an error.
- * @event AnteiClient#taskError
- * @since 0.0.1
- * @param {ScheduledTask} scheduledTask The scheduled task
- * @param {Task} task The task run
- * @param {(Error|string)} error The task error
- */
-
-/**
- * Emitted when {@link Settings#update} or {@link Settings#reset} is run.
- * @event AnteiClient#settingsUpdateEntry
- * @since 0.0.1
- * @param {Settings} entry The patched Settings instance
- * @param {SettingsUpdateResultEntry[]} updated The keys that were updated
- */
-
-/**
- * Emitted when {@link Settings#destroy} is run.
- * @event AnteiClient#settingsDeleteEntry
- * @since 0.0.1
- * @param {Settings} entry The entry which got deleted
- */
-
-/**
- * Emitted when a new entry in the database has been created upon update.
- * @event AnteiClient#settingsCreateEntry
- * @since 0.0.1
- * @param {Settings} entry The entry which got created
  */
 
 /**

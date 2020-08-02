@@ -28,7 +28,6 @@ exports.DEFAULTS = {
 		language: "en-US",
 		noPrefixDM: false,
 		prefix: "",
-		preserveSettings: true,
 		readyMessage: client => `Successfully initialized. Ready to serve ${client.guilds.cache.size} guilds.`,
 		typing: false,
 		customPromptDefaults: {
@@ -65,7 +64,6 @@ exports.DEFAULTS = {
 				permissionLevel: 0,
 				promptLimit: 0,
 				promptTime: 30000,
-				requiredSettings: [],
 				requiredPermissions: 0,
 				runIn: ["text", "dm"],
 				subcommands: false,
@@ -106,7 +104,6 @@ exports.DEFAULTS = {
 			},
 			tasks: { enabled: true }
 		},
-		schedule: { interval: 60000 },
 		slowmode: 0,
 		slowmodeAggressive: false
 	},
