@@ -1,6 +1,7 @@
 {
     "extends": "@pengubot",
     "rules": {
-        "valid-jsdoc": "off"
+        "valid-jsdoc": "off",
+        "no-warning-comments": "off"
     }
 }

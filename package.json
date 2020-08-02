@@ -14,6 +14,9 @@
     "url": "https://github.com/pengubot/antei.git"
   },
   "homepage": "https://github.com/pengubot/antei",
+  "scripts": {
+    "build": "tsc -b src"
+  },
   "dependencies": {
     "@klasa/cache": "^0.0.3",
     "@klasa/console": "^0.0.3",
