@@ -299,15 +299,6 @@ declare module '@pengubot/antei' {
 		public toJSON(): PieceTaskJSON;
 	}
 
-	export abstract class Serializer extends AliasPiece {
-		public constructor(store: SerializerStore, file: string[], directory: string, options?: SerializerOptions);
-		public serialize(data: any): PrimitiveType;
-		public stringify(data: any): string;
-		public toJSON(): PieceSerializerJSON;
-		public abstract deserialize(data: any, piece: SchemaPiece, language: Language, guild?: AnteiGuild): Promise<any>;
-		public static regex: MentionRegex;
-	}
-
 //#endregion Pieces
 
 //#region Stores
@@ -370,8 +361,6 @@ declare module '@pengubot/antei' {
 	}
 
 	export class TaskStore extends Store<string, Task, typeof Task> { }
-
-	export class SerializerStore extends AliasStore<string, Serializer, typeof Serializer> { }
 
 //#endregion Stores
 
@@ -787,7 +776,6 @@ declare module '@pengubot/antei' {
 		languages?: LanguageOptions;
 		monitors?: MonitorOptions;
 		providers?: ProviderOptions;
-		serializers?: SerializerOptions;
 		tasks?: TaskOptions;
 	}
 
@@ -943,7 +931,6 @@ declare module '@pengubot/antei' {
 		once?: boolean;
 	}
 
-	export interface SerializerOptions extends AliasPieceOptions {}
 	export interface ProviderOptions extends PieceOptions {}
 	export interface FinalizerOptions extends PieceOptions {}
 	export interface LanguageOptions extends PieceOptions {}
@@ -989,7 +976,6 @@ declare module '@pengubot/antei' {
 	export interface PieceInhibitorJSON extends PieceJSON, Required<InhibitorOptions> {}
 	export interface PieceMonitorJSON extends PieceJSON, Required<MonitorOptions> {}
 	export interface PieceArgumentJSON extends AliasPieceJSON, Required<ArgumentOptions> {}
-	export interface PieceSerializerJSON extends AliasPieceJSON, Required<SerializerOptions> {}
 	export interface PieceProviderJSON extends PieceJSON, Required<ProviderOptions> {}
 	export interface PieceFinalizerJSON extends PieceJSON, Required<FinalizerOptions> {}
 	export interface PieceLanguageJSON extends PieceJSON, Required<LanguageOptions> {}
@@ -1259,7 +1245,6 @@ declare module 'discord.js' {
 		MonitorStore,
 		PermissionLevels,
 		Piece,
-		SerializerStore,
 		Stopwatch,
 		Store
 	} from '@pengubot/antei';
@@ -1277,7 +1262,6 @@ declare module 'discord.js' {
 		finalizers: FinalizerStore;
 		monitors: MonitorStore;
 		languages: LanguageStore;
-		serializers: SerializerStore;
 		events: EventStore;
 		extendables: ExtendableStore;
 		pieceStores: Collection<string, any>;

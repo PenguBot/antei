@@ -98,10 +98,6 @@ exports.DEFAULTS = {
 				allowedTypes: ["DEFAULT"]
 			},
 			providers: { enabled: true },
-			serializers: {
-				enabled: true,
-				aliases: []
-			},
 			tasks: { enabled: true }
 		},
 		slowmode: 0,

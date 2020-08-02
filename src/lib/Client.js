@@ -18,7 +18,6 @@ const InhibitorStore = require("./structures/InhibitorStore");
 const LanguageStore = require("./structures/LanguageStore");
 const MonitorStore = require("./structures/MonitorStore");
 const ProviderStore = require("./structures/ProviderStore");
-const SerializerStore = require("./structures/SerializerStore");
 const TaskStore = require("./structures/TaskStore");
 
 // lib/util
@@ -217,13 +216,6 @@ class AnteiClient extends Discord.Client {
 		this.tasks = new TaskStore(this);
 
 		/**
-		 * The Serializers where serializers are stored
-		 * @since 0.0.1
-		 * @type {SerializerStore}
-		 */
-		this.serializers = new SerializerStore(this);
-
-		/**
 		 * A Store registry
 		 * @since 0.0.1
 		 * @type {external:Collection}
@@ -252,8 +244,7 @@ class AnteiClient extends Discord.Client {
 			.registerStore(this.events)
 			.registerStore(this.extendables)
 			.registerStore(this.tasks)
-			.registerStore(this.arguments)
-			.registerStore(this.serializers);
+			.registerStore(this.arguments);
 
 		const coreDirectory = path.join(__dirname, "../");
 		for (const store of this.pieceStores.values()) store.registerCoreDirectory(coreDirectory);
