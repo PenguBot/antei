@@ -1,0 +1,16 @@
+## configs
+.prettierrc
+.eslintignore
+.gitignore
+.all-contributorsrc
+jest.config.js
+.nycrc.json
+typedoc.json
+bower.json
+
+.github/
+
+@pengubot/eslint-config/src/index.ts
+
+LICENCE
+LICENSE
