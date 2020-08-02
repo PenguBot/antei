@@ -356,10 +356,6 @@ declare module '@pengubot/antei' {
 		public run(message: AnteiMessage): Promise<void>;
 	}
 
-	export class ProviderStore extends Store<string, Provider, typeof Provider> {
-		public readonly default: Provider;
-	}
-
 	export class TaskStore extends Store<string, Task, typeof Task> { }
 
 //#endregion Stores
@@ -752,7 +748,6 @@ declare module '@pengubot/antei' {
 		prefix?: string | string[];
 		prefixCaseInsensitive?: boolean;
 		production?: boolean;
-		providers?: ProvidersOptions;
 		readyMessage?: ReadyMessage;
 		regexPrefix?: RegExp;
 		slowmode?: number;
@@ -775,12 +770,7 @@ declare module '@pengubot/antei' {
 		inhibitors?: InhibitorOptions;
 		languages?: LanguageOptions;
 		monitors?: MonitorOptions;
-		providers?: ProviderOptions;
 		tasks?: TaskOptions;
-	}
-
-	export interface ProvidersOptions extends Record<string, any> {
-		default?: string;
 	}
 
 	export type ReadyMessage = string | ((client: AnteiClient) => string);
@@ -931,7 +921,6 @@ declare module '@pengubot/antei' {
 		once?: boolean;
 	}
 
-	export interface ProviderOptions extends PieceOptions {}
 	export interface FinalizerOptions extends PieceOptions {}
 	export interface LanguageOptions extends PieceOptions {}
 	export interface TaskOptions extends PieceOptions {}
@@ -976,7 +965,6 @@ declare module '@pengubot/antei' {
 	export interface PieceInhibitorJSON extends PieceJSON, Required<InhibitorOptions> {}
 	export interface PieceMonitorJSON extends PieceJSON, Required<MonitorOptions> {}
 	export interface PieceArgumentJSON extends AliasPieceJSON, Required<ArgumentOptions> {}
-	export interface PieceProviderJSON extends PieceJSON, Required<ProviderOptions> {}
 	export interface PieceFinalizerJSON extends PieceJSON, Required<FinalizerOptions> {}
 	export interface PieceLanguageJSON extends PieceJSON, Required<LanguageOptions> {}
 	export interface PieceTaskJSON extends PieceJSON, Required<TaskOptions> {}

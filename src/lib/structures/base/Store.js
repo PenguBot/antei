@@ -15,7 +15,6 @@ const { isClass } = require("../../util/util");
  * @see InhibitorStore
  * @see LanguageStore
  * @see MonitorStore
- * @see ProviderStore
  * @see TaskStore
  * @extends external:Collection
  */

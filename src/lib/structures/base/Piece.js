@@ -13,8 +13,6 @@ const { join } = require("path");
  * @see Inhibitor
  * @see Language
  * @see Monitor
- * @see Provider
- * @see SqlProvider
  * @see Task
  */
 class Piece {

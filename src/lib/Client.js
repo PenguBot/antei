@@ -17,7 +17,6 @@ const FinalizerStore = require("./structures/FinalizerStore");
 const InhibitorStore = require("./structures/InhibitorStore");
 const LanguageStore = require("./structures/LanguageStore");
 const MonitorStore = require("./structures/MonitorStore");
-const ProviderStore = require("./structures/ProviderStore");
 const TaskStore = require("./structures/TaskStore");
 
 // lib/util
@@ -64,18 +63,12 @@ class AnteiClient extends Discord.Client {
 	 * @property {PieceDefaults} [pieceDefaults={}] Overrides the defaults for all pieces
 	 * @property {string|string[]} [prefix] The default prefix the bot should respond to
 	 * @property {boolean} [production=false] Whether the bot should handle unhandled promise rejections automatically (handles when false) (also can be configured with process.env.NODE_ENV)
-	 * @property {ProvidersOptions} [providers] The provider options
 	 * @property {ReadyMessage} [readyMessage] readyMessage to be passed throughout Antei's ready event
 	 * @property {RegExp} [regexPrefix] The regular expression prefix if one is provided
 	 * @property {number} [slowmode=0] Amount of time in ms before the bot will respond to a users command since the last command that user has run
 	 * @property {boolean} [slowmodeAggressive=false] If the slowmode time should reset if a user spams commands faster than the slowmode allows for
 	 * @property {boolean} [typing=false] Whether the bot should type while processing commands
 	 * @property {boolean} [prefixCaseInsensitive=false] Wether the bot should respond to case insensitive prefix or not
-	 */
-
-	/**
-	 * @typedef {Object} ProvidersOptions
-	 * @property {string} [default] The default provider to use
 	 */
 
 	/**
@@ -104,7 +97,6 @@ class AnteiClient extends Discord.Client {
 	 * @property {InhibitorOptions} [inhibitors={}] The default inhibitor options
 	 * @property {LanguageOptions} [languages={}] The default language options
 	 * @property {MonitorOptions} [monitors={}] The default monitor options
-	 * @property {ProviderOptions} [providers={}] The default provider options
 	 */
 
 	/**
@@ -186,13 +178,6 @@ class AnteiClient extends Discord.Client {
 		 * @type {LanguageStore}
 		 */
 		this.languages = new LanguageStore(this);
-
-		/**
-		 * The cache where providers are stored
-		 * @since 0.0.1
-		 * @type {ProviderStore}
-		 */
-		this.providers = new ProviderStore(this);
 
 		/**
 		 * The cache where events are stored

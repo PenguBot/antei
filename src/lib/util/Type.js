@@ -45,7 +45,6 @@ exports.DEFAULTS = {
 		// eslint-disable-next-line no-process-env
 		production: process.env.NODE_ENV === "production",
 		prefixCaseInsensitive: false,
-		providers: { default: "json" },
 		pieceDefaults: {
 			arguments: {
 				enabled: true,
@@ -100,7 +99,6 @@ exports.DEFAULTS = {
 				ignoreBlacklistedGuilds: true,
 				allowedTypes: ["DEFAULT"]
 			},
-			providers: { enabled: true },
 			tasks: { enabled: true }
 		},
 		slowmode: 0,
