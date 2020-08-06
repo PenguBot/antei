@@ -109,7 +109,7 @@ export class Store<V extends Piece> extends Cache<string, V> {
 	 */
 	public async loadAll(): Promise<number> {
 		this.clear();
-		if (!this.client.options.pieces.disabledCoreTypes.includes(this.name)) {
+		if (!this.client.clientOptions.pieces.disabledCoreTypes.includes(this.name)) {
 			for (const directory of this.coreDirectories) await Store.walk(this, directory);
 		}
 		await Store.walk(this);
@@ -195,7 +195,7 @@ export class Store<V extends Piece> extends Cache<string, V> {
 			const files = await scan(directory, { filter: stats => stats.isFile() && extname(stats.name) === ".js" });
 			return Promise.all([...files.keys()].map(file => store.load(directory, relative(directory, file).split(sep)) as Promise<T>));
 		} catch {
-			if (store.client.options.pieces.createFolders) {
+			if (store.client.clientOptions.pieces.createFolders) {
 				ensureDir(directory).catch(err => store.client.emit(ClientEvents.Error, err));
 			}
 
