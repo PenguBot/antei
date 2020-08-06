@@ -27,6 +27,7 @@ import { Cache } from "@klasa/cache";
 import { dirname } from "path";
 import { BaseClientOptions } from "../../types/ClientOptions";
 import { Piece } from "../pieces/base/Piece";
+import { LanguageHandler } from "../LanguageHandler";
 
 export class BaseClient extends Client {
 
@@ -34,14 +35,15 @@ export class BaseClient extends Client {
 	 * The directory where the user files are at.
 	 */
 	public userBaseDirectory = dirname((require.main as NodeJS.Module).filename);
+	public language!: LanguageHandler;
 
-	// TODO: Make private once used
 	public readonly baseOptions!: BaseClientOptions;
 
 	public constructor(options: BaseClientOptions) {
 		super(options);
 
 		this.baseOptions = options;
+		this.language = new LanguageHandler(this);
 	}
 
 }

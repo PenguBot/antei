@@ -4,6 +4,7 @@
 		"target": "ESNext",
 		"useDefineForClassFields": true,
 		"resolveJsonModule": true,
-		"declaration": true
+		"declaration": true,
+		"downlevelIteration": true
 	}
 }

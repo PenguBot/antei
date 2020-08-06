@@ -1,6 +1,7 @@
 import { ClientOptions as DiscordJSClientOptions } from "discord.js";
 
 export interface BaseClientOptions extends DiscordJSClientOptions {
+	language?: string;
 }
 
 export interface ClientOptions extends BaseClientOptions {
