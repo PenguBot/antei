@@ -9,16 +9,13 @@ Antei Framework for PenguBot
 [![Twitter Follow](https://img.shields.io/twitter/follow/PenguBot?label=Follow%20@PenguBot&logo=twitter&colorB=1DA1F2&style=flat-square)](https://twitter.com/PenguBot/follow)
 [![Patreon Support](https://img.shields.io/badge/patreon-donate-brightgreen.svg?label=Support%20on%20Patreon&logo=patreon&colorB=F96854&style=flat-square&link=https://patreon.com/PenguBot)](https://patreon.com/PenguBot)
 [![PayPal Donate](https://img.shields.io/badge/paypal-donate-brightgreen.svg?label=Donate%20with%20Paypal&logo=paypal&colorB=00457C&style=flat-square&link=https://paypal.me/adityatripathid)](https://paypal.me/adityatripathid)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 </div>
 
 ## Support
 [![Support](https://i.imgur.com/H1MveyG.png?2)](https://ko-fi.com/AdityaTD)
 
 ## Credits
-This project is based on [dirigeants/klasa](https://github.com/dirigeants/klasa)
+This project is based on [dirigeants/klasa](https://github.com/dirigeants/klasa) and [dirigeants/core](https://github.com/dirigeants/core) and uses modified/unmodified code from those projects.
 
 ## License
 [Apache-2.0](https://github.com/PenguBot/antei/blob/main/LICENSE)
