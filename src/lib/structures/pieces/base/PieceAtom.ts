@@ -2,18 +2,18 @@
 import { Piece, PieceOptions } from "./Piece";
 import { Store } from "./Store";
 
-export class PieceAtom {
+export class PieceAtom<O extends PieceOptions = PieceOptions> {
 
 	public readonly store!: Store<Piece>;
 	public readonly directory!: string;
 	public readonly file!: readonly string[];
-	public readonly options!: PieceOptions;
+	public readonly options!: O;
 
-	public constructor(store: Store<Piece>, directory: string, file: readonly string[], options: PieceOptions = {}) {
+	public constructor(store: Store<Piece>, directory: string, file: readonly string[], options?: O) {
 		this.store = store;
 		this.directory = directory;
 		this.file = file;
-		this.options = options;
+		this.options = options || { } as O;
 	}
 
 }

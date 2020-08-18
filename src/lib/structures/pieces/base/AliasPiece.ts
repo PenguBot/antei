@@ -1,6 +1,5 @@
 import { Piece, PieceOptions } from "./Piece";
-
-import type { Store } from "./Store";
+import { PieceAtom } from "./PieceAtom";
 
 /**
  * The common class for all pieces with aliases
@@ -20,9 +19,9 @@ export class AliasPiece extends Piece {
 	 * @param file The path from the pieces folder to the piece file
 	 * @param options The options for this piece
 	 */
-	public constructor(store: Store<Piece>, directory: string, file: readonly string[], options: AliasPieceOptions = {}) {
-		super(store, directory, file, options);
-		this.aliases = options.aliases?.slice() ?? [];
+	public constructor(atom: PieceAtom<AliasPieceOptions>) {
+		super(atom);
+		this.aliases = atom.options.aliases?.slice() ?? [];
 	}
 
 	/**

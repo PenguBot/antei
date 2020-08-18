@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { join, extname, relative, sep } from "path";
-import { scan, ensureDir } from "fs-nextra";
-import { isClass } from "@klasa/utils";
 import { Cache } from "@klasa/cache";
-import { AnteiClient } from "../../client/Client";
+import { isClass } from "@klasa/utils";
+import { ensureDir, scan } from "fs-nextra";
+import { extname, join, relative, sep } from "path";
 import { ClientEvents } from "../../client/BaseClient";
-
+import { AnteiClient } from "../../client/Client";
 import type { Piece } from "./Piece";
+import { PieceAtom } from "./PieceAtom";
 
 export type PieceConstructor<T> = new (...args: ConstructorParameters<typeof Piece>) => T;
 
@@ -93,7 +93,7 @@ export class Store<V extends Piece> extends Cache<string, V> {
 			const loaded = await import(loc) as { default: PieceConstructor<V> } | PieceConstructor<V>;
 			const LoadedPiece = "default" in loaded ? loaded.default : loaded;
 			if (!isClass(LoadedPiece)) throw new TypeError("The exported structure is not a class.");
-			piece = this.add(new LoadedPiece(this, directory, file));
+			piece = this.add(new LoadedPiece(new PieceAtom(this, directory, file)));
 		} catch (error) {
 			this.client.emit(ClientEvents.WTF, `Failed to load file '${loc}'. Error:\n${error.stack || error}`);
 		}

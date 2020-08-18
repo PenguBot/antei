@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { mergeDefault } from "@klasa/utils";
 import { basename, extname, join } from "path";
-import type { Store } from "./Store";
-import { AnteiClient } from "../../client/Client";
 import { ClientEvents } from "../../client/BaseClient";
+import { AnteiClient } from "../../client/Client";
 import { PieceAtom } from "./PieceAtom";
-
+import type { Store } from "./Store";
 
 /**
  * The common class for all pieces.
