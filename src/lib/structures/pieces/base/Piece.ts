@@ -4,6 +4,7 @@ import { basename, extname, join } from "path";
 import type { Store } from "./Store";
 import { AnteiClient } from "../../client/Client";
 import { ClientEvents } from "../../client/BaseClient";
+import { PieceAtom } from "./PieceAtom";
 
 
 /**
@@ -23,17 +24,7 @@ export class Piece {
 	 */
 	public readonly store: Store<Piece>;
 
-	/**
-	 * The file location where this Piece is stored.
-	 * @since 0.0.1
-	 */
-	public readonly file: readonly string[];
-
-	/**
-	 * The base directory this Piece is stored in.
-	 * @since 0.0.1
-	 */
-	public readonly directory: string;
+	public readonly atom: PieceAtom;
 
 	/**
 	 * The name of the Piece.
@@ -54,14 +45,14 @@ export class Piece {
 	 * @param file The path from the pieces folder to the piece file
 	 * @param options The options for this piece
 	 */
-	public constructor(store: Store<Piece>, directory: string, file: readonly string[], options: PieceOptions = {}) {
-		const defaults = Reflect.get(store.client.clientOptions.pieces.defaults, store.name) as Required<PieceOptions>;
-		if (defaults) options = mergeDefault(defaults, options);
-		this.client = store.client;
-		this.store = store as Store<this>;
-		this.directory = directory;
-		this.file = file;
-		this.name = options.name ?? basename(file[file.length - 1], extname(file[file.length - 1]));
+	public constructor(atom: PieceAtom) {
+		this.atom = atom;
+		let { options } = this.atom;
+		const defaults = Reflect.get(this.atom.store.client.clientOptions.pieces.defaults, this.atom.store.name) as Required<PieceOptions>;
+		if (defaults) options = mergeDefault(defaults, this.atom.options);
+		this.client = this.atom.store.client;
+		this.store = this.atom.store as Store<this>;
+		this.name = options.name ?? basename(this.atom.file[this.atom.file.length - 1], extname(this.atom.file[this.atom.file.length - 1]));
 		this.enabled = options.enabled ?? true;
 	}
 
@@ -78,7 +69,7 @@ export class Piece {
 	 * @since 0.0.1
 	 */
 	public get path(): string {
-		return join(this.directory, ...this.file);
+		return join(this.atom.directory, ...this.atom.file);
 	}
 
 	/**
@@ -87,7 +78,7 @@ export class Piece {
 	 * @returns The newly loaded piece
 	 */
 	public async reload(): Promise<Piece | null> {
-		const piece = await this.store.load(this.directory, this.file);
+		const piece = await this.store.load(this.atom.directory, this.atom.file);
 		if (piece) {
 			await piece.init();
 			this.client.emit(ClientEvents.PieceReloaded, piece);
@@ -149,8 +140,8 @@ export class Piece {
 	 */
 	public toJSON(): Record<string, unknown> {
 		return {
-			directory: this.directory,
-			file: this.file,
+			directory: this.atom.directory,
+			file: this.atom.file,
 			path: this.path,
 			name: this.name,
 			type: this.type,

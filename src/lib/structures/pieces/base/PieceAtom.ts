@@ -2,7 +2,7 @@
 import { Piece, PieceOptions } from "./Piece";
 import { Store } from "./Store";
 
-export class AtomPiece {
+export class PieceAtom {
 
 	public readonly store!: Store<Piece>;
 	public readonly directory!: string;
