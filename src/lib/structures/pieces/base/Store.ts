@@ -4,7 +4,7 @@ import { isClass } from "@klasa/utils";
 import { ensureDir, scan } from "fs-nextra";
 import { extname, join, relative, sep } from "path";
 import { ClientEvents } from "../../client/BaseClient";
-import { AnteiClient } from "../../client/Client";
+import { AnteiClient } from "../../client/AnteiClient";
 import type { Piece } from "./Piece";
 import { PieceAtom } from "./PieceAtom";
 

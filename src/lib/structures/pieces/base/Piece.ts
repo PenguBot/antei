@@ -2,7 +2,7 @@
 import { mergeDefault } from "@klasa/utils";
 import { basename, extname, join } from "path";
 import { ClientEvents } from "../../client/BaseClient";
-import { AnteiClient } from "../../client/Client";
+import { AnteiClient } from "../../client/AnteiClient";
 import { PieceAtom } from "./PieceAtom";
 import type { Store } from "./Store";
 
