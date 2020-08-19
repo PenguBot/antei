@@ -14,7 +14,7 @@ export type PieceConstructor<T> = new (...args: ConstructorParameters<typeof Pie
  * @since 0.0.1
  * The common base for all stores.
  */
-export class Store<V extends Piece> extends Cache<string, V> {
+export class Store<V extends Piece = Piece> extends Cache<string, V> {
 
 	/**
 	 * The client this Store was created with.

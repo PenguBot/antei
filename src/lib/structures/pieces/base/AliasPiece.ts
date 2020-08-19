@@ -19,7 +19,7 @@ export class AliasPiece extends Piece {
 	 * @param file The path from the pieces folder to the piece file
 	 * @param options The options for this piece
 	 */
-	public constructor(atom: PieceAtom<AliasPieceOptions>) {
+	public constructor(atom: PieceAtom<AliasPieceOptions, AliasPiece>) {
 		super(atom);
 		this.aliases = atom.options.aliases?.slice() ?? [];
 	}

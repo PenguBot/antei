@@ -6,7 +6,7 @@ import { Store } from "./Store";
  * @since 0.0.1
  * The common base for all alias stores.
  */
-export class AliasStore<V extends AliasPiece> extends Store<V> {
+export class AliasStore<V extends AliasPiece = AliasPiece> extends Store<V> {
 
 	/**
 	 * The different aliases that represent the arguments in this store.

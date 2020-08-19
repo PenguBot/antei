@@ -28,6 +28,7 @@ import { dirname } from "path";
 import { BaseClientOptions } from "../../types/ClientOptions";
 import { Piece } from "../pieces/base/Piece";
 import { LanguageHandler } from "../LanguageHandler";
+import { Event } from "../pieces/Event";
 
 export class BaseClient extends Client {
 
@@ -107,6 +108,8 @@ export const enum ClientEvents {
 	PieceLoaded = "pieceLoaded",
 
 	WTF = "wtf",
+
+	EventError = "eventError"
 }
 
 export interface ClientEventParams {
@@ -167,5 +170,7 @@ export interface ClientEventParams {
 	[ClientEvents.PieceEnabled]: [Piece];
 	[ClientEvents.PieceLoaded]: [Piece];
 
-    [ClientEvents.WTF]: [Error | string];
+	[ClientEvents.WTF]: [Error | string];
+
+	[ClientEvents.EventError]: [Event, Parameters<Event["run"]>, unknown];
 }
