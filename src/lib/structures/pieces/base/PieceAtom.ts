@@ -16,4 +16,8 @@ export class PieceAtom<O extends PieceOptions = PieceOptions> {
 		this.options = options || { } as O;
 	}
 
+	public reconstructOptions(options: O): PieceAtom<O> {
+		return new PieceAtom<O>(this.store, this.directory, this.file, options);
+	}
+
 }
