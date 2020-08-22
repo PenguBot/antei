@@ -18,15 +18,7 @@
     "build": "tsc -b src"
   },
   "dependencies": {
-    "@klasa/cache": "^0.0.3",
-    "@klasa/cron": "^0.0.1",
-    "@klasa/duration": "^0.0.3",
-    "@klasa/ratelimits": "^0.1.0",
-    "@klasa/stopwatch": "^0.0.1",
-    "@klasa/timer-manager": "^0.0.1",
-    "@klasa/timestamp": "^0.0.1",
-    "@klasa/type": "^0.0.1",
-    "@klasa/utils": "^0.1.0",
+    "@sapphire/utilities": "sapphire-project/utilities#build-utilities",
     "colorette": "^1.2.1",
     "discord.js": "^12.3.1",
     "fs-nextra": "^0.5.1",

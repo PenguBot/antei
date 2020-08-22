@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Cache } from "@klasa/cache";
-import { isClass } from "@klasa/utils";
+import { Collection } from "discord.js";
+import { isClass } from "@sapphire/utilities";
 import { ensureDir, scan } from "fs-nextra";
 import { extname, join, relative, sep } from "path";
 import { ClientEvents } from "../../client/BaseClient";
@@ -14,7 +14,7 @@ export type PieceConstructor<T> = new (...args: ConstructorParameters<typeof Pie
  * @since 0.0.1
  * The common base for all stores.
  */
-export class Store<V extends Piece = Piece> extends Cache<string, V> {
+export class Store<V extends Piece = Piece> extends Collection<string, V> {
 
 	/**
 	 * The client this Store was created with.
@@ -201,10 +201,6 @@ export class Store<V extends Piece = Piece> extends Cache<string, V> {
 
 			return [];
 		}
-	}
-
-	public static get [Symbol.species](): typeof Cache {
-		return Cache;
 	}
 
 }

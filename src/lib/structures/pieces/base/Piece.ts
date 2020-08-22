@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { mergeDefault } from "@klasa/utils";
+import { mergeDefault } from "@sapphire/utilities";
 import { basename, extname, join } from "path";
 import { ClientEvents } from "../../client/BaseClient";
 import { AnteiClient } from "../../client/AnteiClient";

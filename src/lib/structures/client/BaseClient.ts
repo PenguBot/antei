@@ -3,6 +3,7 @@
 import {
 	Channel,
 	Client,
+	Collection,
 	CloseEvent,
 	Guild,
 	GuildEmoji,
@@ -23,7 +24,6 @@ import {
 	User,
 	VoiceState
 } from "discord.js";
-import { Cache } from "@klasa/cache";
 import { dirname } from "path";
 import { BaseClientOptions } from "../../types/ClientOptions";
 import { Piece } from "../pieces/base/Piece";
@@ -133,7 +133,7 @@ export interface ClientEventParams {
     [ClientEvents.GuildMemberAdd]: [GuildMember | PartialGuildMember];
     [ClientEvents.GuildMemberAvailable]: [GuildMember | PartialGuildMember];
     [ClientEvents.GuildMemberRemove]: [GuildMember | PartialGuildMember];
-    [ClientEvents.GuildMembersChunk]: [Cache<Snowflake, GuildMember | PartialGuildMember>, Guild];
+    [ClientEvents.GuildMembersChunk]: [Collection<Snowflake, GuildMember | PartialGuildMember>, Guild];
     [ClientEvents.GuildMemberSpeaking]: [GuildMember | PartialGuildMember, Readonly<Speaking>];
     [ClientEvents.GuildMemberUpdate]: [GuildMember | PartialGuildMember, GuildMember | PartialGuildMember];
     [ClientEvents.GuildUpdate]: [Guild, Guild];
@@ -143,7 +143,7 @@ export interface ClientEventParams {
     [ClientEvents.MessageDelete]: [DjSMessage | PartialMessage];
     [ClientEvents.MessageReactionRemoveAll]: [DjSMessage | PartialMessage];
     [ClientEvents.MessageReactionRemoveEmoji]: [MessageReaction];
-    [ClientEvents.MessageDeleteBulk]: [Cache<Snowflake, DjSMessage | PartialMessage>];
+    [ClientEvents.MessageDeleteBulk]: [Collection<Snowflake, DjSMessage | PartialMessage>];
     [ClientEvents.MessageReactionAdd]: [MessageReaction, User | PartialUser];
     [ClientEvents.MessageReactionRemove]: [MessageReaction, User | PartialUser];
     [ClientEvents.MessageUpdate]: [DjSMessage | PartialMessage, DjSMessage | PartialMessage];

@@ -1,4 +1,4 @@
-import { Cache } from "@klasa/cache";
+import { Collection } from "discord.js";
 import type { AliasPiece } from "./AliasPiece";
 import { Store } from "./Store";
 
@@ -13,7 +13,7 @@ export class AliasStore<V extends AliasPiece = AliasPiece> extends Store<V> {
 	 * @since 0.0.1
 	 */
 	// eslint-disable-next-line @typescript-eslint/naming-convention
-	public readonly aliases = new Cache<string, V>();
+	public readonly aliases = new Collection<string, V>();
 
 	/**
 	 * Returns an AliasPiece in the store if it exists by its name or by an alias.

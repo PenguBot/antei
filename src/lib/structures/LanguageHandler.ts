@@ -1,4 +1,4 @@
-import { Cache } from "@klasa/cache";
+import { Collection } from "discord.js";
 import { promises } from "fs";
 import i18next, { TFunction } from "i18next";
 import * as Backend from "i18next-node-fs-backend";
@@ -7,7 +7,7 @@ import { BaseClient } from "./client/BaseClient";
 
 export class LanguageHandler {
 
-	public languages!: Cache<string, TFunction>;
+	public languages!: Collection<string, TFunction>;
 
 	public readonly kDirectory!: string;
 	private readonly kOptions: i18nextNodeFsBackEnd.i18nextNodeFsBackEndOptions;
@@ -39,7 +39,7 @@ export class LanguageHandler {
 			preload: languages
 		});
 
-		this.languages = new Cache(languages.map(item => [item, i18next.getFixedT(item)]));
+		this.languages = new Collection(languages.map(item => [item, i18next.getFixedT(item)]));
 	}
 
 	/**
